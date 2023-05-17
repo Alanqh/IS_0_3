@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>未读消息</title>
+</head>
+<body>
+<h1>未读消息</h1>
+  <h2>查看消息</h2>
+  {% for message in unread_messages %}
+    <div>
+        <p>发件人: {{ message.sender }}</p>
+        <p>时间: {{ message.timestamp }}</p>
+        <p>内容: {{ message.content }}</p>
+            <a href="{% url 'cu_mark_as_read' message.id %}">标记为已读</a>
+    </div>
+{% empty %}
+    <p>没有收到新消息。</p>
+    <a href="{% url 'customer_home' %}">返回客户首页</a>
+{% endfor %}
+
+</body>
+</html>

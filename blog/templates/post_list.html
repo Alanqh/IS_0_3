@@ -1,0 +1,64 @@
+<!-- blog/post_list.html -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>车友圈</title>
+</head>
+<body>
+<!--搜索文章-->
+
+<h1>博客文章列表</h1>
+<form method="GET" action="{% url 'blog:post_list' %}">
+    <label for="id_tag">筛选标签：</label>
+    <select name="tag" id="id_tag">
+        <option value="">全部</option>
+        {% for tag in tags %}
+            <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">筛选</button>
+</form>
+<ul>
+    {% for post in page_obj %}
+        <h3>{{ post.title }}</h3>
+        <p>标签：
+            {% for tag in post.tags.all %}
+                {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <a href="{% url 'blog:post_detail' post_id=post.pk %}">查看详情</a>
+        <hr>
+    {% empty %}
+        <p>暂无博客文章。</p>
+    {% endfor %}
+</ul>
+
+<!-- 分页导航 -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?tag={{ request.GET.tag }}&page=1">首页</a>
+        <a href="?tag={{ request.GET.tag }}&page={{ page_obj.previous_page_number }}">上一页</a>
+    {% endif %}
+
+    {% for page in page_obj.paginator.page_range %}
+        {% if page_obj.number == page %}
+            <span class="current-page">{{ page }}</span>
+        {% else %}
+            <a href="?tag={{ request.GET.tag }}&page={{ page }}">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?tag={{ request.GET.tag }}&page={{ page_obj.next_page_number }}">下一页</a>
+        <a href="?tag={{ request.GET.tag }}&page={{ page_obj.paginator.num_pages }}">末页</a>
+    {% endif %}
+</div>
+<div>
+    <a href="{% url 'blog:create_post' %}">发表文章</a><br>
+    <a href="{% url 'blog:search_posts' %}">搜索</a><br>
+    <a href="{% url 'blog:blog_index' %}">返回首页</a><br>
+</div>
+
+</body>
+</html>

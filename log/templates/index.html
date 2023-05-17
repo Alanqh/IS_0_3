@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar col-sm-3">
+                <div class="sidebar">
+                    <h2>欢迎使用新能源售后服务管理系统</h2>
+                    <p>本系统旨在为您提供全方位的新能源售后服务管理解决方案，包括服务预约、故障报修、维修记录、配件管理等功能。我们的专业技术团队随时为您提供优质的服务，确保您的车辆始终处于最佳状态。</p>
+                    <p>请在右侧登录或注册账号以使用我们的服务。如果您已经拥有账号，请直接登录；如果您还没有账号，请点击注册按钮创建一个新账号。</p>
+                    <img src="{% static 'images/example.jpg' %}" alt="Example Image" style="width: 33.33%;">
+                </div>
+
+
+            </div>
+
+            <div class="main col-sm-9">
+                    <h2>登录</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </form>
+                    <a href="{% url 'register' %}" class="btn btn-primary">注册</a>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>售后服务记录</title>
+</head>
+<body>
+<h1>售后服务记录</h1>
+<ul>
+  {% for record in service_records %}
+    <li>
+      用户名：{{ record.user.last_name }}{{ record.user.first_name }}<br>
+      车型: {{ record.car.car_name }}<br>
+      服务类型: {{ record.service_type.name }}<br>
+      申请时间: {{ record.datetime }}<br>
+      详情描述: {{ record.description }}<br>
+      订单状态：{% if record.service_state == 0 %}未完成{% else %}已完成{% endif %}
+    </li>
+  {% empty %}
+    <li>您还没有申请过售后服务</li>
+  {% endfor %}
+</ul>
+</body>
+</html>

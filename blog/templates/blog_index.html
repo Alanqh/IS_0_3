@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车友圈</title>
+</head>
+<body>
+    <h1>车友圈</h1>
+    <p>欢迎来到车友圈</p>
+    <a href="{% url 'blog:user_profile' user_id=user.id %}">我的个人主页</a><br>
+    <a href="{% url 'blog:create_post' %}">创作博客内容</a><br>
+    <a href="{% url 'blog:post_list' %}">查看博客列表</a><br>
+    <a href="{% url 'blog:search_posts' %}">搜索博客</a><br>
+    <a href="{% url 'customer_home' %}">回到客户主页</a><br>
+</body>
+</html>

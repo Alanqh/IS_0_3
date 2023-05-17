@@ -1,0 +1,22 @@
+<!-- blog/search_results.html -->
+<form method="GET" action="{% url 'blog:search_posts' %}">
+    <label>
+        <input type="text" name="q" placeholder="搜索博客文章">
+    </label>
+    <button type="submit">搜索</button>
+</form>
+<h1>搜索结果：{{ query }}</h1>
+
+{% if posts %}
+    <ul>
+       {% for post in posts %}
+            <li><a href="{% url 'blog:post_detail' post_id=post.id %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>没有找到相关的博客文章。</p>
+{% endif %}
+<!--回到博客列表-->
+<a href="{% url 'blog:post_list' %}">回到博客列表</a><br>
+<!--回到首页-->
+<a href="{% url 'blog:blog_index' %}">返回首页</a><br>

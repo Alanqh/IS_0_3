@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>售后服务申请</title>
+</head>
+<body>
+  <h1>售后服务申请</h1>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="user" value="{{ request.user.pk }}">
+    {{ form.non_field_errors }}<br>
+    {{ form.service_type.label_tag }} {{ form.service_type }}<br>
+    {{ form.car.label_tag }} {{ form.car }}<br><br>
+    {{ form.description.label_tag }} {{ form.description }}<br><br>
+    {{ form.datetime.label_tag }} {{ form.datetime }}<br>
+    {{ form.service_state }}<br>
+    <button type="submit">提交申请</button>
+  </form>
+</body>
+</html>

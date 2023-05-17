@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>仓库</title>
+</head>
+<body>
+    <h1>库存查询</h1>
+ <style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th.category {
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+
+<table>
+  {% for category, data in inventory_by_category.items %}
+    <tr>
+      <th colspan="4" class="category" style="text-align: center;">{{ category }}</th>
+    </tr>
+    <tr>
+      <th>产品名称</th>
+      <th>数量</th>
+      <th>价格</th>
+      <th>描述</th>
+    </tr>
+    {% for product in data.products %}
+      <tr>
+        <td>{{ product.product.name }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.product.price }}</td>
+        <td>{{ product.product.description }}</td>
+      </tr>
+    {% endfor %}
+  {% endfor %}
+</table>
+
+</body>
+</html>

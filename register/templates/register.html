@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+</head>
+<body>
+    <h1>注册</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="注册">
+    </form>
+    <script>
+        var role = document.getElementById("id_role");
+        var department = document.getElementById("id_department");
+
+        function toggleDepartment() {
+            if (role.value === "customer") {
+                department.style.display = "none";
+            } else {
+                department.style.display = "block";
+            }
+        }
+
+        role.addEventListener("change", toggleDepartment);
+        window.onload = toggleDepartment;
+    </script>
+</body>
+</html>

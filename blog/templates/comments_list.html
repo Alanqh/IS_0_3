@@ -1,0 +1,50 @@
+<h2>评论</h2>
+
+<!-- 评论表单 -->
+{% if request.user.is_authenticated %}
+    <form id="comment-form" method="post" action="{% url 'blog:comment_post' post_id=post.id %}">
+        {% csrf_token %}
+        <label>
+            <textarea name="content" id="comment-content" rows="4" cols="50"></textarea>
+        </label>
+        <p id="comment-error" style="color: red;"></p>
+        <button type="submit" onclick="validateComment()">评论</button>
+    </form>
+{% endif %}
+
+<script>
+    function validateComment() {
+        var commentContent = document.getElementById('comment-content').value;
+        var errorElement = document.getElementById('comment-error');
+
+        if (commentContent.trim() === '') {
+            errorElement.textContent = '评论内容不能为空';
+            event.preventDefault(); // Prevent form submission if the comment is empty
+        } else {
+            errorElement.textContent = '';
+        }
+    }
+</script>
+
+<!-- 显示评论 -->
+<h2>评论</h2>
+{% for comment in page_obj %}
+    <p>{{ comment.content }}</p>
+    <p>作者：<a href="{% url 'blog:user_profile' user_id=comment.user.id %}">{{ comment.user.username }}</a></p>
+    <p>发表时间：{{ comment.created_at }}</p>
+    <hr>
+{% empty %}
+    <p>暂无评论。</p>
+{% endfor %}
+
+<!-- 分页导航 -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+    {% endif %}
+    <span class="current-page">{{ page_obj.number }}</span>
+    <span class="total-pages">/{{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+    {% endif %}
+</div>

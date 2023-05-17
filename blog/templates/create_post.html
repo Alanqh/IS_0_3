@@ -1,0 +1,7 @@
+<!-- blog/create_post.html -->
+<h1>发布新博客文章</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">发布</button>
+</form>

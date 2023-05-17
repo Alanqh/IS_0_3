@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>客户信息查询</title>
+</head>
+<body>
+    <h1>客户信息表</h1>
+    <style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th.category {
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+
+<table>
+  <tr>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>出生日期</th>
+    <th>邮箱</th>
+    <th>电话</th>
+  </tr>
+  {% for customer in customers %}
+    <tr>
+      <td>{{ customer.last_name }}{{ customer.first_name }}</td>
+      <td>{{ customer.gender }}</td>
+        <td>{{ customer.birth_date }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.phone_number }}</td>
+
+    </tr>
+  {% endfor %}
+</table>
+
+
+</body>
+</html>

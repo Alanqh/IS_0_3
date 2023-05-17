@@ -1,0 +1,11 @@
+<h1>{{ user.username }}的关注列表</h1>
+
+{% if followers %}
+    <ul>
+        {% for follower in followers %}
+            <li><a href="{% url 'blog:user_profile' user_id=follower.follower_id %}">{{ follower.follower.username }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>暂无关注</p>
+{% endif %}

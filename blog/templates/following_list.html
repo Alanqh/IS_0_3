@@ -1,0 +1,11 @@
+<h1>{{ user.username }}的粉丝列表</h1>
+
+{% if following %}
+    <ul>
+        {% for followed_user in following %}
+            <li><a href="{% url 'blog:user_profile' user_id=followed_user.following_id %}">{{ followed_user.following.username }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>暂无粉丝</p>
+{% endif %}

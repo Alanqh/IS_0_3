@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>采购</title>
+</head>
+<body>
+  <h1>采购</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.product.id_for_label }}">产品</label>
+      {{ form.product }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.quantity.id_for_label }}">购买数量</label>
+      {{ form.quantity }}
+    </div>
+    <input type="submit" value="购买">
+  </form>
+</body>
+</html>

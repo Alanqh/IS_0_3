@@ -13,9 +13,14 @@
 推荐使用pycharm专业版（学生认证可免费使用Jetbrains系列产品）：
 
 1. 下载项目到本地，可以直接git，或者下载压缩包文件
-2. 修改数据库配置：在IS_0_2/settings.py，修改mysql数据库配置
-3. 删除所有应用下migrations文件夹下的~initial.py文件
-4. 依次运行数据库生成和迁移的命令：
+2. 为项目配置一个虚拟环境，建议python 3.10
+3. 运行命令，安装项目所需的package
+``` python
+pip install -r requirements.txt
+```
+3. 修改数据库配置：在IS_0_2/settings.py，修改mysql数据库配置
+4. 删除所有应用下migrations文件夹下的~initial.py文件
+5. 依次运行数据库生成和迁移的命令：
 ``` python
 python manage.py makemigrations
 python manage.py migrate

@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'bootstrap4',
-    'charge'
 ]
 
 # 浏览器关闭后session失效

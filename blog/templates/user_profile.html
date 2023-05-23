@@ -1,4 +1,7 @@
 <!-- blog/user_profile.html -->
+{% extends 'base_customer.html' %}
+{% block title %}车友圈/个人主页{% endblock %}
+{% block content %}
 <h1>{{ user.username }}的个人主页</h1>
 <p>邮箱：{{ user.email }}</p>
 <p>角色：{{ user.role }}</p>
@@ -31,3 +34,5 @@
         </form>
     {% endif %}
 {% endif %}
+{% endblock %}
+```

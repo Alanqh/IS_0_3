@@ -1,6 +1,11 @@
+{% extends 'base_customer.html' %}
+{% block title %}车友圈/点赞记录{% endblock %}
+{% block content %}
 <h2>点赞记录</h2>
 {% for like in likes %}
     <p>{{ like.user.username }} 在 {{ like.created_at }} 点赞</p>
 {% empty %}
     <p>暂无点赞记录。</p>
 {% endfor %}
+{% endblock %}
+```

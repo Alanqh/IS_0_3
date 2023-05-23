@@ -1,3 +1,6 @@
+{% extends 'base_customer.html' %}
+{% block title %}车友圈/关注列表{% endblock %}
+{% block content %}
 <h1>{{ user.username }}的关注列表</h1>
 
 {% if followers %}
@@ -9,3 +12,5 @@
 {% else %}
     <p>暂无关注</p>
 {% endif %}
+{% endblock %}
+```

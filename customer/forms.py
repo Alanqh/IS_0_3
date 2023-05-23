@@ -20,7 +20,7 @@ class UserInfoForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('id','username', 'last_name', 'first_name', 'gender', 'birth_date', 'email', 'phone_number',
+        fields = ('id', 'username', 'last_name', 'first_name', 'gender', 'birth_date', 'email', 'phone_number',
                   'username')
         labels = {
             'id': 'ID(不可修改)',
@@ -47,8 +47,6 @@ class ChangePasswordForm(PasswordChangeForm):
         super().__init__(self.user, *args, **kwargs)
 
 
-
-
 class ServiceApplicationForm(forms.ModelForm):
     # 移除默认设置
     service_type = forms.ModelChoiceField(label='服务类型', queryset=ServiceType.objects.all(), empty_label=None)
@@ -64,4 +62,3 @@ class ServiceApplicationForm(forms.ModelForm):
     class Meta:
         model = ServiceRecord
         fields = ['user', 'service_type', 'car', 'datetime', 'description', 'service_state']
-

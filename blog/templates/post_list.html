@@ -1,12 +1,6 @@
-<!-- blog/post_list.html -->
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>车友圈</title>
-</head>
-<body>
-<!--搜索文章-->
+{% extends 'base_customer.html' %}
+{% block title %}博客列表{% endblock %}
+{% block content %}
 
 <h1>博客文章列表</h1>
 <form method="GET" action="{% url 'blog:post_list' %}">
@@ -60,5 +54,5 @@
     <a href="{% url 'blog:blog_index' %}">返回首页</a><br>
 </div>
 
-</body>
-</html>
+{% endblock %}
+```

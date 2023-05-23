@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>售后服务记录</title>
-</head>
-<body>
+{% extends 'base_customer.html' %}
+{% block title %}服务记录{% endblock %}
+{% block content %}
 <h1>售后服务记录</h1>
 <ul>
   {% for record in service_records %}
@@ -20,5 +16,5 @@
     <li>您还没有申请过售后服务</li>
   {% endfor %}
 </ul>
-</body>
-</html>
+{% endblock %}
+```

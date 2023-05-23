@@ -1,3 +1,6 @@
+{% extends 'base_customer.html' %}
+{% block title %}车友圈/搜索博客{% endblock %}
+{% block content %}
 <!-- blog/search_results.html -->
 <form method="GET" action="{% url 'blog:search_posts' %}">
     <label>
@@ -20,3 +23,6 @@
 <a href="{% url 'blog:post_list' %}">回到博客列表</a><br>
 <!--回到首页-->
 <a href="{% url 'blog:blog_index' %}">返回首页</a><br>
+
+{% endblock %}
+```

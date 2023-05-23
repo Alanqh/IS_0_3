@@ -1,3 +1,7 @@
+{% extends 'base_customer.html' %}
+{% block title %}车友圈/评论{% endblock %}
+{% block content %}
+
 <h2>评论</h2>
 
 <!-- 评论表单 -->
@@ -48,3 +52,5 @@
         <a href="?page={{ page_obj.next_page_number }}">下一页</a>
     {% endif %}
 </div>
+{% endblock %}
+```

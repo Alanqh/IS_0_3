@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>新能源汽车售后服务系统</title>
+    <!-- 添加你的样式表链接和其他头部信息 -->
+<style>
+
+    /* 导航栏样式 */
+    .navbar {
+        background-color: #60a19f;
+        padding: 10px 50px; /* change the padding value to adjust the width */
+        display: flex;
+        justify-content: space-between; /* evenly distribute the items */
+        align-items: center;
+    }
+    
+    /* 导航栏链接样式 */
+    .navbar a {
+        color: #eef2f8; /* change the color of the links */
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    /* 导航栏链接悬停样式 */
+    .navbar a:hover {
+        color: #f5fafa; /* change the color of the links on hover */
+    }
+        
+    /* 脚栏样式 */
+    .footer {
+        background-color: #7f96a0;
+        padding: 10px;
+        /* 添加其他样式 */
+    }
+        
+    /* 中间部分样式 */
+    .content {
+        /* 添加你需要的样式 */
+    }
+    
+    /* 页面背景样式 */
+    body {
+        background-color: #e7f4f8; /* change the background color */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+
+    .card-header {
+      background-color: #9de8d7;
+      padding: 10px;
+      text-align: center; /* 居中对齐标题文本 */
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      max-width: 400px; /* 设置卡片的最大宽度 */
+      width: 100%; /* 设置卡片宽度为父容器的100% */
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100vh; /* 使卡片容器垂直居中 */
+    }
+
+    .card-body {
+      padding: 10px;
+    }
+
+    .card-footer {
+      background-color: #f0f0f0;
+      padding: 10px;
+    }
+
+    .card p {
+      margin-bottom: 10px;
+    }
+
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <!-- 导航栏内容 -->
+        <h1>新能源汽车售后服务系统</h1>
+        <a href="/">首页</a>
+        <a href="/team">团队介绍</a>
+        <a href="/services">售后服务</a>
+        <a href="/profile">个人中心</a>
+    </div>
+    
+    <div class="content">
+        <!-- 中间部分内容，留给你自己填充 -->
+        {% block content %}
+        {% endblock %}
+    </div>
+    <br>
+    <div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2019-2020</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <p>违法和不良信息举报电话：123456789</p>
+        <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
+    
+    <!-- 添加你的脚本链接和其他脚部信息 -->
+</body>
+</html>

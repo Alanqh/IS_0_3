@@ -12,7 +12,7 @@ class User(AbstractUser):
     last_name = models.CharField('姓', max_length=50)
     first_name = models.CharField('名', max_length=50)
     gender = models.CharField('性别', max_length=10)
-    birth_date = models.DateField('出生年月')
+    birth_date = models.DateField('生日')
     email = models.EmailField('邮箱')
     phone_number = models.CharField('手机号', max_length=20)
 

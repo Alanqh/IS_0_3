@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>注册成功</title>
-</head>
-<body>
+
+{% extends 'base.html' %}
+{% block title %}注册成功{% endblock %}
+{% block content %}
     <h1>注册成功</h1>
     <p>恭喜，您已成功注册！</p>
-    <a href="{% url 'index_login' %}">前往登录</a>
+    <button class="btn btn-primary" onclick="location.href='{% url 'index_login' %}'">登录</button>
+{% endblock %}
+```
 
-</body>
-</html>

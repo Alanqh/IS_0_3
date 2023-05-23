@@ -155,7 +155,7 @@ def comments_list(request, post_id):
     comments = Comment.objects.filter(post=post)
 
     # 使用分页器对评论进行分页
-    paginator = Paginator(comments, 5)  # 每页显示 5 条评论
+    paginator = Paginator(comments, 2)  # 每页显示 5 条评论
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

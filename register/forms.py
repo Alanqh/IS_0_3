@@ -22,17 +22,23 @@ class UserCreationForms(UserCreationForm):
         ('customer service', '客服'),
     )
 
-    role = forms.ChoiceField(label='角色', choices=ROLE_CHOICES)
+    role = forms.ChoiceField(label='角色', choices=ROLE_CHOICES, widget=forms.Select(attrs={'onchange': 'toggleDepartment()'}))
     department = forms.ChoiceField(label='部门', choices=DEPARTMENT_CHOICES, required=False)
     last_name = forms.CharField(label='姓')
     first_name = forms.CharField(label='名')
     gender = forms.ChoiceField(label='性别', choices=GENDER_CHOICES)
     birth_date = forms.DateField(
-        label='出生年月日',
-        widget=forms.DateInput(attrs={'type': 'date', 'max': date.today().strftime('%Y-%m-%d')})
+        label='生日',
+        widget=forms.DateInput(attrs={'type': 'date', 'max': date.today()}),
     )
     email = forms.EmailField(label='邮箱')
     phone_number = forms.CharField(label='手机号')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = None
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None
 
     def clean(self):
         cleaned_data = super().clean()
@@ -42,7 +48,6 @@ class UserCreationForms(UserCreationForm):
             cleaned_data['department'] = 'None'
 
         return cleaned_data
-
 
     class Meta:
         model = User

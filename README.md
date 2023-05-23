@@ -18,7 +18,7 @@
 ``` python
 pip install -r requirements.txt
 ```
-3. 修改数据库配置：在IS_0_2/settings.py，修改mysql数据库配置
+3. 修改数据库配置：在IS_0_3/settings.py，修改mysql数据库配置
 4. 删除所有应用下migrations文件夹下的~initial.py文件
 5. 依次运行数据库生成和迁移的命令：
 ``` python

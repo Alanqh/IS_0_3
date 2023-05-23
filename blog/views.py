@@ -7,11 +7,6 @@ from blog.models import Post, Comment, Follow, Like
 from register.models import User
 
 
-def blog_index(request):
-    user = request.user
-    return render(request, 'blog_index.html', {'user': user})
-
-
 def post_list(request):
     tag_slug = request.GET.get('tag')
     if tag_slug:
@@ -36,8 +31,6 @@ def post_detail(request, post_id):
     comments_count = Comment.objects.filter(post=post).count()
 
     shares = post.shares
-
-
 
     return render(request, 'post_detail.html',
                   {'post': post, 'shares': shares, 'likes_count': likes_count, 'comments_count': comments_count,
@@ -159,4 +152,4 @@ def comments_list(request, post_id):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'comments_list.html', {'post': post, 'comments': comments,'page_obj': page_obj})
+    return render(request, 'comments_list.html', {'post': post, 'comments': comments, 'page_obj': page_obj})

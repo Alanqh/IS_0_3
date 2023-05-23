@@ -3,13 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>个人信息查询修改</title>
+    <style>
+/* 脚栏样式 */
+.footer {
+    background-color: #7f96a0;
+    padding: 10px;
+    position: relative; /* 将脚栏定位方式改为relative */
+    width: 100%;
+}
+
+/* 中间部分样式 */
+.content {
+    /* 添加你需要的样式 */
+    flex: 1; /* 填充剩余空间 */
+    min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
+    overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
+}
+
+/* 页面背景样式 */
+body {
+    background-color: #e7f4f8; /* change the background color */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+</style>
 </head>
 <body>
-    <h2>个人信息查询和修改</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">确认修改</button>
-    </form>
+    <div class="content">
+        <!-- 中间部分内容，留给你自己填充 -->
+        {% block content %}
+            <h2>个人信息查询和修改</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">确认修改</button>
+            </form>
+        {% endblock %}
+    </div>
+    <br>
+    <div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2019-2020</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <p>违法和不良信息举报电话：123456789</p>
+        <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
+
 </body>
 </html>

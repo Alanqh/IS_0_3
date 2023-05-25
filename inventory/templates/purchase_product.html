@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-
-<head>
-    <meta charset="UTF-8">
-    <title>采购</title>
-</head>
-<body>
+{% extends 'base_inventory.html' %}
+{% block title %}采购{% endblock %}
+{% block content %}
   <h1>采购</h1>
 
   <form method="post">
@@ -20,5 +15,5 @@
     </div>
     <input type="submit" value="购买">
   </form>
-</body>
-</html>
+
+{% endblock %}

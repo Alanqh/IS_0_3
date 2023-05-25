@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>客户信息查询</title>
-</head>
-<body>
+{% extends 'base_customerservice.html' %}
+{% block title %}客户信息{% endblock %}
+{% block content %}
     <h1>客户信息表</h1>
     <style>
   table {
@@ -43,7 +39,6 @@
     </tr>
   {% endfor %}
 </table>
+{% endblock %}
+```
 
-
-</body>
-</html>

@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>查看消息</title>
-</head>
-<body>
+{% extends 'base_aftersales.html' %}
+{% block title %}未读消息{% endblock %}
+{% block content %}
     <h1>未读消息</h1>
   <h2>查看消息</h2>
   {% for message in received_messages %}
@@ -19,6 +15,6 @@
       <!--回到aftersales_home-->
     <a href="{% url 'aftersales_home' %}">返回部门首页</a>
 {% endfor %}
-</body>
-</html>
+{% endblock %}
+```
 

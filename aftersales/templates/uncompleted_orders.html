@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>待处理订单</title>
-</head>
-<body>
+{% extends 'base_aftersales.html' %}
+{% block title %}待处理订单{% endblock %}
+{% block content %}
   <h2>待处理订单</h2>
   {% if orders %}
   <ul>
@@ -29,6 +25,6 @@
       <!--回到部门首页-->
         <a href="{% url 'aftersales_home' %}">回到部门首页</a>
   {% endif %}
+{% endblock %}
+```
 
-</body>
-</html>

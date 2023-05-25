@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <title>新能源汽车售后服务客户子系统</title>
+    <title>新能源汽车售后服务库存子系统</title>
     <!-- 添加你的样式表链接和其他头部信息 -->
 
 
@@ -111,25 +111,16 @@ body {
 <body>
     <div class="navbar">
     <!-- 导航栏内容 -->
-        <h1>客户子系统</h1>
-        <a href="{% url 'customer_home' %}">首页</a>
-        <a href="{% url 'map:map_search' %}">充电查询</a>
+        <h1>库存子系统</h1>
+        <a href="{% url 'inventory_home' %}">首页</a>
+        <a href="{% url 'in_view_messages' %}">消息中心</a>
+        <a href="{% url 'purchase_product' %}">采购中心</a>
         <div class="dropdown">
-            <a href="#" class="dropdown">车友圈</a>
+            <a href="#" class="dropdown">查询中心</a>
             <div class="dropdown-content">
-                <div class="card-header"><a href="{% url 'blog:user_profile' user_id=user.id %}">个人主页</a><br></div>
-                <div class="card-header"><a href="{% url 'blog:post_list' %}">博客列表</a><br></div>
-                <div class="card-header"><a href="{% url 'blog:create_post' %}">创作博客</a></div>
-                <div class="card-header"><a href="{% url 'blog:search_posts' %}">搜索博客</a></div>
-            </div>
-        </div>
-        <a href="#">客服咨询</a>
-        <div class="dropdown">
-            <a href="#" class="dropdown">售后服务</a>
-            <div class="dropdown-content">
-                <div class="card-header"><a href="{% url 'service_application' %}">申请售后</a><br></div>
-                <div class="card-header"><a href="{% url 'customer_service_records' %}">记录查询</a><br></div>
-                <div class="card-header"><a href="{% url 'view_feedback_messages' %}">反馈信息</a></div>
+                <div class="card-header"><a href="{% url 'inventory_list' %}">库存查询</a><br></div>
+                <div class="card-header"><a href="{% url 'inventory_change_list' %}">库存变化记录查询</a></div>
+                <div class="card-header"><a href="{% url 'service_records' %}">售后服务记录查询</a></div>
             </div>
         </div>
         <div class="dropdown">

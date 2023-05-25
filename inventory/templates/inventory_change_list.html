@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>库存变化</title>
-</head>
-<body>
+{% extends 'base_inventory.html' %}
+{% block title %}库存变化记录查询{% endblock %}
+{% block content %}
     <h1>库存变化记录查询</h1>
  <style>
   table {
@@ -41,5 +37,5 @@
   {% endfor %}
 </table>
 
-</body>
-</html>
+{% endblock %}
+```

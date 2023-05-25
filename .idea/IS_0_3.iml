@@ -26,6 +26,8 @@
     <orderEntry type="library" name="font-awesome" level="application" />
     <orderEntry type="library" name="leaflet.markercluster" level="application" />
     <orderEntry type="library" name="bootstrap-theme" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
@@ -34,7 +36,7 @@
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/blog/templates" />
         <option value="$MODULE_DIR$/log/templates" />
-        <option value="$MODULE_DIR$/charge/templates" />
+        <option value="$MODULE_DIR$/map/templates" />
       </list>
     </option>
   </component>

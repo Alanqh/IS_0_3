@@ -1,0 +1,201 @@
+{% extends 'base_customer.html' %}
+
+{% block title %}地图搜索结果{% endblock %}
+
+{% block content %}
+<style>
+    .my-legend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 90%;
+    }
+
+    .my-legend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 5px;
+        padding: 0;
+        float: left;
+        list-style: none;
+    }
+
+    .my-legend .legend-scale ul li {
+        font-size: 80%;
+        list-style: none;
+        margin-left: 0;
+        line-height: 18px;
+        margin-bottom: 2px;
+    }
+
+    .my-legend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 16px;
+        width: 30px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 1px solid #999;
+    }
+
+    .my-legend .legend-source {
+        font-size: 70%;
+        color: #999;
+        clear: both;
+    }
+
+    .my-legend a {
+        color: #777;
+    }
+
+    #map-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+    }
+
+    #map {
+        width: 800px;
+        height: 600px;
+        border: 2px solid #ccc;
+    }
+</style>
+
+<h3>查询结果</h3>
+<div class='my-legend' style="margin-left:80px;margin-top:200px;float:left">
+    <div class='legend-source'></div>
+    <div class='legend-title'>直流/交流充电桩地图</div>
+    <div class='legend-scale'>
+        <ul class='legend-labels'>
+            <li><span style='background:#011315;'></span>直流充电桩</li>
+            <li><span style='background:#ef1111;'></span>交流充电桩</li>
+        </ul>
+    </div>
+    <div class='legend-source'></div>
+    <div class='legend-title'>专享/公共充电桩地图</div>
+    <div class='legend-scale'>
+        <ul class='legend-labels'>
+            <li><span style='background:#0dd2d9;'></span>专享充电桩</li>
+            <li><span style='background:#0fee32;'></span>公共充电桩</li>
+        </ul>
+    </div>
+    <div class='legend-source'></div>
+</div>
+
+<div id="map-container">
+    <div id="map"></div>
+</div>
+
+<script src="http://api.map.baidu.com/api?v=2.0&ak=f6rqDeRyMAyYLZimwFbn2tBRXTvjCXge"></script>
+<script>
+    // Function to create an information window with charging station details
+function createInfoWindow(station, lat, lng) {
+    var drivingURL = 'https://map.baidu.com/dir/latlng:${lat},${lng}|name:我的位置&destination=latlng:${station.lat},${station.lng}|name:${encodeURIComponent(station.name)}&mode=driving';
+    var transitURL = 'https://map.baidu.com/dir/latlng:${lat},${lng}|name:我的位置&destination=latlng:${station.lat},${station.lng}|name:${encodeURIComponent(station.name)}&mode=transit';
+
+    var content =
+        "<div>" +
+        "<h4>" + station.name + "</h4>" +
+        "<p>空闲数量: " + station.available + "/" + station.total + "</p>" +
+        "<p>导航：</p><a href='" + drivingURL + "'>驾车</a>, " +
+        "<a href='" + transitURL + "'>公交</a></p>" +
+        "</div>";
+
+    return new BMap.InfoWindow(content);
+}
+
+
+    // Example charging station data
+    var chargingStations = [
+        {
+            name: "充电站1",
+            lat: 40.12345,
+            lng: 116.98765,
+            available: 5,
+            total: 10,
+        },
+        {
+            name: "充电站2",
+            lat: 40.54321,
+            lng: 116.24680,
+            available: 2,
+            total: 8,
+        },
+        {
+            name: "充电站3",
+            lat: 40.12345,
+            lng: 116.98765,
+            available: 5,
+            total: 10,
+        },
+        {
+            name: "充电站4",
+            lat: 40.54321,
+            lng: 116.24680,
+            available: 2,
+            total: 8,
+        },
+        {
+            name: "充电站5",
+            lat: 31.22436,
+            lng: 121.46917,
+            available: 3,
+            total: 12,
+        },
+        {
+            name: "充电站6",
+            lat: 23.12911,
+            lng: 113.26438,
+            available: 7,
+            total: 15,
+        },
+        {
+            name: "充电站7",
+            lat: 39.90383,
+            lng: 116.39745,
+            available: 4,
+            total: 10,
+        },
+        // 添加更多的充电站，涵盖更广阔的地区
+        {
+            name: "充电站50",
+            lat: 39.08416,
+            lng: 117.20098,
+            available: 6,
+            total: 12,
+        }
+    ];
+
+    // Initialize the map
+    var map = new BMap.Map("map");
+
+    // Get the user's current location
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var point = new BMap.Point(lng, lat);
+        map.centerAndZoom(point, 15);
+
+        // Add markers to the map
+        for (var i = 0; i < chargingStations.length; i++) {
+            var station = chargingStations[i];
+            var marker = new BMap.Marker(new BMap.Point(station.lng, station.lat));
+            map.addOverlay(marker);
+
+            // Bind the information window to the marker's click event
+            marker.addEventListener("click", (function(station) {
+                return function() {
+                    var infoWindow = createInfoWindow(station, lat, lng);
+                    this.openInfoWindow(infoWindow);
+                };
+            })(station));
+        }
+    }, function(error) {
+        // Handle errors
+        console.log(error);
+    });
+
+    // Enable scroll wheel zoom
+    map.enableScrollWheelZoom(true);
+</script>
+{% endblock %}

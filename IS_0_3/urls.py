@@ -30,6 +30,7 @@ urlpatterns = [
     path('aftersales/', include('aftersales.urls')), # 引入aftersales应用的urls.py
     path('blog/', include('blog.urls')), # 引入blog应用的urls.py
     path('ckeditor/', include('ckeditor_uploader.urls')), # 引入ckeditor应用的urls.py
+    path('map/', include('map.urls')), # 引入map应用的urls.py
 
 
 ]

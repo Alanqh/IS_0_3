@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{Leaflet.awesome-markers, bootstrap, bootstrap-theme, font-awesome, jquery-1.12.4, leaflet, leaflet.awesome.rotate, leaflet.markercluster}" />
+    <file url="file://$PROJECT_DIR$" libraries="{Leaflet.awesome-markers, bootstrap, bootstrap-theme, font-awesome, jquery, jquery-1.12.4, jquery-3.6.0, leaflet, leaflet.awesome.rotate, leaflet.markercluster}" />
   </component>
 </project>

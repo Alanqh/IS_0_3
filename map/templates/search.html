@@ -1,0 +1,52 @@
+{% extends 'base_customer.html' %}
+{% block title %}充电查询{% endblock %}
+{% block content %}
+    <h1>地图搜索</h1>
+    <form method="POST" action="{% url 'map:map_search' %}">
+        {% csrf_token %}
+        <label for="province">省份:</label>
+        <select id="province" name="province">
+            {% for province, cities in province_data.items %}
+                <option value="{{ province }}">{{ province }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="city">城市:</label>
+        <select id="city" name="city">
+            <option value="">请选择城市</option>
+        </select>
+
+        <input type="submit" value="搜索">
+    </form>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        // 动态加载城市选项
+        $(document).ready(function() {
+            $('#province').change(function() {
+                var province = $(this).val();
+                var cities = {{ province_data | safe }};
+                var citySelect = $('#city');
+
+                // 清空已选城市
+                citySelect.empty();
+
+                // 添加默认选项
+                citySelect.append($('<option>').text('请选择城市').attr('value', ''));
+
+                // 添加城市选项
+                if (cities.hasOwnProperty(province)) {
+                    var provinceCities = cities[province];
+                    for (var i = 0; i < provinceCities.length; i++) {
+                        var city = provinceCities[i];
+                        citySelect.append($('<option>').text(city).attr('value', city));
+                    }
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -108,7 +108,7 @@ def map_search(request):
         city = request.POST.get('city')
         api_key = 'aAyF3QcH6QRWiPwVot0eOdGFtoi3c8Go'
 
-        address = province + city  # 构建地址字符串
+        address = province + city  # Construct the address string
 
         url = f'http://api.map.baidu.com/geocoding/v3/?address={address}&output=json&ak={api_key}'
 

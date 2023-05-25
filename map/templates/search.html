@@ -1,5 +1,7 @@
 {% extends 'base_customer.html' %}
+
 {% block title %}充电查询{% endblock %}
+
 {% block content %}
     <h1>地图搜索</h1>
     <form method="POST" action="{% url 'map:map_search' %}">
@@ -24,20 +26,20 @@
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        // 动态加载城市选项
+        // Dynamic loading of city options
         $(document).ready(function() {
             $('#province').change(function() {
                 var province = $(this).val();
                 var cities = {{ province_data | safe }};
                 var citySelect = $('#city');
 
-                // 清空已选城市
+                // Clear selected city
                 citySelect.empty();
 
-                // 添加默认选项
+                // Add default option
                 citySelect.append($('<option>').text('请选择城市').attr('value', ''));
 
-                // 添加城市选项
+                // Add city options
                 if (cities.hasOwnProperty(province)) {
                     var provinceCities = cities[province];
                     for (var i = 0; i < provinceCities.length; i++) {

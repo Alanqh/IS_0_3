@@ -17,6 +17,7 @@ class UserInfoForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.HiddenInput()
+        self.fields['username'].help_text = None
 
     class Meta:
         model = User
@@ -38,6 +39,8 @@ class UserInfoForm(UserChangeForm):
         }
 
 
+
+
 from django.contrib.auth.forms import PasswordChangeForm
 
 
@@ -45,6 +48,9 @@ class ChangePasswordForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super().__init__(self.user, *args, **kwargs)
+        self.fields['new_password1'].help_text = None
+        self.fields['new_password2'].help_text = None
+
 
 
 class ServiceApplicationForm(forms.ModelForm):

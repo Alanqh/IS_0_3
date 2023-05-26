@@ -14,7 +14,8 @@ def aftersales_home(request):
 def view_received_messages(request):
     user = request.user
     received_messages = user.received_messages.filter(is_read=0).order_by('-timestamp')
-    return render(request, 'view_received_messages.html', {'received_messages': received_messages})
+    received_messages_count = received_messages.count()
+    return render(request, 'view_received_messages.html', {'received_messages': received_messages,'received_messages_count':received_messages_count})
 
 
 def as_mark_as_read(request, message_id):

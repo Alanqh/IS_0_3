@@ -73,8 +73,10 @@ def service_application_success(request):
 def view_feedback_messages(request):
     user = request.user
     unread_messages = user.received_messages.filter(is_read=0, recipient=user).order_by('-timestamp')
+    unread_messages_count = unread_messages.count()  # 获取未读消息数量
     return render(request, 'view_feedback_messages.html',
-                  {'unread_messages': unread_messages})
+                  {'unread_messages': unread_messages, 'unread_messages_count': unread_messages_count})
+
 
 
 def cu_mark_as_read(request, message_id):

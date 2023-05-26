@@ -79,9 +79,11 @@ def inventory_change_list(request):
 
 def in_view_messages(request):
     user = request.user
-    unread_messages = user.received_messages.filter(is_read=0, recipient=user).order_by('-timestamp')
+    in_unread_messages = user.received_messages.filter(is_read=0, recipient=user).order_by('-timestamp')
+    in_unread_messages_count = in_unread_messages.count()
     return render(request, 'in_view_messages.html',
-                  {'unread_messages': unread_messages})
+                  {'in_unread_messages': in_unread_messages,
+                   'in_unread_messages_count': in_unread_messages_count})
 
 
 def in_mark_as_read(request, message_id):

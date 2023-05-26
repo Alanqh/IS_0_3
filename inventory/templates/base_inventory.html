@@ -76,6 +76,16 @@ body {
 .card p {
     margin-bottom: 10px;
 }
+.unread-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 12px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
 
 
 </style>
@@ -113,7 +123,17 @@ body {
     <!-- 导航栏内容 -->
         <h1>库存子系统</h1>
         <a href="{% url 'inventory_home' %}">首页</a>
-        <a href="{% url 'in_view_messages' %}">消息中心</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown">消息中心</a>
+            <div class="dropdown-content">
+                <div class="card-header"><a href="{% url 'in_view_messages' %}">未读消息</a><br></div>
+                    {% if in_unread_messages_count > 0 %}
+                      <span class="unread-count">{{ in_unread_messages_count }}</span>
+                    {% endif %}
+                <div class="card-header"><a href="#">发送消息</a></div>
+            </div>
+        </div>
+
         <a href="{% url 'purchase_product' %}">采购中心</a>
         <div class="dropdown">
             <a href="#" class="dropdown">查询中心</a>

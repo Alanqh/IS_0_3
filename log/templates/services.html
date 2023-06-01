@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>售后服务</title>
+	<style>
+		/* 导航栏样式 */
+		.navbar {
+			background-color: skyblue;
+			padding: 10px 60px; /* change the padding value to adjust the width */
+			display: flex;
+			justify-content:space-around; /* evenly distribute the items */
+			align-items: center;
+		}
+
+		/* 导航栏链接样式 */
+		.navbar a {
+			color: black; /* change the color of the links */
+			text-decoration: none;
+			font-size: 18px;
+		}
+
+		/* 导航栏链接悬停样式 */
+		.navbar a:hover {
+			color: grey; /* change the color of the links on hover */
+		}
+
+		/* 导航栏下拉菜单样式 */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: white;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			padding: 12px 16px;
+			z-index: 1; /* 确保下拉菜单在其他元素上方 */
+		}
+
+		/* 页面背景样式 */
+		body {
+			background-color: white;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	</style>
+</head>
+<body>
+	<div class="navbar">
+        <!-- 导航栏内容 -->
+        <h1>新能源汽车售后服务系统</h1>
+        <a href="/">首页</a>
+        <a href="{% url 'profile' %}">新能源汽车</a>
+        <a href="{% url 'services' %}">售后服务</a>
+        <a href="{% url 'team' %}">团队介绍</a>
+    </div>
+
+	<h1>我们的服务</h1>
+	<ul>
+		<li>更换新能源汽车电池</li>
+		<li>拖车服务</li>
+		<li>充电桩位置引导</li>
+		<li>汽车升级维护及改造服务</li>
+		<li>手机APP</li>
+		<ul>
+			<li>如果您是我们的用户，能够通过手机应用实现车辆服务预约</li>
+		</ul>
+		<li>支持所有移动支付方式</li>
+		<ul>
+			<li>免费协助您签约支付宝，安全使用在线网银方式收款。招行、工行、建行、农行、邮政储蓄等的所有网上银行全部支持。</li>
+		</ul>
+		<li>短信、E-mail信息服务</li>
+		<ul>
+			<li>如果您允许，我们将通过预留手机号或是邮箱给您提交服务反馈和进度信息</li>
+		</ul>
+		<li>新能源汽车电池维护管理</li>
+		<ul>
+			<li>为您提供电池寿命信息查询，并给您一个更换或是保养维护提醒</li>
+		</ul>
+	</ul>
+</body>
+</html>

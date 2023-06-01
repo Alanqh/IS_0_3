@@ -1,22 +1,64 @@
-{% extends 'base_customerservice.html' %}
-{% block title %}客户信息{% endblock %}
-{% block content %}
-    <h1>客户信息表</h1>
-    <style>
+<!DOCTYPE html>
+<html lang="zh">
+  <body class="container">
+    <h1>客户信息查询</h1>
+ <style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+
+    margin: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
   table {
     border-collapse: collapse;
     width: 100%;
+    margin-top: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
   }
+  
   th, td {
-    border: 1px solid black;
-    padding: 8px;
+    border: 1px solid #ddd;
+    padding: 10px;
     text-align: left;
   }
-  th.category {
-    text-align: center;
-  }
+  
   th {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
     background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: skyblue;
+  }
+  
+  @media screen and (max-width: 767px) {
+    table {
+      table-layout:  fixed;
+    }
+    
+    td {
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    th {
+      display: none;
+    }
   }
 </style>
 
@@ -39,6 +81,5 @@
     </tr>
   {% endfor %}
 </table>
-{% endblock %}
-```
-
+</body>
+</html>

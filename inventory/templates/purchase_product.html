@@ -1,19 +1,56 @@
-{% extends 'base_inventory.html' %}
-{% block title %}采购{% endblock %}
-{% block content %}
-  <h1>采购</h1>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>采购</title>
+    <!-- 导入Bootstrap样式文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 外层容器 */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-  <form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="{{ form.product.id_for_label }}">产品</label>
-      {{ form.product }}
-    </div>
-    <div class="form-group">
-      <label for="{{ form.quantity.id_for_label }}">购买数量</label>
-      {{ form.quantity }}
-    </div>
-    <input type="submit" value="购买">
-  </form>
+        /* 表单样式 */
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>采购</h1>
 
-{% endblock %}
+            <form method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="{{ form.product.id_for_label }}">产品</label>
+                {{ form.product }}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.quantity.id_for_label }}">购买数量</label>
+                {{ form.quantity }}
+              </div>
+              <button type="submit" class="btn btn-primary">购买</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 导入Bootstrap JavaScript文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

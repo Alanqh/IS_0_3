@@ -6,38 +6,37 @@
 
 
 <style>
-/* 导航栏样式 */
-.navbar {
-    background-color: #60a19f;
-    padding: 10px 60px; /* change the padding value to adjust the width */
-    display: flex;
-    justify-content:space-around; /* evenly distribute the items */
-    align-items: center;
-}
-
-/* 导航栏链接样式 */
-.navbar a {
-    color: #eef2f8; /* change the color of the links */
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* 导航栏链接悬停样式 */
-.navbar a:hover {
-    color: #f5fafa; /* change the color of the links on hover */
-}
-
-/* 导航栏下拉菜单样式 */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #4bbda0;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1; /* 确保下拉菜单在其他元素上方 */
-}
-
+    /* 导航栏样式 */
+    .navbar {
+        background-color: skyblue;
+        padding: 10px 60px; /* change the padding value to adjust the width */
+        display: flex;
+        justify-content:space-around; /* evenly distribute the items */
+        align-items: center;
+    }
+    
+    /* 导航栏链接样式 */
+    .navbar a {
+        color: black; /* change the color of the links */
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    /* 导航栏链接悬停样式 */
+    .navbar a:hover {
+        color: grey; /* change the color of the links on hover */
+    }
+    
+    /* 导航栏下拉菜单样式 */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1; /* 确保下拉菜单在其他元素上方 */
+    }
 /* 导航栏下拉菜单展开样式 */
 .dropdown:hover .dropdown-content {
     display: block;
@@ -113,7 +112,6 @@ body {
     <!-- 导航栏内容 -->
         <h1>客服子系统</h1>
         <a href="{% url 'customerservice_home' %}">首页</a>
-        <a href="/">消息中心</a>
         <div class="dropdown">
             <a href="#" class="dropdown">查询中心</a>
             <div class="dropdown-content">

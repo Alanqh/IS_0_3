@@ -1,0 +1,183 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>团队介绍</title>
+  <style>
+    /* 导航栏样式 */
+    .navbar {
+        background-color: skyblue;
+        padding: 10px 60px; /* change the padding value to adjust the width */
+        display: flex;
+        justify-content:space-around; /* evenly distribute the items */
+        align-items: center;
+    }
+
+    /* 导航栏链接样式 */
+    .navbar a {
+        color: black; /* change the color of the links */
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /* 导航栏链接悬停样式 */
+    .navbar a:hover {
+        color: grey; /* change the color of the links on hover */
+    }
+
+    /* 导航栏下拉菜单样式 */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1; /* 确保下拉菜单在其他元素上方 */
+    }
+
+    /* 脚栏样式 */
+	.footer {
+		background-color: #7f96a0;
+		padding: 10px;
+		position: relative; /* 将脚栏定位方式改为relative */
+		width: 100%;
+	}
+
+    /* 页面背景样式 */
+    body {
+        background-color: white;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    header {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .card {
+      background-color: #f3f3f3;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+    }
+
+    .card img {
+      border-radius: 50%;
+      margin-bottom: 10px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    /* 响应式设计 */
+    @media only screen and (min-width: 768px) {
+      .container {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    .card-footer {
+		background-color: #f0f0f0;
+	 	padding: 10px;
+	}
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+        <!-- 导航栏内容 -->
+        <h1>新能源汽车售后服务系统</h1>
+        <a href="/">首页</a>
+        <a href="{% url 'profile' %}">新能源汽车</a>
+        <a href="{% url 'services' %}">售后服务</a>
+        <a href="{% url 'team' %}">团队介绍</a>
+  </div>
+
+  <header>
+    <h1>我们的团队</h1>
+    <h2>认识一下他们</h2>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <img src="{% static 'images/member1.jpg' %}">
+      <h3>吴明霖</h3>
+      <p>负责模块：</p>
+      <p>联系方式：leo_wml0812<p>
+    </div>
+
+    <div class="card">
+      <img src="{% static 'images/member2.jpg' %}">
+      <h3>王子轩</h3>
+      <p>负责模块：</p>
+      <p>联系方式：wzx_0error_0warning<p>
+    </div>
+
+    <div class="card">
+      <img src="{% static 'images/member3.jpg' %}">
+      <h3>王子升</h3>
+      <p>负责模块：</p>
+      <p>联系方式：wzs19955815989<p>
+    </div>
+
+    <div class="card">
+      <img src="{% static 'images/member4.jpg' %}">
+      <h3>吕青华</h3>
+      <p>负责模块：</p>
+      <p>联系方式：wsmzcsf2022<p>
+    </div>
+
+    <div class="card">
+      <img src="{% static 'images/member5.jpg' %}">
+      <h3>张钰</h3>
+      <p>负责模块：</p>
+      <p>联系方式：DokaZecho<p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <!-- 脚栏内容 -->
+    <p>版权所有 &copy; 2019-2020</p>
+    <p>联系我们：123456789</p>
+    <p>地址：北京市海淀区中关村大街5号</p>
+    <p>违法和不良信息举报电话：123456789</p>
+    <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+    <!-- 添加你的脚栏信息 -->
+  </div>
+</body>
+</html>

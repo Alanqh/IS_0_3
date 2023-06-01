@@ -7,23 +7,34 @@
 
     /* 导航栏样式 */
     .navbar {
-        background-color: #60a19f;
-        padding: 10px 50px; /* change the padding value to adjust the width */
+        background-color: skyblue;
+        padding: 10px 60px; /* change the padding value to adjust the width */
         display: flex;
-        justify-content: space-between; /* evenly distribute the items */
+        justify-content:space-around; /* evenly distribute the items */
         align-items: center;
     }
-    
+
     /* 导航栏链接样式 */
     .navbar a {
-        color: #eef2f8; /* change the color of the links */
+        color: black; /* change the color of the links */
         text-decoration: none;
         font-size: 18px;
     }
-    
+
     /* 导航栏链接悬停样式 */
     .navbar a:hover {
-        color: #f5fafa; /* change the color of the links on hover */
+        color: grey; /* change the color of the links on hover */
+    }
+
+    /* 导航栏下拉菜单样式 */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1; /* 确保下拉菜单在其他元素上方 */
     }
         
     /* 脚栏样式 */
@@ -44,14 +55,14 @@
 
     /* 页面背景样式 */
     body {
-        background-color: #e7f4f8; /* change the background color */
+        background-color: white;
         background-repeat: no-repeat;
         background-size: cover;
     }
 
 
     .card-header {
-      background-color: #9de8d7;
+      background-color: skyblue;;
       padding: 2px;
       text-align: center; /* 居中对齐标题文本 */
     }
@@ -83,6 +94,12 @@
       margin-bottom: 10px;
     }
 
+    .my-image {
+        float: left;
+        width: 70%;
+        margin-right: 20px;
+    }
+
 </style>
 </head>
 <body>
@@ -90,9 +107,9 @@
         <!-- 导航栏内容 -->
         <h1>新能源汽车售后服务系统</h1>
         <a href="/">首页</a>
-        <a href="/profile">新能源汽车</a>
-        <a href="/services">售后服务</a>
-        <a href="/team">团队介绍</a>
+        <a href="{% url 'profile' %}">新能源汽车</a>
+        <a href="{% url 'services' %}">售后服务</a>
+        <a href="{% url 'team' %}">团队介绍</a>
     </div>
     
     <div class="content">

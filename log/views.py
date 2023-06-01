@@ -39,3 +39,12 @@ def logout_view(request):
     logout(request)
     return redirect('/log')
     # redirect to some page
+
+def profile(request):
+    return render(request, 'profile.html')
+
+def services(request):
+    return render(request, 'services.html')
+
+def team(request):
+    return render(request, 'team.html')

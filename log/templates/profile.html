@@ -1,0 +1,153 @@
+{% load static %} <!--注意空格-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>新能源汽车介绍</title>
+	<style>
+		/* 头部导航 */
+		header {
+			background-color: #222;
+			color: #f8f8f8;
+			padding: 10px 20px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		/* logo 样式 */
+		header img {
+			max-width: 100px;
+			margin-right: 10px;
+		}
+
+		/* 导航栏样式 */
+		.navbar {
+			background-color: skyblue;
+			padding: 10px 60px; /* change the padding value to adjust the width */
+			display: flex;
+			justify-content:space-around; /* evenly distribute the items */
+			align-items: center;
+		}
+
+		/* 导航栏链接样式 */
+		.navbar a {
+			color: black; /* change the color of the links */
+			text-decoration: none;
+			font-size: 18px;
+		}
+
+		/* 导航栏链接悬停样式 */
+		.navbar a:hover {
+			color: grey; /* change the color of the links on hover */
+		}
+
+		/* 导航栏下拉菜单样式 */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: white;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			padding: 12px 16px;
+			z-index: 1; /* 确保下拉菜单在其他元素上方 */
+		}
+
+		/* 脚栏样式 */
+		.footer {
+			background-color: #7f96a0;
+			padding: 10px;
+			position: relative; /* 将脚栏定位方式改为relative */
+			width: 100%;
+		}
+
+		/* 页面背景样式 */
+		body {
+			background-color: white;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		/* 页面主体内容区域 */
+		.container {
+			max-width: 900px;
+			margin: 20px auto;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+		}
+
+		/* 汽车图片样式 */
+		.car-image {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+		}
+
+		/* h1 和 h2 标题样式 */
+		.container h1, h2 {
+			text-align: center;
+			font-weight: normal;
+			margin-bottom: 20px;
+		}
+
+		/* 段落文本样式 */
+		p {
+			line-height: 1.5;
+			margin-bottom: 10px;
+		}
+
+		.card-footer {
+		  	background-color: #f0f0f0;
+		  	padding: 10px;
+		}
+	</style>
+</head>
+<body>
+    <div class="navbar">
+        <!-- 导航栏内容 -->
+        <h1 class="navbar-title">新能源汽车售后服务系统</h1>
+        <a href="/" class="navbar-link">首页</a>
+        <a href="{% url 'profile' %}" class="navbar-link">新能源汽车</a>
+        <a href="{% url 'services' %}" class="navbar-link">售后服务</a>
+        <a href="{% url 'team' %}" class="navbar-link">团队介绍</a>
+    </div>
+
+	<div class="container">
+		<h1>新能源汽车</h1>
+		<h2>顾名思义，是指使用新型燃料或者电力系统的汽车。</h2>
+		<ul style="display: flex; flex-direction: row;">
+			<li style="flex: 1;">
+				<strong>电动汽车</strong>
+				<img src="{% static 'images/电动汽车.jpg' %}" class="car-image">
+				<p>电池作为储能装置，电动机驱动车轮。</p>
+				<p>无需加油，充电后可以行驶一定里程。</p>
+				<p>排放零污染，环保节能。</p>
+			</li>
+			<li style="flex: 1;">
+				<strong>混合动力汽车</strong>
+				<img src="{% static 'images/混合动力汽车.jfif' %}" class="car-image">
+				<p>既可以使用汽油又可以使用电力驱动。</p>
+				<p>减少污染。</p>
+				<p>增加燃油经济性。</p>
+			</li>
+			<li style="flex: 1;">
+				<strong>燃料电池汽车</strong>
+				<img src="{% static 'images/燃料电池汽车.jpeg' %}" class="car-image">
+				<p>使用燃料电池作为电源</p>
+				<p>通过控制电池与氧气结合来产生电力。</p>
+				<p>排放零污染，环保节能。</p>
+			</li>
+		</ul>
+	</div>
+
+	<div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2019-2020</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <p>违法和不良信息举报电话：123456789</p>
+        <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
+</body>
+</html>

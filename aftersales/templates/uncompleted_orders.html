@@ -1,30 +1,113 @@
-{% extends 'base_aftersales.html' %}
-{% block title %}待处理订单{% endblock %}
-{% block content %}
-  <h2>待处理订单</h2>
-  {% if orders %}
-  <ul>
-    {% for order in orders %}
-      <li>
-        订单号：{{ order.id }}<br>
-        服务类型：{{ order.service_type }}<br>
-        申请人：{{ order.user.last_name }}{{ order.user.first_name }}<br>
-        车型：{{ order.car }}<br>
-        申请时间：{{ order.datetime }}<br>
-        描述：{{ order.description }}<br>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>待处理订单</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
 
-        <form method="POST" action="{% url 'process_order' order.id %}">
-          {% csrf_token %}
-          <button type="submit">处理</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>暂无未处理的订单</p>
-      <!--回到部门首页-->
-        <a href="{% url 'aftersales_home' %}">回到部门首页</a>
-  {% endif %}
-{% endblock %}
-```
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
+    h2 {
+      font-size: 28px;
+      color: #2196F3;
+      margin-bottom: 40px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin-bottom: 50px;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 10px #d9d9d9;
+      transition: transform 0.3s ease-out;
+    }
+
+    li:hover {
+      transform: translateY(-10px);
+      box-shadow: 5px 5px 10px #d9d9d9;
+    }
+
+    button {
+      font-size: 20px;
+      background-color: #2196F3;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 2px 2px 10px #d9d9d9;
+      transition: background-color 0.3s ease-out;
+    }
+
+    button:hover {
+      background-color: #1769aa;
+    }
+
+    p {
+      font-size: 22px;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    a {
+      color: #2196F3;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: 2px solid #2196F3;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-out;
+    }
+
+    a:hover {
+      background-color: #2196F3;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>待处理订单</h2>
+    {% if orders %}
+      <ul>
+        {% for order in orders %}
+        <li>
+          <p>订单号：{{ order.id }}</p>
+          <p>服务类型：{{ order.service_type }}</p>
+          <p>申请人：{{ order.user.last_name }}{{ order.user.first_name }}</p>
+          <p>车型：{{ order.car }}</p>
+          <p>申请时间：{{ order.datetime }}</p>
+          <p>描述：{{ order.description }}</p>
+
+          <form method="POST" action="{% url 'process_order' order.id %}">
+            {% csrf_token %}
+            <button type="submit">处理</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>暂无未处理的订单</p>
+      <a href="{% url 'aftersales_home' %}" class="link">回到部门首页</a>
+    {% endif %}
+  </main>
+</body>
+</html>

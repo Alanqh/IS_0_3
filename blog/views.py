@@ -44,6 +44,8 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            tags = form.cleaned_data.get('tags')
+            form.save_m2m()  # 保存 ManyToMany 字段的关联数据
             return redirect('blog:post_list')
     else:
         form = PostForm()

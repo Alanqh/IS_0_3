@@ -66,7 +66,7 @@ body {
     <tbody>
       {% for record in service_records %}
         <tr>
-          <td>{{ record.user.last_name }}{{ record.user.first_name }}</td>
+          <td>{{ record.user.name }}</td>
           <td>{{ record.car.car_name }}</td>
           <td>{{ record.service_type.name }}</td>
           <td>{{ record.datetime }}</td>

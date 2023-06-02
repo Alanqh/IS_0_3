@@ -63,14 +63,18 @@
 <div class="card mb-3">
   <div class="card-body">
     <h5 class="card-title">文章标题：{{ post.title }}</h5>
-    {% if post.tags.all %}
-    <div class="card-subtitle mb-2 text-muted">
-      {% for tag in post.tags.all %}
-      <span class="tag-badge badge badge-secondary">{{ tag }}</span>
-      {% endfor %}
-    </div>
-    {% endif %}
+    <h6 class="card-subtitle mb-2 text-muted">作者：{{ post.author }}</h6>
+    <p>标签：
+      {% if post.tags.all %}
+        <div class="card-subtitle mb-2 text-muted">
+          {% for tag in post.tags.all %}
+          <span class="tag-badge badge badge-secondary">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+    </p>
   </div>
+</div>
   <div class="card-header">部分文章内容：{{ post.content|truncatewords_html:100 }}</div>
   <div class="card-footer text-muted">
     <a href="{% url 'blog:post_detail' post_id=post.pk %}" class="btn btn-sm btn-primary">查看详情</a>

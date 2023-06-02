@@ -3,11 +3,8 @@ from django.db import models
 
 
 class User(AbstractUser):
-    ROLE_CHOICES = (
-        ('customer', '客户'),
-        ('staff', '员工'),
-    )
-    role = models.CharField('角色', max_length=10, choices=ROLE_CHOICES)
+
+    role = models.CharField('角色', max_length=10)
     department = models.CharField('部门', max_length=50)
     name = models.CharField('姓名', max_length=50)
     gender = models.CharField('性别', max_length=10)

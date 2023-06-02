@@ -1,0 +1,15 @@
+<!-- chat_index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Index</title>
+</head>
+<body>
+    <h1>Chat Index</h1>
+    <ul>
+        {% for contact in contacts %}
+            <li><a href="{% url 'chat_window' contact.id %}">{{ contact.username }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

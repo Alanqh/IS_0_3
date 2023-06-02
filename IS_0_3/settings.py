@@ -51,12 +51,9 @@ INSTALLED_APPS = [
     'channels',
     'chat',
 ]
-ASGI_APPLICATION = 'chat_system.routing.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-    },
-}
+
+
+
 
 # 浏览器关闭后session失效
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True

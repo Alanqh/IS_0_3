@@ -21,18 +21,15 @@ class UserInfoForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'last_name', 'first_name', 'gender', 'birth_date', 'email', 'phone_number',
+        fields = ('id', 'username', 'name', 'gender', 'birth_date',  'phone_number',
                   'username')
         labels = {
             'id': 'ID(不可修改)',
             'usename': '用户名',
-            'first_name': '名字',
-            'last_name': '姓氏',
-            'email': '电子邮件',
+            'name': '姓名',
             'phone_number': '手机号',
             'birth_date': '出生日期',
             'gender': '性别',
-            'username': '用户名',
         }
         widgets = {
             'id': forms.TextInput(attrs={'readonly': 'readonly'}),

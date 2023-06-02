@@ -1,0 +1,151 @@
+<!-- chat_window.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Window</title>
+    <style>
+        .card {
+            width: 70%;
+            height: 400px;
+            background-color: #dceff6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            margin: 0 auto;
+        }
+
+        .send-card {
+            width: 70%;
+            height: 100px;
+            background-color: #dceff6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            margin: 0 auto;
+        }
+
+        .message-container {
+            overflow-y: scroll;
+        }
+
+        .message-left {
+            background-color: #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            width: 50%;
+            float: left;
+        }
+
+        .message-right {
+            background-color: #0084ff;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            width: 50%;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with {{ recipient.username }}</h1>
+    <div id="chat-messages" class="card">
+        <div id="message-container" class="message-container">
+            {% for message in messages %}
+                {% if message.sender == recipient %}
+                    <div class="message-left">
+                        <div>{{ message.content }}</div>
+                        <span class="message-time">{{ message.timestamp }}</span>
+                    </div>
+                {% else %}
+                    <div class="message-right">
+                        <div>{{ message.content }}</div>
+                        <span class="message-time">{{ message.timestamp }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="chat-form" class="send-card">
+        <form method="POST" id="message-form">
+            {% csrf_token %}
+            {{ form.message }}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                messageInput.value = '';
+
+                fetch(window.location.href, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        message: message
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Message sent successfully, you can update the UI if needed
+                        refreshChat();
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        }
+
+        function refreshChat() {
+            fetch('/chat/refresh/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({
+                    recipient_id: '{{ recipient.id }}'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.messages) {
+                    // Sort messages by timestamp
+                    data.messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                    const chatContainer = document.getElementById('message-container');
+                    chatContainer.innerHTML = '';  // Clear previous messages
+                    for (let message of data.messages) {
+                        const messageElement = document.createElement('div');
+                        messageElement.textContent = message.content;
+                        if (message.sender === {{ recipient.id }}) {
+                            messageElement.classList.add('message-left');
+                        } else {
+                            messageElement.classList.add('message-right');
+                        }
+                        chatContainer.appendChild(messageElement);
+                    }
+                    // Scroll to the bottom of the message container
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }
+            })
+            .catch(error => console.error(error));
+        }
+
+        // Refresh the chat window every 3 seconds
+        setInterval(refreshChat, 3000);
+        // Set the chat window scroll to the bottom
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatContainer = document.getElementById('message-container');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
+    </script>
+</body>
+</html>

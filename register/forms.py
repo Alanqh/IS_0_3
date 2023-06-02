@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.datetime_safe import date
 
-from .models import User, Car
+from .models import User
 
 
 class UserCreationForms(UserCreationForm):
@@ -24,14 +24,12 @@ class UserCreationForms(UserCreationForm):
 
     role = forms.ChoiceField(label='角色', choices=ROLE_CHOICES, widget=forms.Select(attrs={'onchange': 'toggleDepartment()'}))
     department = forms.ChoiceField(label='部门', choices=DEPARTMENT_CHOICES, required=False)
-    last_name = forms.CharField(label='姓 ')
-    first_name = forms.CharField(label='名 ')
+    name = forms.CharField(label='姓名')
     gender = forms.ChoiceField(label='性别', choices=GENDER_CHOICES)
     birth_date = forms.DateField(
         label='生日',
         widget=forms.DateInput(attrs={'type': 'date', 'max': date.today()}),
     )
-    email = forms.EmailField(label='邮 箱 ')
     phone_number = forms.CharField(label='手机号')
 
     def __init__(self, *args, **kwargs):
@@ -52,7 +50,7 @@ class UserCreationForms(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            'role', 'department', 'last_name', 'first_name', 'gender', 'birth_date', 'email', 'phone_number',
+            'role', 'department', 'name', 'gender', 'birth_date', 'phone_number',
             'username',
             'password1', 'password2')
         verbose_name_plural = '用户'

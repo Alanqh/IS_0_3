@@ -9,11 +9,9 @@ class User(AbstractUser):
     )
     role = models.CharField('角色', max_length=10, choices=ROLE_CHOICES)
     department = models.CharField('部门', max_length=50)
-    last_name = models.CharField('姓', max_length=50)
-    first_name = models.CharField('名', max_length=50)
+    name = models.CharField('姓名', max_length=50)
     gender = models.CharField('性别', max_length=10)
     birth_date = models.DateField('生日')
-    email = models.EmailField('邮箱')
     phone_number = models.CharField('手机号', max_length=20)
 
     groups = models.ManyToManyField(

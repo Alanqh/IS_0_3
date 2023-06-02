@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'map',
     'channels',
+    'chat',
 ]
 ASGI_APPLICATION = 'chat_system.routing.application'
 CHANNEL_LAYERS = {

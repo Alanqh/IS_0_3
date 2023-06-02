@@ -78,6 +78,18 @@
         margin-bottom: 10px;
     }
 
+.unread-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 12px;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+}
+
+
 
 </style>
 
@@ -118,6 +130,9 @@
         <div class="dropdown">
             <a href="#" class="dropdown">工作中心</a>
             <div class="dropdown-content">
+                {% if received_messages_count > 0 %}
+                    <span class="unread-count">{{ received_messages_count }}</span>
+                {% endif %}
                 <div class="card-header"><a href="{% url 'view_received_messages' %}">订单消息</a><br></div>
                 <div class="card-header"><a href="{% url 'uncompleted_orders' %}">订单处理</a><br></div>
                 <div class="card-header"><a href="{% url 'inventory_list' %}">库存查询</a><br></div>

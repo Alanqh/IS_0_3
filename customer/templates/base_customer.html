@@ -83,6 +83,18 @@ body {
     margin-bottom: 0.25em;
   }
 
+.unread-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 12px;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+}
+
+
 </style>
 
 <script>
@@ -139,9 +151,12 @@ body {
         <div class="dropdown">
             <a href="#" class="dropdown">售后服务</a>
             <div class="dropdown-content">
+               {% if unread_messages_count > 0 %}
+                <span class="unread-count">{{ unread_messages_count }}</span>
+               {% endif %}
+                <div class="card-header"><a href="{% url 'view_feedback_messages' %}">反馈信息</a></div>
                 <div class="card-header"><a href="{% url 'service_application' %}">申请售后</a><br></div>
                 <div class="card-header"><a href="{% url 'service_records' %}">记录查询</a><br></div>
-                <div class="card-header"><a href="{% url 'view_feedback_messages' %}">反馈信息</a></div>
             </div>
         </div>
         <div class="dropdown">

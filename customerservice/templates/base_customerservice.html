@@ -43,12 +43,12 @@
 }
 
 /* 脚栏样式 */
-.footer {
-    background-color: #7f96a0;
-    padding: 10px;
-    position: relative; /* 将脚栏定位方式改为relative */
-    width: 100%;
-}
+    .footer {
+        background-color: #003c6a;
+        color: white;
+        padding: 20px;
+        position: relative;
+    }
 
 /* 中间部分样式 */
 .content {
@@ -112,7 +112,6 @@ body {
     <!-- 导航栏内容 -->
         <h1>客服子系统</h1>
         <a href="{% url 'customerservice_home' %}">首页</a>
-        <a href="{% url 'chat_index' %}">客户消息</a>
         <div class="dropdown">
             <a href="#" class="dropdown">查询中心</a>
             <div class="dropdown-content">

@@ -1,11 +1,42 @@
 {% extends 'base_customer.html' %}
+
 {% block title %}车友圈/点赞记录{% endblock %}
+
 {% block content %}
-<h2>点赞记录</h2>
-{% for like in likes %}
-    <p>{{ like.user.username }} 在 {{ like.created_at }} 点赞</p>
-{% empty %}
-    <p>暂无点赞记录。</p>
-{% endfor %}
+<style>
+    /* Custom styles for likes page */
+    .list-group-item {
+      border: none;
+      border-bottom: 1px solid #ddd;
+      border-radius: 0;
+    }
+    .list-group-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+
+<div class="container py-5">
+  <h2 class="mb-4">点赞记录</h2>
+
+  {% if likes %}
+  <div class="list-group">
+    {% for like in likes %}
+    <div class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ like.user.username }}</h5>
+        <small>{{ like.created_at|date:"Y-m-d H:i:s" }}</small>
+      </div>
+      <p class="mb-1">在 {{ like.post.title }} 点赞</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>暂无点赞记录。</p>
+  {% endif %}
+
+  <div class="mt-5">
+    <a href="{% url 'customer_home' %}" class="btn btn-primary"><i class="fas fa-home mr-2"></i>返回首页</a>
+  </div>
+</div>
+
 {% endblock %}
-```

@@ -88,25 +88,20 @@
 
 <script src="http://api.map.baidu.com/api?v=2.0&ak=f6rqDeRyMAyYLZimwFbn2tBRXTvjCXge"></script>
 <script>
-    var map = new BMap.Map("map");
-    var lng = {{ lng }};
-    var lat = {{ lat }};
-    var point = new BMap.Point(lng, lat);
-    map.centerAndZoom(point, 15);
     // Function to create an information window with charging station details
-    function createInfoWindow(station, lat, lng) {
-        var drivingURL = 'https://map.baidu.com/dir/latlng:${lat},${lng}|name:我的位置&destination=latlng:${station.lat},${station.lng}|name:${encodeURIComponent(station.name)}&mode=driving';
-        var transitURL = 'https://map.baidu.com/dir/latlng:${lat},${lng}|name:我的位置&destination=latlng:${station.lat},${station.lng}|name:${encodeURIComponent(station.name)}&mode=transit';
+function createInfoWindow(station, lat, lng) {
+    var drivingURL = 'https://map.baidu.com/dir/latlng:${lat},${lng}|name:我的位置&destination=latlng:${station.lat},${station.lng}|name:${encodeURIComponent(station.name)}&mode=driving';
+    var transitURL = 'https://map.baidu.com/dir/latlng:${lat},${lng}|name:我的位置&destination=latlng:${station.lat},${station.lng}|name:${encodeURIComponent(station.name)}&mode=transit';
 
-        var content =
-            "<div>" +
-            "<h4>" + station.name + "</h4>" +
-            "<p>空闲数量: " + station.available + "/" + station.total + "</p>" +
-            "<p>导航：</p><a href='" + drivingURL + "'>驾车</a>, " +
-            "<a href='" + transitURL + "'>公交</a></p>" +
-            "</div>";
+    var content =
+        "<div>" +
+        "<h4>" + station.name + "</h4>" +
+        "<p>空闲数量: " + station.available + "/" + station.total + "</p>" +
+        "<p>导航：</p><a href='" + drivingURL + "'>驾车</a>, " +
+        "<a href='" + transitURL + "'>公交</a></p>" +
+        "</div>";
 
-        return new BMap.InfoWindow(content);
+    return new BMap.InfoWindow(content);
 }
 
 
@@ -171,13 +166,15 @@
         }
     ];
 
+    // Initialize the map
+    var map = new BMap.Map("map");
 
     // Get the user's current location
     navigator.geolocation.getCurrentPosition(function(position) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         var point = new BMap.Point(lng, lat);
-
+        map.centerAndZoom(point, 15);
 
         // Add markers to the map
         for (var i = 0; i < chargingStations.length; i++) {
@@ -189,7 +186,8 @@
             marker.addEventListener("click", (function(station) {
                 return function() {
                     var infoWindow = createInfoWindow(station, lat, lng);
-                    this.openInfoWindow(infoWindow);};
+                    this.openInfoWindow(infoWindow);
+                };
             })(station));
         }
     }, function(error) {

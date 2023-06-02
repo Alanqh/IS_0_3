@@ -1,6 +1,35 @@
 {% extends 'base_customer.html' %}
+{% load static %}
 {% block title %}客户首页{% endblock %}
 {% block content %}
-    <h1>欢迎进入客户中心</h1>
-    <p>您可以通过上方导航栏选择想要的服务进行操作</p>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: calc(100vh - 200px);">
+    <h1>欢迎进入客户服务主页</h1>
+</div>
+
+<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+    <a href="{% url 'map:map_search' %}" class="dropdown" style="width: 20%; padding: 10px;">
+      <img src="{% static 'images/充电桩.png' %}" style="width: 100%; height: auto;">
+      <p style="text-align: center;">充电查询</p>
+    </a>
+  
+    <a href="{% url 'blog:user_profile' user_id=user.id %}" class="dropdown" style="width: 20%; padding: 10px;">
+      <img src="{% static 'images/交友.png' %}" style="width: 100%; height: auto;">
+      <p style="text-align: center;">车友圈</p>
+    </a>
+  
+    <a href='#' class="dropdown" style="width: 20%; padding: 10px;">
+      <img src="{% static 'images/客服咨询灰.png' %}" style="width: 100%; height: auto;">
+      <p style="text-align: center;">客服咨询</p>
+    </a>
+  
+    <a href="{% url 'service_application' %}" class="dropdown" style="width: 20%; padding: 10px;">
+      <img src="{% static 'images/技术服务.png' %}" style="width: 100%; height: auto;">
+      <p style="text-align: center;">售后服务申请</p>
+    </a>
+  
+    <a href="{% url 'user_info' %}" class="dropdown" style="width: 20%; padding: 10px;">
+      <img src="{% static 'images/我的.png' %}" style="width: 100%; height: auto;">
+      <p style="text-align: center;">个人信息中心</p>
+    </a>
+  </div>
 {% endblock %}

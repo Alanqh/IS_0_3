@@ -1,38 +1,110 @@
-<!-- blog/user_profile.html -->
 {% extends 'base_customer.html' %}
-{% block title %}车友圈/个人主页{% endblock %}
-{% block content %}
-<h1>{{ user.username }}的个人主页</h1>
-<p>邮箱：{{ user.email }}</p>
-<p>角色：{{ user.role }}</p>
 
-<p>关注：<a href="{% url 'blog:follower_list' user_id=user.id %}">{{ followers.count}}</a></p>
-<p>粉丝：<a href="{% url 'blog:following_list' user_id=user.id %}">{{following.count }}</a></p>
-<!-- 显示用户发表的文章 -->
+{% block title %}车友圈/个人主页{% endblock %}
+
+{% block content %}
+<style>
+  h1, h2, h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: #006fe6;
+  }
+
+  .followers-following {
+    margin-top: 20px;
+  }
+
+  .followers-following span {
+    font-size: 18px;
+    color: #007bff;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .followers-following a {
+    margin-right: 10px;
+  }
+</style>
+
+<div class="container-lg">
+  <h1>{{ user.username }}的个人主页</h1>
+  <div class="row">
+    <div class="col-md-8">
+      <p>您的邮箱：{{ user.email }}</p>
+      <p>角色类型：{{ user.role }}</p>
+
+      <div class="followers-following">
+        <span>关注：</span><a href="{% url 'blog:follower_list' user_id=user.id %}">{{ followers.count }}</a>
+        <span>粉丝：</span><a href="{% url 'blog:following_list' user_id=user.id %}">{{ following.count }}</a>
+      </div>
+
+      <!-- 显示用户发表的文章 -->
 <h2>发表的文章：</h2>
 {% if posts %}
-    <ul>
-        {% for post in posts %}
-            <li><a href="{% url 'blog:post_detail' post_id=post.id %}">{{ post.title }}</a></li>
-        {% endfor %}
-    </ul>
+  {% for post in posts %}
+    <div class="card mb-3">
+      <div class="card-header">
+        <h2>文章标题</h2>
+        <h5 class="card-title">{{ post.title }}</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <h2>文章内容</h2>
+            <p class="card-text">{{ post.content|truncatewords_html:100 }}</p>
+          </div>
+          <div class="col-md-4">
+            <p class="card-text text-muted text-right">{{ post.pub_date }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <a href="{% url 'blog:post_detail' post_id=post.id %}">查看详细信息</a>
+      </div>
+    </div>
+  {% endfor %}
 {% else %}
-    <p>还没有发表文章</p>
+  <p>还没有发表文章</p>
 {% endif %}
-
-<!-- 关注和取消关注按钮 -->
-{% if request.user != user %}
-    {% if request.user in user.get_followers.all %}
-        <form method="post" action="{% url 'blog:follow_user' user_id=user.id %}">
+    </div>
+    <div class="col-md-4">
+      {% if request.user != user %}
+        {% if request.user in user.get_followers.all %}
+          <form method="post" action="{% url 'blog:follow_user' user_id=user.id %}">
             {% csrf_token %}
-            <button type="submit">取消关注</button>
-        </form>
-    {% else %}
-        <form method="post" action="{% url 'blog:follow_user' user_id=user.id %}">
+            <button type="submit" class="btn-primary">取消关注</button>
+          </form>
+        {% else %}
+          <form method="post" action="{% url 'blog:follow_user' user_id=user.id %}">
             {% csrf_token %}
-            <button type="submit">关注</button>
-        </form>
-    {% endif %}
-{% endif %}
+            <button type="submit" class="btn-primary">关注</button>
+          </form>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}
-```

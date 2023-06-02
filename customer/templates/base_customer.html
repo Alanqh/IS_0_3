@@ -7,37 +7,37 @@
 
 
 <style>
-/* 导航栏样式 */
-.navbar {
-    background-color: skyblue;
-    padding: 10px 60px; /* change the padding value to adjust the width */
-    display: flex;
-    justify-content:space-around; /* evenly distribute the items */
-    align-items: center;
-}
-
-/* 导航栏链接样式 */
-.navbar a {
-    color: #eef2f8; /* change the color of the links */
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* 导航栏链接悬停样式 */
-.navbar a:hover {
-    color: skyblue; /* change the color of the links on hover */
-}
-
-/* 导航栏下拉菜单样式 */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #4bbda0;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1; /* 确保下拉菜单在其他元素上方 */
-}
+    /* 导航栏样式 */
+    .navbar {
+        background-color: skyblue;
+        padding: 10px 60px; /* change the padding value to adjust the width */
+        display: flex;
+        justify-content:space-around; /* evenly distribute the items */
+        align-items: center;
+    }
+    
+    /* 导航栏链接样式 */
+    .navbar a {
+        color: black; /* change the color of the links */
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    /* 导航栏链接悬停样式 */
+    .navbar a:hover {
+        color: grey; /* change the color of the links on hover */
+    }
+    
+    /* 导航栏下拉菜单样式 */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1; /* 确保下拉菜单在其他元素上方 */
+    }
 
 /* 导航栏下拉菜单展开样式 */
 .dropdown:hover .dropdown-content {
@@ -45,13 +45,12 @@
 }
 
 /* 脚栏样式 */
-.footer {
-    background-color: #7f96a0;
-    padding: 10px;
-    position: relative; /* 将脚栏定位方式改为relative */
-    width: 100%;
-}
-
+        .footer {
+            background-color: #003c6a;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
 /* 中间部分样式 */
 .content {
     /* 添加你需要的样式 */
@@ -78,6 +77,11 @@ body {
     margin-bottom: 10px;
 }
 
+.btn-img {
+    max-width: 1.5em;
+    max-height: 1.5em;
+    margin-bottom: 0.25em;
+  }
 
 </style>
 

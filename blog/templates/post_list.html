@@ -1,58 +1,103 @@
 {% extends 'base_customer.html' %}
+{% load static %}
 {% block title %}博客列表{% endblock %}
 {% block content %}
+<style>
+  /* Styles for blog posts */
+  .card {
+    margin-bottom: 15px;
+  }
+  .card .tag-badge {
+    margin: 0 5px 5px 0;
+  }
 
-<h1>博客文章列表</h1>
-<form method="GET" action="{% url 'blog:post_list' %}">
-    <label for="id_tag">筛选标签：</label>
-    <select name="tag" id="id_tag">
+  /* Styles for pagination */
+  .pagination {
+    margin: 30px 0;
+  }
+  .pagination a {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    color: #333;
+    margin: 3px;
+    font-weight: bold;
+  }
+  .pagination .current-page {
+    background-color: #337ab7;
+    color: #fff;
+    border-color: #337ab7;
+  }
+
+  /* Styles for buttons */
+  .btn-img {
+    max-width: 50px;
+    max-height: 50px;
+  }
+</style>
+
+<!-- 标签筛选和超链接按钮的排版 -->
+<div class="row mb-3">
+  <div class="col-lg-4 col-md-5">
+    <form method="GET" action="{% url 'blog:post_list' %}" class="form-inline">
+      <label for="id_tag" class="sr-only">筛选标签：</label>
+      <select name="tag" id="id_tag" class="form-control mr-2">
         <option value="">全部</option>
         {% for tag in tags %}
-            <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
+          <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
         {% endfor %}
-    </select>
-    <button type="submit">筛选</button>
-</form>
-<ul>
-    {% for post in page_obj %}
-        <h3>{{ post.title }}</h3>
-        <p>标签：
-            {% for tag in post.tags.all %}
-                {{ tag.name }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </p>
-        <a href="{% url 'blog:post_detail' post_id=post.pk %}">查看详情</a>
-        <hr>
-    {% empty %}
-        <p>暂无博客文章。</p>
-    {% endfor %}
-</ul>
+      </select>
+      <button type="submit" class="btn btn-primary">筛选</button>
+    </form>
+  </div>
+  <div class="d-flex flex-column align-items-center">
+      <div class="text-center mb-2">
+        <a href="{% url 'blog:create_post' %}" class="btn btn-success"><img src="{% static 'images/create.png' %}"  class="btn-img">发表文章</a>
+        <a href="{% url 'blog:search_posts' %}" class="btn btn-primary"><img src="{% static 'images/search.png' %}"  class="btn-img">搜索</a>
+        <a href="{% url 'customer_home' %}" class="btn btn-secondary"><img src="{% static 'images/home.png' %}"  class="btn-img">返回首页</a>
+      </div>
+  </div>
+</div>
+
+<!-- 所有博客文章 -->
+{% for post in page_obj %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">文章标题：{{ post.title }}</h5>
+    {% if post.tags.all %}
+    <div class="card-subtitle mb-2 text-muted">
+      {% for tag in post.tags.all %}
+      <span class="tag-badge badge badge-secondary">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="card-header">部分文章内容：{{ post.content|truncatewords_html:100 }}</div>
+  <div class="card-footer text-muted">
+    <a href="{% url 'blog:post_detail' post_id=post.pk %}" class="btn btn-sm btn-primary">查看详情</a>
+  </div>
+</div>
+{% empty %}
+<p>暂无博客文章。</p>
+{% endfor %}
 
 <!-- 分页导航 -->
-<div class="pagination">
-    {% if page_obj.has_previous %}
-        <a href="?tag={{ request.GET.tag }}&page=1">首页</a>
-        <a href="?tag={{ request.GET.tag }}&page={{ page_obj.previous_page_number }}">上一页</a>
-    {% endif %}
+<div class="pagination justify-content-center pt-3">
+  {% if page_obj.has_previous %}
+  <a href="?tag={{ request.GET.tag }}&page=1" class="page-link">&laquo; 首页</a>
+  <a href="?tag={{ request.GET.tag }}&page={{ page_obj.previous_page_number }}" class="page-link">上一页</a>
+  {% endif %}
 
-    {% for page in page_obj.paginator.page_range %}
-        {% if page_obj.number == page %}
-            <span class="current-page">{{ page }}</span>
-        {% else %}
-            <a href="?tag={{ request.GET.tag }}&page={{ page }}">{{ page }}</a>
-        {% endif %}
-    {% endfor %}
+  {% for page in page_obj.paginator.page_range %}
+  {% if page_obj.number == page %}
+  <a href="?tag={{ request.GET.tag }}&page={{ page }}" class="page-link current-page">{{ page }}</a>
+  {% else %}
+  <a href="?tag={{ request.GET.tag }}&page={{ page }}" class="page-link">{{ page }}</a>
+  {% endif %}
+  {% endfor %}
 
-    {% if page_obj.has_next %}
-        <a href="?tag={{ request.GET.tag }}&page={{ page_obj.next_page_number }}">下一页</a>
-        <a href="?tag={{ request.GET.tag }}&page={{ page_obj.paginator.num_pages }}">末页</a>
-    {% endif %}
+  {% if page_obj.has_next %}
+  <a href="?tag={{ request.GET.tag }}&page={{ page_obj.next_page_number }}" class="page-link">下一页</a>
+  <a href="?tag={{ request.GET.tag }}&page={{ page_obj.paginator.num_pages }}" class="page-link">末页 &raquo;</a>
+  {% endif %}
 </div>
-<div>
-    <a href="{% url 'blog:create_post' %}">发表文章</a><br>
-    <a href="{% url 'blog:search_posts' %}">搜索</a><br>
-    <a href="{% url 'customer_home' %}">返回首页</a><br>
-</div>
-
 {% endblock %}
-```

@@ -1,28 +1,73 @@
 {% extends 'base_customer.html' %}
-{% block title %}车友圈/搜索博客{% endblock %}
-{% block content %}
-<!-- blog/search_results.html -->
-<form method="GET" action="{% url 'blog:search_posts' %}">
-    <label>
-        <input type="text" name="q" placeholder="搜索博客文章">
-    </label>
-    <button type="submit">搜索</button>
-</form>
-<h1>搜索结果：{{ query }}</h1>
 
-{% if posts %}
-    <ul>
-       {% for post in posts %}
-            <li><a href="{% url 'blog:post_detail' post_id=post.id %}">{{ post.title }}</a></li>
+{% block title %}车友圈/搜索博客{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom styles for search results page */
+    .list-group-item {
+      border-top: none;
+      border-bottom: none;
+    }
+    .list-group-item:hover {
+      background-color: #f8f9fa;
+    }
+    .badge {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.5rem;
+      margin-right: 0.5rem;
+    }
+    small {
+      font-size: 0.8rem;
+    }
+    .fas {
+      margin-right: 0.5rem;
+      font-size: 0.8rem;
+    }
+  </style>
+
+<!-- blog/search_results.html -->
+<div class="container py-5">
+  <h1 class="text-center mb-5">搜索结果：{{ query }}</h1>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <form method="GET" action="{% url 'blog:search_posts' %}">
+        <div class="input-group mb-3">
+          <input type="text" name="q" class="form-control" placeholder="搜索博客文章" value="{{ query }}">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">搜索</button>
+          </div>
+        </div>
+      </form>
+
+      {% if posts %}
+      <ul class="list-group">
+        {% for post in posts %}
+        <li class="list-group-item">
+          <a href="{% url 'blog:post_detail' post_id=post.id %}"><h4 class="mb-0">{{ post.title }}</h4></a>
+          {% if post.tags.all %}
+          <div class="mb-2">
+            {% for tag in post.tags.all %}
+            <span class="badge badge-secondary">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <p class="mb-0">{{ post.content|truncatewords_html:100 }}</p>
+          <small class="text-muted">作者：{{ post.author }}，发布时间：{{ post.created_at|date:"Y-m-d H:i:s" }}</small>
+        </li>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>没有找到相关的博客文章。</p>
-{% endif %}
-<!--回到博客列表-->
-<a href="{% url 'blog:post_list' %}">回到博客列表</a><br>
-<!--回到首页-->
-<a href="{% url 'customer_home' %}">返回首页</a><br>
+      </ul>
+      {% else %}
+      <p>没有找到相关的博客文章。</p>
+      {% endif %}
+
+      <div class="mt-5">
+        <a href="{% url 'blog:post_list' %}" class="btn btn-secondary"><i class="fas fa-chevron-left"></i> 回到博客列表</a>
+        <a href="{% url 'customer_home' %}" class="btn btn-primary float-right"><i class="fas fa-home"></i> 返回首页</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
-```
+

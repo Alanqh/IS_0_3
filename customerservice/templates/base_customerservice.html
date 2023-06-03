@@ -9,61 +9,66 @@
     /* 导航栏样式 */
     .navbar {
         background-color: skyblue;
+        background-image: url("../static/images/background3.png");
         padding: 10px 60px; /* change the padding value to adjust the width */
         display: flex;
         justify-content:space-around; /* evenly distribute the items */
         align-items: center;
     }
-    
+
     /* 导航栏链接样式 */
     .navbar a {
-        color: black; /* change the color of the links */
+        color: #ffffff; /* change the color of the links */
         text-decoration: none;
         font-size: 18px;
     }
-    
+
     /* 导航栏链接悬停样式 */
     .navbar a:hover {
         color: grey; /* change the color of the links on hover */
     }
-    
+
     /* 导航栏下拉菜单样式 */
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: white;
+        background-color: #293b3f;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         padding: 12px 16px;
         z-index: 1; /* 确保下拉菜单在其他元素上方 */
     }
-/* 导航栏下拉菜单展开样式 */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 
-/* 脚栏样式 */
+    /* 导航栏下拉菜单展开样式 */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* 脚栏样式 */
     .footer {
+        background-image: url("../static/images/background3.png");
         background-color: #003c6a;
         color: white;
         padding: 20px;
         position: relative;
     }
 
-/* 中间部分样式 */
-.content {
-    /* 添加你需要的样式 */
-    flex: 1; /* 填充剩余空间 */
-    min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
-    overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
-}
+    /* 中间部分样式 */
+    .content {
+        /* 添加你需要的样式 */
+        flex: 1; /* 填充剩余空间 */
+        min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
+        overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
+    }
 
-/* 页面背景样式 */
-body {
-    background-color: #e7f4f8; /* change the background color */
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    /* 页面背景样式 */
+    body {
+        background-image: url("../static/images/background7.jpg");
+        background-color: #e7f4f8; /* change the background color */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
 
 /* 卡片样式 */
 .card-header {
@@ -110,8 +115,8 @@ body {
 <body>
     <div class="navbar">
     <!-- 导航栏内容 -->
-        <h1>客服子系统</h1>
-        <a href="{% url 'customerservice_home' %}">首页</a>
+        <img src="../static/images/AI改图-北航经管新能源汽车logo1-662x205.png" height="80" width="240">
+        <a href="{% url 'customerservice_home' %}">客服首页</a>
         <a href="{% url 'chat_index' %}">客户消息</a>
         <div class="dropdown">
             <a href="#" class="dropdown">查询中心</a>

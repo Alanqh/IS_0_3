@@ -12,7 +12,7 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <input type="submit" value="登录" class="btn btn-primary">
+                    <p>已正确输入！  <input type="submit" value="登录" class="btn btn-primary"></p>
                 </form>
                 <p>还没有账号？<button class="btn btn-primary" onclick="location.href='{% url 'register' %}'">前往注册</button></p>
             </div>

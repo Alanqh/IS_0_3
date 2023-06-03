@@ -2,36 +2,81 @@
 {% load static %}
 {% block title %}员工首页{% endblock %}
 {% block content %}
-<div style="display: flex;">
-    <img src="{% static 'images/OIP-C.jpg' %}" style="width: 50%;">
-    <div style="width: 50%;">
-      <p>在此我们为客户提供多样化、细致服务,并且保证服务用心，</p>
-      <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-        <div style="display: flex; justify-content: center; align-items: center; width: 50%; padding: 10px;">
-          <a href="{% url 'view_received_messages' %}" class="dropdown">
-            <img src="{% static 'images/news.png' %}" style="width: 100%; height: auto;">
-            <p style="text-align: center;">订单消息</p>
-          </a>
-      
-          <a href="{% url 'uncompleted_orders' %}" class="dropdown">
-            <img src="{% static 'images/view.png' %}" style="width: 100%; height: auto;">
-            <p style="text-align: center;">未完成订单</p>
-          </a>
-        </div>
-        
-        <div style="display: flex; justify-content: center; align-items: center; width: 50%; padding: 10px;">
-          <a href="{% url 'inventory_list' %}" class="dropdown">
-            <img src="{% static 'images/inventory.png' %}" style="width: 100%; height: auto;">
-            <p style="text-align: center;">库存查询</p>
-          </a>
-      
-          <a href="#" class="dropdown">
-            <img src="{% static 'images/Locate.png' %}" style="width: 100%; height: auto;">
-            <p style="text-align: center;">管理充电桩位置</p>
-          </a>
-        </div>
-      </div>
-    </div>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <h1>欢迎进入售后服务子系统</h1>
 </div>
+<div class="slideshow-container">
+<div class="mySlides fade">
+  <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+    <img src="{% static 'images/s-inven.png' %}" height="800" width="1200">
+    <a href="{% url 'view_received_messages' %}" class="button">
+      <img src="{% static 'images/news.png' %}" alt="按钮" class="button-image">
+    </a>
+  </div>
+</div>
+
+<div class="mySlides fade">
+  <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+   <img src="{% static 'images/s-news.png' %}" height="800" width="1200">
+    <a href="{% url 'uncompleted_orders' %}" class="button">
+      <img src="{% static 'images/view.png' %}" alt="按钮" class="button-image">
+    </a>
+  </div>
+</div>
+
+<div class="mySlides fade">
+  <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+    <img src="{% static 'images/s-lis.png' %}" height="800" width="1200">
+    <a href="{% url 'inventory_list' %}" class="button" >
+      <img src="{% static 'images/inventory.png' %}" alt="按钮" class="button-image">
+    </a>
+  </div>
+</div>
+
+
+</div>
+<br>
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {
+    slideIndex = 1
+  }
+  slides[slideIndex - 1].style.display = "block";
+  setTimeout(showSlides, 3000); 
+}
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+</script>
+
+<style>
+  <style>
+    .slideshow-container {
+      border: 1px solid gray; /* Add border */
+    }
+  
+    .button {
+      position: absolute;
+      bottom: 450px;
+      left: 100px;
+      z-index: 2;
+    }
+  
+    .button-image {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</style> 
 
 {% endblock %}

@@ -14,14 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
 
 from log.views import index_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_login, name='index_login'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('log/', include('log.urls')),
     path('register/', include('register.urls')), # 引入register应用的urls.py
     path('customer/', include('customer.urls')), # 引入customer应用的urls.py
@@ -35,4 +39,4 @@ urlpatterns = [
 
 
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

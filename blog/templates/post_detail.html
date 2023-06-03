@@ -2,6 +2,8 @@
 {% load static %}
 {% block title %}车友圈/博客详情{% endblock %}
 {% block content %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
   <!-- blog/post_detail.html -->
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
   
@@ -16,7 +18,10 @@
       <p class="post-author">{{ post.author.username }}</p>
       <p class="post-updated-at">{{ post.updated_at }}</p>
     </div>
-    <div class="post-content">{{ post.content|safe }}</div>
+    <div class="post-content">
+        {{ post.content|safe}}
+    </div>
+
     {% if post.image %}
       <img src="{{ post.image.url }}" alt="{{ post.title }} Image">
     {% endif %}

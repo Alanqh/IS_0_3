@@ -1,13 +1,14 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from taggit.managers import TaggableManager
-
+from ckeditor.fields import RichTextField
 from register.models import User
 
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('标题',max_length=100)
-    content = models.TextField('内容',blank=False)
+    content = RichTextUploadingField('内容',blank=False)
     image = models.ImageField('图片',upload_to='blog/images/', null=True, blank=True)
     video = models.FileField('视频',upload_to='blog/videos/', null=True, blank=True)
     created_at = models.DateTimeField('创建时间',auto_now_add=True)

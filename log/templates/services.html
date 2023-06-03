@@ -1,81 +1,178 @@
-<!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>售后服务</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/slider2.css' %}">
 	<style>
 		/* 导航栏样式 */
-		.navbar {
-			background-color: skyblue;
-			padding: 10px 60px; /* change the padding value to adjust the width */
-			display: flex;
-			justify-content:space-around; /* evenly distribute the items */
-			align-items: center;
-		}
+        .navbar {
+            background-image: url("{% static 'images/background3.png' %}");
+            padding: 10px 60px; /* change the padding value to adjust the width */
+            display: flex;
+            justify-content:space-around; /* evenly distribute the items */
+            align-items: center;
+        }
 
-		/* 导航栏链接样式 */
-		.navbar a {
-			color: black; /* change the color of the links */
-			text-decoration: none;
-			font-size: 18px;
-		}
+        /* 导航栏链接样式 */
+        .navbar a {
+            color: #ffffff; /* change the color of the links */
+            text-decoration: none;
+            font-size: 18px;
+        }
 
-		/* 导航栏链接悬停样式 */
-		.navbar a:hover {
-			color: grey; /* change the color of the links on hover */
-		}
+        /* 导航栏链接悬停样式 */
+        .navbar a:hover {
+            color: #a6a1a1; /* change the color of the links on hover */
+        }
 
-		/* 导航栏下拉菜单样式 */
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: white;
-			min-width: 160px;
-			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-			padding: 12px 16px;
-			z-index: 1; /* 确保下拉菜单在其他元素上方 */
-		}
+        /* 导航栏下拉菜单样式 */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1; /* 确保下拉菜单在其他元素上方 */
+        }
 
 		/* 页面背景样式 */
 		body {
-			background-color: white;
 			background-repeat: no-repeat;
 			background-size: cover;
 		}
+
+        .width1200 {
+            margin:0 auto;
+            min-width:1000px;
+        }
+
+		.list {
+            text-align:center;
+            padding:60px 0;
+            overflow:hidden;
+		}
+
+        .list h3 {
+            font-size:36px;
+            color:#333;
+            font-weight:normal;
+        }
+
+        .list h3 span {
+            display:inline-block;
+            margin-right:7px;
+            font-weight:bold;
+        }
+
+        .list p {
+            font-size:18px;
+            display:block;
+            padding:30px 0 60px 0;
+        }
+
+        .list ul {
+            overflow:hidden;
+        }
+
+        .list ul li {
+            float:left;
+            width:25%;
+            text-align:center;
+        }
+
+        .list dt {
+            font-size:18px;
+            margin:10px 0;
+        }
+
+        .list dd {
+            font-size:14px;
+        }
+
+        /* 脚栏样式 */
+        .footer {
+            background-image: url("{% static 'images/background3.png' %}");
+            background-color: #003c6a;
+            color: #ffffff;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card-footer {
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
 	</style>
 </head>
-<body>
+<body background="{% static 'images/background7.jpg' %}">
 	<div class="navbar">
         <!-- 导航栏内容 -->
-        <img src="../static/images/AI改图-北航经管新能源汽车logo1-662x205.png" height="80" width="240">
+        <img src="{% static 'images/AI改图-北航经管新能源汽车logo1-662x205.png' %}" height="80" width="240">
         <a href="/">首页</a>
         <a href="{% url 'profile' %}">新能源汽车</a>
         <a href="{% url 'services' %}">售后服务</a>
         <a href="{% url 'team' %}">团队介绍</a>
     </div>
 
-	<h1>我们的服务</h1>
-	<ul>
-		<li>更换新能源汽车电池</li>
-		<li>拖车服务</li>
-		<li>充电桩位置引导</li>
-		<li>汽车升级维护及改造服务</li>
-		<li>手机APP</li>
-		<ul>
-			<li>如果您是我们的用户，能够通过手机应用实现车辆服务预约</li>
-		</ul>
-		<li>支持所有移动支付方式</li>
-		<ul>
-			<li>免费协助您签约支付宝，安全使用在线网银方式收款。招行、工行、建行、农行、邮政储蓄等的所有网上银行全部支持。</li>
-		</ul>
-		<li>短信、E-mail信息服务</li>
-		<ul>
-			<li>如果您允许，我们将通过预留手机号或是邮箱给您提交服务反馈和进度信息</li>
-		</ul>
-		<li>新能源汽车电池维护管理</li>
-		<ul>
-			<li>为您提供电池寿命信息查询，并给您一个更换或是保养维护提醒</li>
-		</ul>
-	</ul>
+	<div class="width1200 list">
+	<h3>核心竞争力</h3>
+    <p>致力于成为中国新能源汽车领域专业化的售后服务平台！</p>
+    <ul>
+    	<li>
+        	<img src="{% static 'images/更换电池.png' %}" alt="" />
+        	<dt>更换新能源汽车电池</dt>
+            <dd>高效可靠、绿色环保</dd>
+        </li>
+		<li>
+        	<img src="{% static 'images/维护电池.png' %}" alt="" />
+        	<dt>新能源汽车电池维护管理</dt>
+            <dd>为您提供电池寿命信息查询</dd>
+        </li>
+        <br>
+    	<li>
+        	<img src="{% static 'images/拖车.png' %}" alt="" />
+        	<dt>拖车服务</dt>
+            <dd>透明的价格和合理的费用结构</dd>
+        </li>
+    	<li>
+        	<img src="{% static 'images/位置引导.png' %}" alt="" />
+        	<dt>充电桩位置引导</dt>
+            <dd>快速定位、全方位覆盖</dd>
+        </li>
+        <br>
+    	<li>
+        	<img src="{% static 'images/升级维护.png' %}" alt="" />
+        	<dt>汽车升级维护及改造服务</dt>
+            <dd>专业的服务团队和高品质的零配件</dd>
+        </li>
+		<li>
+        	<img src="{% static 'images/手机.png' %}" alt="" />
+        	<dt>手机APP</dt>
+            <dd>您可以通过手机应用查询您的服务记录</dd>
+        </li>
+		<li>
+        	<img src="{% static 'images/支付.png' %}" alt="" />
+        	<dt>支持所有移动支付方式</dt>
+            <dd>免费协助您签约支付宝，安全使用在线网银方式收款</dd>
+        </li>
+		<li>
+        	<img src="{% static 'images/短信.png' %}" alt="" />
+        	<dt>短信、E-mail信息服务</dt>
+            <dd>您可以通过短信、E-mail查询您的服务记录</dd>
+        </li>
+    </ul>
+	</div>
+
+    <div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2019-2020</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <p>违法和不良信息举报电话：123456789</p>
+        <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
 </body>
 </html>

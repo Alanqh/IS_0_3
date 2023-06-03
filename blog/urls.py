@@ -20,4 +20,5 @@ urlpatterns = [
     path('follow/<int:user_id>', views.follow_user, name='follow_user'),
 
 
+
 ]

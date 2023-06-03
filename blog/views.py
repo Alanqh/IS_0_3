@@ -23,18 +23,23 @@ def post_list(request):
     return render(request, 'post_list.html', {'page_obj': page_obj, 'tags': tags})
 
 
+
+from django.utils.safestring import mark_safe
+
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    # 查询点赞数量
+    post.content = mark_safe(post.content)  # 将博客内容标记为安全内容
     likes_count = Like.objects.filter(post=post).count()
-    # 查询评论数量
     comments_count = Comment.objects.filter(post=post).count()
-
     shares = post.shares
 
-    return render(request, 'post_detail.html',
-                  {'post': post, 'shares': shares, 'likes_count': likes_count, 'comments_count': comments_count,
-                   })
+    return render(request, 'post_detail.html', {
+        'post': post,
+        'shares': shares,
+        'likes_count': likes_count,
+        'comments_count': comments_count,
+    })
+
 
 
 def create_post(request):

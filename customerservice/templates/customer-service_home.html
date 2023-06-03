@@ -2,26 +2,88 @@
 {% load static %}
 {% block title %}员工首页{% endblock %}
 {% block content %}
-<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: calc(100vh - 200px);">
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
   <h1>细心 耐心 倾听 交流</h1>
   <h1>客服部门首页</h1>
 </div>
-<div style="display: flex; justify-content: center; flex-wrap: wrap;">
-  <div style="display: flex; justify-content: center; align-items: center; width: 50%; padding: 10px;">
-    <a href="{% url 'customer_information' %}" class="dropdown">
-      <img src="{% static 'images/客户管理.png' %}" style="width: 100%; height: auto;">
-      <p style="text-align: center;">客户信息查询</p>
-    </a>
-
-    <a href="{% url 'service_records' %}" class="dropdown">
-      <img src="{% static 'images/view.png' %}" style="width: 100%; height: auto;">
-      <p style="text-align: center;">订单信息查询</p>
-    </a>
-
-    <a href="{% url 'inventory_list' %}" class="dropdown">
-      <img src="{% static 'images/inventory.png' %}" style="width: 100%; height: auto;">
-      <p style="text-align: center;">库存信息查询</p>
-    </a>
-
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+      <img src="{% static 'images/s-news.png' %}" height="800" width="1200">
+      <a href="{% url 'in_view_messages' %}" class="button">
+        <img src="{% static 'images/news.png' %}" alt="按钮" class="button-image">
+      </a>
+    </div>
   </div>
+  
+  <div class="mySlides fade">
+    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+     <img src="{% static 'images/s-inven.png' %}" height="800" width="1200">
+      <a href="{% url 'inventory_list' %}" class="button">
+        <img src="{% static 'images/view.png' %}" alt="按钮" class="button-image">
+      </a>
+    </div>
+  </div>
+  
+  <div class="mySlides fade">
+    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+      <img src="{% static 'images/cus-slide.png' %}" height="800" width="1200">
+      <a href="{% url 'customer_information' %}' %}" class="button" >
+        <img src="{% static 'images/客户管理.png' %}" alt="按钮" class="button-image">
+      </a>
+    </div>
+  </div>
+  
+  <div class="mySlides fade">
+    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+      <img src="{% static 'images/slide-chat.png' %}" height="800" width="1200">
+      <a href="{% url 'chat_index' %}" class="button" >
+        <img src="{% static 'images/chat.png' %}" alt="按钮" class="button-image">
+      </a>
+    </div>
+  </div>
+  
+  </div>
+  <br>
+  <script>
+  var slideIndex = 0;
+  showSlides();
+  
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+      slideIndex = 1
+    }
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 3000); 
+  }
+  
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+  </script>
+  
+  <style>
+    <style>
+      .slideshow-container {
+        border: 1px solid gray; /* Add border */
+      }
+    
+      .button {
+        position: absolute;
+        bottom: 350px;
+        left: 100px;
+        z-index: 2;
+      }
+    
+      .button-image {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
 {% endblock %}

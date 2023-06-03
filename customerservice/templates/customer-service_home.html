@@ -9,7 +9,7 @@
 <div class="slideshow-container">
   <div class="mySlides fade">
     <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-      <img src="{% static 'images/s-news.png' %}" height="800" width="1200">
+      <img src="{% static 'images/s-news.png' %}" height="500" width="900">
       <a href="{% url 'in_view_messages' %}" class="button">
         <img src="{% static 'images/news.png' %}" alt="按钮" class="button-image">
       </a>
@@ -18,7 +18,7 @@
   
   <div class="mySlides fade">
     <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-     <img src="{% static 'images/s-inven.png' %}" height="800" width="1200">
+     <img src="{% static 'images/s-inven.png' %}" height="500" width="900">
       <a href="{% url 'inventory_list' %}" class="button">
         <img src="{% static 'images/view.png' %}" alt="按钮" class="button-image">
       </a>
@@ -27,7 +27,7 @@
   
   <div class="mySlides fade">
     <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-      <img src="{% static 'images/cus-slide.png' %}" height="800" width="1200">
+      <img src="{% static 'images/cus-slide.png' %}" height="500" width="900">
       <a href="{% url 'customer_information' %}' %}" class="button" >
         <img src="{% static 'images/客户管理.png' %}" alt="按钮" class="button-image">
       </a>
@@ -36,7 +36,7 @@
   
   <div class="mySlides fade">
     <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-      <img src="{% static 'images/slide-chat.png' %}" height="800" width="1200">
+      <img src="{% static 'images/slide-chat.png' %}" height="500" width="900">
       <a href="{% url 'chat_index' %}" class="button" >
         <img src="{% static 'images/chat.png' %}" alt="按钮" class="button-image">
       </a>
@@ -82,8 +82,8 @@
       }
     
       .button-image {
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
       }
     </style>
 {% endblock %}

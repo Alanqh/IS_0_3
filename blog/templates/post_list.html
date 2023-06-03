@@ -34,13 +34,7 @@
     max-height: 50px;
   }
 
-  /* 页面背景样式 */
-  body {
-      background-image: url("../static/images/background3.jpg");
-      background-color: white;
-      background-repeat: no-repeat;
-      background-size: cover;
-  }
+
 </style>
 
 <!-- 标签筛选和超链接按钮的排版 -->
@@ -85,7 +79,7 @@
         </div>
       {% endif %}
     </p>
-    <div class="card-text">部分文章内容：{{ post.content|truncatewords_html:100 }}</div>
+    <div class="card-text">部分文章内容：{{ post.content|safe|truncatewords_html:100 }}</div>
   </div>
   <div class="card-footer text-muted text-right">
     <a href="{% url 'blog:post_detail' post_id=post.pk %}" class="btn btn-sm btn-primary">查看详情</a>

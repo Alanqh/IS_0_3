@@ -8,7 +8,7 @@
 <div class="slideshow-container">
 <div class="mySlides fade">
   <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-    <img src="{% static 'images/s-inven.png' %}" height="800" width="1200">
+    <img src="{% static 'images/s-inven.png' %}" height="500" width="900">
     <a href="{% url 'view_received_messages' %}" class="button">
       <img src="{% static 'images/news.png' %}" alt="按钮" class="button-image">
     </a>
@@ -17,7 +17,7 @@
 
 <div class="mySlides fade">
   <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-   <img src="{% static 'images/s-news.png' %}" height="800" width="1200">
+   <img src="{% static 'images/s-news.png' %}" height="500" width="900">
     <a href="{% url 'uncompleted_orders' %}" class="button">
       <img src="{% static 'images/view.png' %}" alt="按钮" class="button-image">
     </a>
@@ -26,7 +26,7 @@
 
 <div class="mySlides fade">
   <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
-    <img src="{% static 'images/s-lis.png' %}" height="800" width="1200">
+    <img src="{% static 'images/s-lis.png' %}" height="500" width="900">
     <a href="{% url 'inventory_list' %}" class="button" >
       <img src="{% static 'images/inventory.png' %}" alt="按钮" class="button-image">
     </a>
@@ -73,8 +73,8 @@ function plusSlides(n) {
     }
   
     .button-image {
-      width: 100px;
-      height: 100px;
+      width: 70px;
+      height: 70px;
     }
   </style>
 </style> 

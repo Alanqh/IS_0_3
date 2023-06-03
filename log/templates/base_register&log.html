@@ -8,6 +8,7 @@
     /* 导航栏样式 */
     .navbar {
         background-color: skyblue;
+        background-image: url("../static/images/background3.png");
         padding: 10px 60px; /* change the padding value to adjust the width */
         display: flex;
         justify-content:space-around; /* evenly distribute the items */
@@ -16,14 +17,14 @@
 
     /* 导航栏链接样式 */
     .navbar a {
-        color: black; /* change the color of the links */
+        color: #ffffff; /* change the color of the links */
         text-decoration: none;
         font-size: 18px;
     }
 
     /* 导航栏链接悬停样式 */
     .navbar a:hover {
-        color: grey; /* change the color of the links on hover */
+        color: #a6a1a1; /* change the color of the links on hover */
     }
 
     /* 导航栏下拉菜单样式 */
@@ -39,8 +40,9 @@
         
     /* 脚栏样式 */
     .footer {
+        background-image: url("../static/images/background3.png");
         background-color: #003c6a;
-        color: white;
+        color: #ffffff;
         padding: 20px;
         position: relative;
     }
@@ -55,6 +57,7 @@
 
     /* 页面背景样式 */
     body {
+        background-image: url("../static/images/background7.jpg");
         background-color: white;
         background-repeat: no-repeat;
         background-size: cover;
@@ -62,16 +65,19 @@
 
 
     .card-header {
+      background-image: url("../static/images/background3.png");
       background-color: skyblue;;
       padding: 2px;
       text-align: center; /* 居中对齐标题文本 */
     }
 
     .card {
+      background-image: url("../static/images/background3.png");
       border: 1px solid #ccc;
       padding: 10px;
       max-width: 300px; /* 设置卡片的最大宽度 */
       width: 100%; /* 设置卡片宽度为父容器的100% */
+      color: #ffffff;
     }
 
     .card-container {
@@ -80,9 +86,16 @@
       align-items:center;
       height: 100vh;
     }
+    .card-container1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
     .card-body {
       padding: 10px;
+        text-align: center;
     }
 
     .card-footer {
@@ -105,7 +118,7 @@
 <body>
     <div class="navbar">
         <!-- 导航栏内容 -->
-        <h1>新能源汽车售后服务系统</h1>
+        <img src="../static/images/AI改图-北航经管新能源汽车logo1-662x205.png" height="80" width="240">
         <a href="/">首页</a>
         <a href="{% url 'profile' %}">新能源汽车</a>
         <a href="{% url 'services' %}">售后服务</a>

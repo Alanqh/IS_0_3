@@ -1,119 +1,54 @@
 {% extends 'base_customer.html' %}
+
 {% block title %}充电查询{% endblock %}
+
 {% block content %}
-    <div class="container">
-        <h1>地图搜索</h1>
-        <form method="POST" action="{% url 'map:map_search' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="province">省份:</label>
-                <select id="province" name="province" class="form-control">
-                    {% for province, cities in province_data.items %}
-                        <option value="{{ province }}">{{ province }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+    <h1>地图搜索</h1>
+    <form method="POST" action="{% url 'map:map_search' %}">
+        {% csrf_token %}
+        <label for="province">省份:</label>
+        <select id="province" name="province">
+            {% for province, cities in province_data.items %}
+                <option value="{{ province }}">{{ province }}</option>
+            {% endfor %}
+        </select>
 
-            <div class="form-group">
-                <label for="city">城市:</label>
-                <select id="city" name="city" class="form-control grey-out">
-                    <option value="">请选择城市</option>
-                </select>
-            </div>
+        <label for="city">城市:</label>
+        <select id="city" name="city">
+            <option value="">请选择城市</option>
+        </select>
 
-            <div class="form-group">
-                <input type="submit" value="搜索" class="btn btn-primary">
-            </div>
-        </form>
-
-        {% if error_message %}
-            <div class="alert alert-danger">
-                <p>{{ error_message }}</p>
-            </div>
-        {% endif %}
-
-        <div id="search-results" class="hidden">
-            <h2>查询结果</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>充电站名称</th>
-                        <th>地址</th>
-                        <th>距离</th>
-                        <th>状态</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Search results will be populated here -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <input type="submit" value="搜索">
+    </form>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        // 动态加载城市选项
+        // Dynamic loading of city options
         $(document).ready(function() {
             $('#province').change(function() {
                 var province = $(this).val();
                 var cities = {{ province_data | safe }};
                 var citySelect = $('#city');
 
-                // 清空已选城市
+                // Clear selected city
                 citySelect.empty();
 
-                // 添加默认选项
+                // Add default option
                 citySelect.append($('<option>').text('请选择城市').attr('value', ''));
 
-                // 添加城市选项
+                // Add city options
                 if (cities.hasOwnProperty(province)) {
                     var provinceCities = cities[province];
                     for (var i = 0; i < provinceCities.length; i++) {
                         var city = provinceCities[i];
                         citySelect.append($('<option>').text(city).attr('value', city));
                     }
-                    // 移除城市选择框变灰效果
-                    citySelect.removeClass('grey-out');
-                } else {
-                    // 添加城市选择框变灰效果
-                    citySelect.addClass('grey-out');
                 }
             });
         });
     </script>
-    
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
 
-        #search-results {
-            margin-top: 50px;
-            display: none;
-        }
-
-        /* Style select dropdowns */
-        select.form-control {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #555;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            padding: 5px 10px;
-            background-color: #fff;
-            background-image: none;
-            cursor: pointer;
-        }
-
-        /* Style disabled select dropdown */
-        select.grey-out {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    </style>
 {% endblock %}

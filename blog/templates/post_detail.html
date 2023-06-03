@@ -2,8 +2,6 @@
 {% load static %}
 {% block title %}车友圈/博客详情{% endblock %}
 {% block content %}
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
   <!-- blog/post_detail.html -->
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
   
@@ -18,10 +16,7 @@
       <p class="post-author">{{ post.author.username }}</p>
       <p class="post-updated-at">{{ post.updated_at }}</p>
     </div>
-    <div class="post-content">
-        {{ post.content|safe}}
-    </div>
-
+    <div class="post-content">{{ post.content|safe }}</div>
     {% if post.image %}
       <img src="{{ post.image.url }}" alt="{{ post.title }} Image">
     {% endif %}
@@ -32,14 +27,16 @@
       </video>
     {% endif %}
   </div>
+   
+  <div class="d-flex flex-column align-items-center">
+    <div class="text-center mb-2">
+      <a href="{% url 'blog:post_likes' post_id=post.id %}" ><img src="{% static 'images/点赞.png' %}"  class="btn-img">{{ likes_count }}</a>
+      <a href="{% url 'blog:comments_list' post_id=post.id %}"><img src="{% static 'images/评论.png' %}"  class="btn-img">{{ comments_count }}</a>
+      <a href="#"><img src="{% static 'images/转发 .png' %}"  class="btn-img">{{ shares }}</a>
+    </div>
+  </div>
 
   <div class="post-actions">
-      <!-- 显示点赞数量，并添加链接到点赞记录页面 -->
-        <p><a href="{% url 'blog:post_likes' post_id=post.id %}">点赞数：{{ likes_count }}</a></p>
-        <!-- 显示评论数量，并添加链接到评论页面 -->
-        <p><a href="{% url 'blog:comments_list' post_id=post.id %}">评论数：{{ comments_count }}</a></p>
-        <!-- 显示分享数 -->
-        <p>分享数：{{ shares }}</p>
     <form class="post-share-form" method="POST" action="{% url 'blog:share_post' post.id %}">
       {% csrf_token %}
       <button class="post-like-btn" type="submit">分享</button>

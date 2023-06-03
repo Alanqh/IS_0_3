@@ -33,56 +33,69 @@
     max-width: 50px;
     max-height: 50px;
   }
+
+  /* 页面背景样式 */
+  body {
+      background-image: url("../static/images/background3.jpg");
+      background-color: white;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
 </style>
 
 <!-- 标签筛选和超链接按钮的排版 -->
-<div class="row mb-3">
+<div class="row mb-3 justify-content-between align-items-center">
   <div class="col-lg-4 col-md-5">
     <form method="GET" action="{% url 'blog:post_list' %}" class="form-inline">
-      <label for="id_tag" class="sr-only">筛选标签：</label>
-      <select name="tag" id="id_tag" class="form-control mr-2">
+      <label for="id_tag" class="mr-2">筛选标签：</label>
+      <select name="tag" id="id_tag" class="form-control">
         <option value="">全部</option>
         {% for tag in tags %}
           <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
         {% endfor %}
       </select>
-      <button type="submit" class="btn btn-primary">筛选</button>
+      <button type="submit" class="btn btn-primary ml-2">筛选</button>
     </form>
   </div>
-  <div class="d-flex flex-column align-items-center">
-      <div class="text-center mb-2">
-        <a href="{% url 'blog:create_post' %}" class="btn btn-success"><img src="{% static 'images/create.png' %}"  class="btn-img">发表文章</a>
-        <a href="{% url 'blog:search_posts' %}" class="btn btn-primary"><img src="{% static 'images/search.png' %}"  class="btn-img">搜索</a>
-        <a href="{% url 'customer_home' %}" class="btn btn-secondary"><img src="{% static 'images/home.png' %}"  class="btn-img">返回首页</a>
-      </div>
+  <div class="col-lg-8 col-md-7">
+    <div class="d-flex justify-content-end align-items-center">
+      <a href="{% url 'blog:create_post' %}" class="btn btn-success mr-2"><img src="{% static 'images/create.png' %}" class="btn-img"></a>
+      <a href="{% url 'blog:search_posts' %}" class="btn btn-primary mr-2"><img src="{% static 'images/search.png' %}" class="btn-img"></a>
+      <a href="{% url 'customer_home' %}" class="btn btn-secondary"><img src="{% static 'images/home.png' %}" class="btn-img"></a>
+    </div>
   </div>
 </div>
 
+
+
+
 <!-- 所有博客文章 -->
-{% for post in page_obj %}
-<div class="card mb-3">
-  <div class="card-body">
-    <h5 class="card-title">文章标题：{{ post.title }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">作者：{{ post.author }}</h6>
-    <p>标签：</p>
+<div class="row">
+  {% for post in page_obj %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title" align="center">文章标题：{{ post.title }}</h5>
+      <h6 class="card-subtitle"  align="right">作者：{{ post.author }}</h6>
+    <p class="card-subtitle"  align="left">标签：
       {% if post.tags.all %}
         <div class="card-subtitle mb-2 text-muted">
           {% for tag in post.tags.all %}
           <span class="tag-badge badge badge-secondary">{{ tag }}</span>
           {% endfor %}
         </div>
-        {% endif %}
-
+      {% endif %}
+    </p>
+    <div class="card-text">部分文章内容：{{ post.content|truncatewords_html:100 }}</div>
   </div>
-</div>
-  <div class="card-header">部分文章内容：{{ post.content|safe|truncatewords_html:100 }}</div>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted text-right">
     <a href="{% url 'blog:post_detail' post_id=post.pk %}" class="btn btn-sm btn-primary">查看详情</a>
   </div>
 </div>
 {% empty %}
 <p>暂无博客文章。</p>
 {% endfor %}
+
+</div>
 
 <!-- 分页导航 -->
 <div class="pagination justify-content-center pt-3">
@@ -105,3 +118,4 @@
   {% endif %}
 </div>
 {% endblock %}
+

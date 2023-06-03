@@ -53,6 +53,9 @@
   <h1>{{ user.username }}的个人主页</h1>
   <div class="row">
     <div class="col-md-8">
+      <p>您的邮箱：{{ user.email }}</p>
+      <p>角色类型：{{ user.role }}</p>
+
       <div class="followers-following">
         <span>关注：</span><a href="{% url 'blog:follower_list' user_id=user.id %}">{{ followers.count }}</a>
         <span>粉丝：</span><a href="{% url 'blog:following_list' user_id=user.id %}">{{ following.count }}</a>
@@ -63,15 +66,13 @@
 {% if posts %}
   {% for post in posts %}
     <div class="card mb-3">
-      <div class="card-header">
-        <h2>文章标题</h2>
+      <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
       </div>
-      <div class="card-body">
+      <div class="card-header">
         <div class="row">
           <div class="col-md-8">
-            <h2>文章内容</h2>
-            <p class="card-text">{{ post.content|safe|truncatewords_html:100 }}</p>
+            <p class="card-text">{{ post.content|truncatewords_html:100 }}</p>
           </div>
           <div class="col-md-4">
             <p class="card-text text-muted text-right">{{ post.pub_date }}</p>

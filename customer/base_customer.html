@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>新能源汽车售后服务客户子系统</title>
+    <!-- 添加你的样式表链接和其他头部信息 -->
+
+
+<style>
+    /* 导航栏样式 */
+    .navbar {
+        background-color: skyblue;
+        padding: 10px 60px; /* change the padding value to adjust the width */
+        display: flex;
+        justify-content:space-around; /* evenly distribute the items */
+        align-items: center;
+    }
+    
+    /* 导航栏链接样式 */
+    .navbar a {
+        color: black; /* change the color of the links */
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    /* 导航栏链接悬停样式 */
+    .navbar a:hover {
+        color: grey; /* change the color of the links on hover */
+    }
+    
+    /* 导航栏下拉菜单样式 */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1; /* 确保下拉菜单在其他元素上方 */
+    }
+
+    /* 导航栏下拉菜单展开样式 */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* 脚栏样式 */
+    .footer {
+        background-color: #003c6a;            
+        color: white;
+        padding: 20px;
+        position: relative;
+        }
+    /* 中间部分样式 *
+    /.content {
+    /* 添加你需要的样式 */
+        flex: 1; /* 填充剩余空间 */
+        min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
+        overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
+    }
+
+    /* 页面背景样式 */
+    body {
+        background-image: url("../static/images/background3.jpg");
+        background-color: white;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* 卡片样式 */
+    .card-header {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center; /* 居中对齐标题文本 */
+    }
+
+    .card p {
+        margin-bottom: 10px;
+    }
+
+    .btn-img {
+        max-width: 1.5em;
+        max-height: 1.5em;
+        margin-bottom: 0.25em;
+    }
+
+    .unread-count {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 5px;
+        font-size: 12px;
+        position: absolute;
+        top: -1px;
+        right: -1px;
+    }
+
+
+</style>
+
+<script>
+    // 在页面加载完成后执行以下JavaScript代码
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 获取所有具有.dropdown类的元素
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        // 为每个.dropdown元素添加事件监听器
+        dropdowns.forEach((dropdown) => {
+            // 当鼠标进入.dropdown元素时
+            dropdown.addEventListener('mouseenter', () => {
+                // 获取与当前.dropdown元素关联的.dropdown-content元素
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                // 显示.dropdown-content元素
+                dropdownContent.style.display = 'block';
+            });
+
+            // 当鼠标离开.dropdown元素时
+            dropdown.addEventListener('mouseleave', () => {
+                // 获取与当前.dropdown元素关联的.dropdown-content元素
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                // 隐藏.dropdown-content元素
+                dropdownContent.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+</head>
+<body>
+    <div class="navbar">
+    <!-- 导航栏内容 -->
+        <img src="../static/images/AI改图-北航经管新能源汽车logo1-662x205.png" height="80" width="240">
+        <a href="{% url 'customer_home' %}">客户首页</a>
+        <a href="{% url 'map:map_search' %}">充电查询</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown">车友圈</a>
+            <div class="dropdown-content">
+                <div class="card-header"><a href="{% url 'blog:user_profile' user_id=user.id %}">个人主页</a><br></div>
+                <div class="card-header"><a href="{% url 'blog:post_list' %}">博客列表</a><br></div>
+                <div class="card-header"><a href="{% url 'blog:create_post' %}">创作博客</a></div>
+                <div class="card-header"><a href="{% url 'blog:search_posts' %}">搜索博客</a></div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#" class="dropdown">客服咨询</a>
+            <div class="dropdown-content">
+                <div class="card-header"><a href="{% url 'chat_index'  %}">人工客服</a><br></div>
+                <div class="card-header"><a href="#">智能客服</a><br></div>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="#" class="dropdown">售后服务</a>
+            <div class="dropdown-content">
+               {% if unread_messages_count > 0 %}
+                <span class="unread-count">{{ unread_messages_count }}</span>
+               {% endif %}
+                <div class="card-header"><a href="{% url 'view_feedback_messages' %}">反馈信息</a></div>
+                <div class="card-header"><a href="{% url 'service_application' %}">申请售后</a><br></div>
+                <div class="card-header"><a href="{% url 'service_records' %}">记录查询</a><br></div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#" class="dropdown">个人中心</a>
+            <div class="dropdown-content">
+                <div class="card-header"><a href="{% url 'user_info' %}">修改个人信息</a><br></div>
+                <div class="card-header"><a href="{% url 'change_password' %}">修改密码</a><br></div>
+                <div class="card-header"><a href="{% url 'logout' %}">退出登录</a></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2023</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
+
+    <!-- 添加你的脚本链接和其他脚部信息 -->
+</body>
+</html>

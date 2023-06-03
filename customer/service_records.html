@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>订单记录</title>
+    <style>
+      /* 脚栏样式 */
+      .footer {
+          background-color: #003c6a;
+          color: white;
+          padding: 20px;
+          position: relative;
+      }
+
+    /* 中间部分样式 */
+    .content {
+      /* 添加你需要的样式 */
+        flex: 1; /* 填充剩余空间 */
+        min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
+        overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
+      }
+      h1 {
+        text-align: center;
+        margin-top: 40px;
+      }
+
+    /* 页面背景样式 */
+    body {
+        background-color: #e7f4f8; /* change the background color */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: white;
+      color: black;
+      font-weight: bold;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+      background-color: skyblue;
+    }
+    
+    @media screen and (max-width: 767px) {
+      table {
+        table-layout:  fixed;
+      }
+      
+      td {
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      th {
+        display: none;
+      }
+    }
+
+</style>
+</head>
+<body>
+    <div class="content">
+        <!-- 中间部分内容，留给你自己填充 -->
+        {% block content %}
+        <h1>售后服务记录</h1>
+        {% if service_records %}
+        <table>
+          <thead>
+            <tr>
+            <th>用户名</th>
+            <th>车型</th>
+            <th>服务类型</th>
+            <th>申请时间</th>
+            <th>详情描述</th>
+            <th>订单状态</th>
+            </tr>
+          </thead>
+        <tbody>
+      {% for record in service_records %}
+        <tr>
+          <td>{{ record.user.name }}</td>
+          <td>{{ record.car.car_name }}</td>
+          <td>{{ record.service_type.name }}</td>
+          <td>{{ record.datetime }}</td>
+          <td>{{ record.description }}</td>
+          <td>{% if record.service_state == 0 %}未完成{% else %}已完成{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>您还没有申请过售后服务。</p>
+{% endif %}
+{% endblock %}
+    </div>
+    <br>
+    <div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2019-2020</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <p>违法和不良信息举报电话：123456789</p>
+        <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
+
+</body>
+</html>
+
+

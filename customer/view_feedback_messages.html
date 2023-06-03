@@ -1,0 +1,93 @@
+{% extends 'base_customer.html' %}
+
+{% block title %}反馈消息{% endblock %}
+
+{% block content %}
+<style>
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .message-header h3 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .message-header span {
+    font-size: 16px;
+    color: #999;
+  }
+
+  .message-content {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .message-action {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .message-action a {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .message-action a:hover {
+    background-color: #006fe6;
+  }
+
+  .no-messages {
+    font-size: 24px;
+    color: #999;
+    text-align: center;
+    margin: 40px 0;
+  }
+</style>
+{% if unread_messages %}
+  {% for message in unread_messages %}
+    <div class="message-container">
+      <div class="message-header">
+        <h3>{{ message.subject }}</h3>
+        <span>{{ message.timestamp }}</span>
+      </div>
+      <div class="message-content">
+        {{ message.content }}
+      </div>
+      <div class="message-action">
+        <a href="{% url 'cu_mark_as_read' message.id %}">标记为已读</a>
+      </div>
+    </div>
+  {% endfor %}
+  {% if has_more_pages %}
+    <div class="message-action">
+      <a href="{% url 'cu_unread_messages' page=next_page %}">下一页</a>
+    </div>
+  {% endif %}
+{% else %}
+  <div class="no-messages">
+    没有收到新消息。
+  </div>
+  <div class="message-action">
+    <a href="{% url 'customer_home' %}">返回客户首页</a>
+  </div>
+{% endif %}
+{% endblock %}

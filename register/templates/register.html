@@ -3,6 +3,25 @@
 {% block title %}注册{% endblock %}
 {% block content %}
   <div class="card-container">
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+          <img src="{% static 'images/Model-y.jpg' %}" style="width:150%">
+        </div>
+      
+        <div class="mySlides fade">
+          <img src="{% static 'images/Model-x.jpg' %}" style="width:150%">
+        </div>
+      
+        <div class="mySlides fade">
+          <img src="{% static 'images/Model-s.jpg' %}" style="width:150%">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="{% static 'images/Model-3.jpg' %}" style="width:150%">
+        </div>
+      </div>
+      <br>
+
     <div class="card">
         <div class="card-header">
             <h3>注册</h3>
@@ -18,7 +37,36 @@
     </div>
   </div>
 
+  <style>
+    .slideshow-container {
+      border: 1px solid gray; /* Add border */
+      position: absolute;
+      left: 10px;
+    }
+  </style> 
+
   <script>
+    var slideIndex = 0;
+    showSlides();
+  
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1
+      }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 3000); 
+    }
+  
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
     function toggleDepartment() {
         var role = document.getElementById("id_role");
         var departmentField = document.getElementById("id_department");

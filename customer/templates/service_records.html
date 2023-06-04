@@ -13,20 +13,69 @@
           position: relative;
       }
 
-/* 中间部分样式 */
-.content {
-    /* 添加你需要的样式 */
-    flex: 1; /* 填充剩余空间 */
-    min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
-    overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
-}
+    /* 中间部分样式 */
+    .content {
+      /* 添加你需要的样式 */
+        flex: 1; /* 填充剩余空间 */
+        min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px); /* 头部高度和页脚高度，增加额外的20px用于脚栏间距 */
+        overflow-y: auto; /* 当内容溢出时启用垂直滚动条 */
+      }
+      h1 {
+        text-align: center;
+        margin-top: 40px;
+      }
 
-/* 页面背景样式 */
-body {
-    background-color: #e7f4f8; /* change the background color */
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    /* 页面背景样式 */
+    body {
+        background-color: #e7f4f8; /* change the background color */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: white;
+      color: black;
+      font-weight: bold;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+      background-color: skyblue;
+    }
+    
+    @media screen and (max-width: 767px) {
+      table {
+        table-layout:  fixed;
+      }
+      
+      td {
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      th {
+        display: none;
+      }
+    }
 
 </style>
 </head>
@@ -34,36 +83,20 @@ body {
     <div class="content">
         <!-- 中间部分内容，留给你自己填充 -->
         {% block content %}
-            <style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
-  }
-
-  th {
-    background-color: #f2f2f2;
-  }
-</style>
-<h1>售后服务记录</h1>
-{% if service_records %}
-  <table>
-    <thead>
-      <tr>
-        <th>用户名</th>
-        <th>车型</th>
-        <th>服务类型</th>
-        <th>申请时间</th>
-        <th>详情描述</th>
-        <th>订单状态</th>
-      </tr>
-    </thead>
-    <tbody>
+        <h1>售后服务记录</h1>
+        {% if service_records %}
+        <table>
+          <thead>
+            <tr>
+            <th>用户名</th>
+            <th>车型</th>
+            <th>服务类型</th>
+            <th>申请时间</th>
+            <th>详情描述</th>
+            <th>订单状态</th>
+            </tr>
+          </thead>
+        <tbody>
       {% for record in service_records %}
         <tr>
           <td>{{ record.user.name }}</td>
@@ -79,7 +112,7 @@ body {
 {% else %}
   <p>您还没有申请过售后服务。</p>
 {% endif %}
-        {% endblock %}
+{% endblock %}
     </div>
     <br>
     <div class="footer">

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -7,12 +8,13 @@
 /* 导航栏样式 */
     .navbar {
         background-color: skyblue;
-        background-image: url("../static/images/background3.png");
+        background-image: url("{% static "images/background3.png" %}");
         padding: 10px 60px; /* change the padding value to adjust the width */
         display: flex;
         justify-content:space-around; /* evenly distribute the items */
         align-items: center;
     }
+
 
     /* 导航栏链接样式 */
     .navbar a {
@@ -44,7 +46,7 @@
 
     /* 脚栏样式 */
     .footer {
-        background-image: url("../static/images/background3.png");
+        background-image: url("{% static "images/background3.png" %}");
         background-color: #003c6a;
         color: white;
         padding: 20px;
@@ -61,7 +63,7 @@
 
     /* 页面背景样式 */
     body {
-        background-image: url("../static/images/background7.jpg");
+        background-image: url("{% static "images/background7.jpg" %}");
         background-color: #e7f4f8; /* change the background color */
         background-repeat: no-repeat;
         background-size: cover;

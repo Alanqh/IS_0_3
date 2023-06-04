@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -9,7 +10,7 @@
     /* 导航栏样式 */
     .navbar {
         background-color: skyblue;
-        background-image: url("../static/images/background3.png");
+        background-image: url("{% static "images/background3.png" %}");
         padding: 10px 60px; /* change the padding value to adjust the width */
         display: flex;
         justify-content:space-around; /* evenly distribute the items */
@@ -46,7 +47,7 @@
 
     /* 脚栏样式 */
     .footer {
-        background-image: url("../static/images/background3.png");
+        background-image: url("{% static "images/background3.png" %}");
         background-color: #003c6a;
         color: white;
         padding: 20px;
@@ -63,7 +64,7 @@
 
     /* 页面背景样式 */
     body {
-        background-image: url("../static/images/background7.jpg");
+        background-image: url("{% static "images/background7.jpg" %}");
         background-color: #e7f4f8; /* change the background color */
         background-repeat: no-repeat;
         background-size: cover;
@@ -115,7 +116,7 @@
 <body>
     <div class="navbar">
     <!-- 导航栏内容 -->
-        <img src="{% static "images/AI改图-北航经管新能源汽车logo1-662x205.png" %}" height="80" width="240">
+        <img src="{% static "images/AI改图-北航经管新能源汽车logo1-662x205.png" %}" height="80" width="240" alt="logo">
         <a href="{% url 'customerservice_home' %}">客服首页</a>
         <a href="{% url 'chat_index' %}">客户消息</a>
         <div class="dropdown">

@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-  <meta charset="UTF-8">
-  <title>待处理订单</title>
+{% extends 'base_aftersales.html' %}
+{% block title %}待处理订单{% endblock %}
+{% block content %}
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f2f2f2;
-    }
-
     main {
       display: flex;
       flex-direction: column;
@@ -67,22 +58,8 @@
       text-align: center;
     }
 
-    a {
-      color: #2196F3;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 10px 20px;
-      border: 2px solid #2196F3;
-      border-radius: 5px;
-      transition: background-color 0.3s ease-out;
-    }
-
-    a:hover {
-      background-color: #2196F3;
-      color: #fff;
-    }
   </style>
-</head>
+
 <body>
   <main>
     <h2>待处理订单</h2>
@@ -105,9 +82,38 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p>暂无未处理的订单</p>
-      <a href="{% url 'aftersales_home' %}" class="link">回到部门首页</a>
+      <p>暂无未处理的订单</p><br>
+
+
+
     {% endif %}
+  <!-- 返回按钮 -->
+        <br>
+        <button id="returnButton" class="button">返回首页</button>
+    <!-- 引入 jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            var userDepartment = "{{ user.department }}";
+
+            // 返回按钮点击事件处理
+            $("#returnButton").click(function() {
+                if (userDepartment === "aftersales") {
+                    // 角色为customer，返回页面1
+                    window.location.href = "{% url 'aftersales_home' %}";
+                } else if (userDepartment === "customer service") {
+                    // 角色为staff
+                    window.location.href = "{% url 'customerservice_home' %}";
+                } else if (userDepartment === "inventory") {
+                    // 角色为manager
+                    window.location.href = "{% url 'inventory_home' %}";
+                }
+            });
+        });
+    </script>
   </main>
 </body>
-</html>
+{% endblock %}
+```

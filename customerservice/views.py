@@ -8,8 +8,10 @@ def customerservice_home(request):
 
 
 def service_records(request):
+    user = request.user  # 获取当前用户
     servicerecords = ServiceRecord.objects.all
-    return render(request, 'service_records.html', {'service_records': servicerecords})
+    return render(request, 'service_records.html', {'user': user,
+                                                    'service_records': servicerecords})
 
 
 def customer_information(request):

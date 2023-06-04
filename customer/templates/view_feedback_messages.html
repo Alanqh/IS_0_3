@@ -27,7 +27,7 @@
 
   .message-header span {
     font-size: 16px;
-    color: #999;
+    color: #ffffff;
   }
 
   .message-content {
@@ -60,13 +60,14 @@
     color: #011315;
     text-align: center;
     margin: 40px 0;
+    font-style: italic;
   }
 </style>
 {% if unread_messages %}
   {% for message in unread_messages %}
     <div class="message-container">
       <div class="message-header">
-        <h3>{{ message.subject }}</h3>
+        <h3>来自{{ message.sender }}</h3>
         <span>{{ message.timestamp }}</span>
       </div>
       <div class="message-content">
@@ -86,8 +87,8 @@
   <div class="no-messages">
     没有收到新消息。
   </div>
-  <div class="message-action">
+{% endif %}
+      <div class="message-action">
     <a href="{% url 'customer_home' %}">返回客户首页</a>
   </div>
-{% endif %}
 {% endblock %}

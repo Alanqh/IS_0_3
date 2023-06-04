@@ -1,83 +1,96 @@
-<!DOCTYPE html>
-<html lang="zh">
+{% extends 'base_inventory.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f2f2f2;
-    }
+{% block title %}反馈消息{% endblock %}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: skyblue;
-      padding: 10px 20px;
-      color: #fff;
-    }
+{% block content %}
+<style>
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+    margin-bottom: 20px;
+    padding: 20px;
+  }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
-    }
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
 
-    .message-container {
-      background-color: #fff;
-      padding: 20px;
-      margin: 10px;
-      border-radius: 5px;
-      box-shadow: 2px 2px 10px #d9d9d9;
-      width: 50%;
-    }
+  .message-header h3 {
+    font-size: 18px;
+    margin: 0;
+  }
 
-    .no-message {
-      margin: 40px auto;
-      font-style: italic;
-    }
+  .message-header span {
+    font-size: 16px;
+    color: #ffffff;
+  }
 
-    .link {
-      color: #2196F3;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 10px 20px;
-      border: 2px solid #2196F3;
-      border-radius: 5px;
-      transition: background-color 0.3s ease-out;
-    }
+  .message-content {
+    font-size: 16px;
+    line-height: 1.5;
+  }
 
-    .link:hover {
-      background-color: #2196F3;
-      color: #fff;
-    }
-  </style>
-</head>
+  .message-action {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-<body>
-    <header>
-        <h1>未读消息</h1>
-        <a href="{% url 'inventory_home' %}" class="link">返回部门首页</a>
-      </header>  
-    <main>
-    <h2>查看消息</h2>
+  .message-action a {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .message-action a:hover {
+    background-color: #006fe6;
+  }
+
+  .no-messages {
+    font-size: 24px;
+    color: #011315;
+    text-align: center;
+    margin: 40px 0;
+    font-style: italic;
+
+  }
+</style>
+
     {% if in_unread_messages %}
     {% for message in in_unread_messages %}
-        <div>
-            <p>发件人: {{ message.sender }}</p>
-            <p>时间: {{ message.timestamp }}</p>
-            <p>内容: {{ message.content }}</p>
-            <a href="{% url 'in_mark_as_read' message.id %}" class="link">标记为已读</a>
-        </div>
+        <div class="message-container">
+      <div class="message-header">
+        <h3>来自{{ message.sender }}</h3>
+        <span>{{ message.timestamp }}</span>
+      </div>
+      <div class="message-content">
+        {{ message.content }}
+      </div>
+      <div class="message-action">
+        <a href="{% url 'in_mark_as_read' message.id %}">标记为已读</a>
+      </div>
+    </div>
     {% endfor %}
+        {% if has_more_pages %}
+    <div class="message-action">
+      <a href="{% url 'cu_unread_messages' page=next_page %}">下一页</a>
+    </div>
+  {% endif %}
     {% else %}
-        <p class="no-message">没有收到新消息。</p>
-        <a href="{% url 'inventory_home' %}" class="link">返回库存部门首页</a>
+         <div class="no-messages">
+            没有收到新消息。
+          </div>
     {% endif %}
-    </main>
-</body>
-</html>
+ <div class="message-action">
+    <a href="{% url 'inventory_home' %}">返回首页</a>
+  </div>
+{% endblock %}

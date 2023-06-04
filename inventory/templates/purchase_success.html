@@ -1,47 +1,33 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>采购成功</title>
+{% extends 'base_inventory.html' %}
+{% block title %}采购成功{% endblock %}
+{% block content %}
+{% load static %}
     <!-- 导入Bootstrap样式文件 -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* 全局样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* 外层容器 */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* 内容容器 */
-        .content {
+        .card {
+            background-image: url("{% static "images/background7.jpg" %}");
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px #bbb;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
             text-align: center;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="content">
-            <h1>采购成功</h1>
-            <p>恭喜，您已成功采购！</p>
-            <a href="{% url 'purchase_product' %}" class="btn btn-primary">继续采购</a><br>
+
+
+        <div class="card">
+            <h3>采购成功</h3><br>
+            <a href="{% url 'purchase_product' %}" class="btn btn-primary">继续采购</a>
             <a href="{% url 'inventory_home' %}" class="btn btn-secondary mt-3">回到库存部门首页</a>
         </div>
-    </div>
+
 
     <!-- 导入Bootstrap JavaScript文件 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -37,7 +37,8 @@ def change_password(request):
 def service_records(request):
     user = request.user  # 获取当前用户
     servicerecords = ServiceRecord.objects.filter(user_id=user.id)
-    return render(request, 'service_records.html', {'service_records': servicerecords})
+    return render(request, 'service_records.html', {'user': user,
+                                                    'service_records': servicerecords})
 
 
 def get_users_in_department(department):
@@ -76,7 +77,6 @@ def view_feedback_messages(request):
     unread_messages_count = unread_messages.count()  # 获取未读消息数量
     return render(request, 'view_feedback_messages.html',
                   {'unread_messages': unread_messages, 'unread_messages_count': unread_messages_count})
-
 
 
 def cu_mark_as_read(request, message_id):

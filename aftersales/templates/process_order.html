@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>处理订单</title>
+{% extends 'base_aftersales.html' %}
+{% block title %}处理订单{% endblock %}
+{% block content %}
     <style>
     body {
       font-family: Arial, sans-serif;
@@ -59,7 +57,7 @@
       background-color: #1769aa;
     }
   </style>
-</head>
+
 <body>
   <main>
     <form method="POST" action="{% url 'process_order' order.id %}">
@@ -70,4 +68,5 @@
     </form>
   </main>
 </body>
-</html>
+{% endblock %}
+```

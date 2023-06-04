@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -9,7 +10,7 @@
     /* 导航栏样式 */
     .navbar {
         background-color: skyblue;
-        background-image: url("../static/images/background3.png");
+        background-image: url("{% static "images/background3.png" %}");
         padding: 10px 60px; /* change the padding value to adjust the width */
         display: flex;
         justify-content:space-around; /* evenly distribute the items */
@@ -41,7 +42,7 @@
         
     /* 脚栏样式 */
     .footer {
-        background-image: url("../static/images/background3.png");
+        background-image: url("{% static "images/background3.png" %}");
         background-color: #003c6a;
         color: #ffffff;
         padding: 20px;
@@ -58,7 +59,7 @@
 
     /* 页面背景样式 */
     body {
-        background-image: url("../static/images/background7.jpg");
+        background-image: url("{% static "images/background7.jpg" %}");
         background-color: white;
         background-repeat: no-repeat;
         background-size: cover;
@@ -66,14 +67,14 @@
 
 
     .card-header {
-      background-image: url("../static/images/background3.png");
+      background-image: url("{% static "images/background3.png" %}");
       background-color: skyblue;;
       padding: 2px;
       text-align: center; /* 居中对齐标题文本 */
     }
 
     .card {
-      background-image: url("../static/images/background3.png");
+      background-image: url("{% static "images/background3.png" %}");
       border: 1px solid #ccc;
       padding: 10px;
       max-width: 300px; /* 设置卡片的最大宽度 */

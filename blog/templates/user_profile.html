@@ -53,8 +53,6 @@
   <h1>{{ user.username }}的个人主页</h1>
   <div class="row">
     <div class="col-md-8">
-      <p>您的邮箱：{{ user.email }}</p>
-      <p>角色类型：{{ user.role }}</p>
 
       <div class="followers-following">
         <span>关注：</span><a href="{% url 'blog:follower_list' user_id=user.id %}">{{ followers.count }}</a>

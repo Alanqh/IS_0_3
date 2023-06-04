@@ -1,87 +1,122 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>库存变化</title>
-</head>
-<body class="container">
-  <h1>库存变化记录查询</h1>
+{% extends 'base_inventory.html' %}
+{% block title %}库存变化记录{% endblock %}
+{% block content %}
+{% load static %}
 <style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  background-color: ;
-  margin: 0;
-}
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
 
-h1 {
-  text-align: center;
-  margin-top: 40px;
-}
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 30px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
+        th {
+            background-color: #003c6a;
+            color: white;
+            font-weight: bold;
+        }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-th {
-  background-color: white;
-  color: black;
-  font-weight: bold;
-}
+        tr:hover {
+            background-color: #c0e2ed;
+        }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
+        @media screen and (max-width: 767px) {
+            table {
+                table-layout: fixed;
+            }
 
-tr:hover {
-  background-color: skyblue;
-}
+            td {
+                display: block;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
 
-@media screen and (max-width: 767px) {
-  table {
-    table-layout:  fixed;
-  }
-  
-  td {
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  th {
-    display: none;
-  }
-}
-</style>
+            th {
+                display: none;
+            }
+        }
+        .button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #ffffff;
+          float: right;
+          border: none;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          border-radius: 4px; /* 添加圆角效果 */
+        }
 
-<table>
-  <tr>
-    <th>产品名称</th>
-    <th>变化数量</th>
-    <th>时间戳</th>
-    <th>描述</th>
-  </tr>
-  {% for change in inventory_changes %}
-    <tr>
-      <td>{{ change.product.name }}</td>
-      <td>{{ change.change_amount }}</td>
-      <td>{{ change.timestamp }}</td>
-      <td>{{ change.description }}</td>
-    </tr>
-  {% endfor %}
-</table>
+        .button:hover {
+          background-color: #0056b3;
+        }
 
-</body>
-</html>
+        .button:active {
+          background-color: #003e80;
+        }
+
+    </style>
+
+    <div class="content">
+    <table>
+      <tr>
+        <th>产品名称</th>
+        <th>变化数量</th>
+        <th>时间戳</th>
+        <th>描述</th>
+      </tr>
+      {% for change in inventory_changes %}
+        <tr>
+          <td>{{ change.product.name }}</td>
+          <td>{{ change.change_amount }}</td>
+          <td>{{ change.timestamp }}</td>
+          <td>{{ change.description }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <br>
+    <button class="button" id="returnButton">返回</button>
+    <br>
+    </div>
+
+<!-- 引入 jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            var userDepartment = "{{ user.department }}";
+
+            // 返回按钮点击事件处理
+            $("#returnButton").click(function() {
+                if (userDepartment === "None") {
+                    // 角色为customer，返回页面1
+                    window.location.href = "{% url 'customer_home' %}";
+                } else if (userDepartment === "customer service") {
+                    // 角色为staff
+                    window.location.href = "{% url 'customerservice_home' %}";
+                } else if (userDepartment === "inventory") {
+                    // 角色为manager
+                    window.location.href = "{% url 'inventory_home' %}";
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+

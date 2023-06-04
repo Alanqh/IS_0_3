@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -5,88 +6,163 @@
     <title>仓库</title>
 </head>
 <body class="container">
-    <h1>库存查询</h1>
- <style>
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    background-color: ;
-    margin: 0;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-top: 40px;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 30px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: white;
-    color: black;
-    font-weight: bold;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: skyblue;
-  }
-  
-  @media screen and (max-width: 767px) {
-    table {
-      table-layout:  fixed;
-    }
-    
-    td {
-      display: block;
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    th {
-      display: none;
-    }
-  }
-</style>
+<style>
+        /* 脚栏样式 */
+        .footer {
+          background-image: url("{% static 'images/background3.png' %}");
+          color: white;
+          padding: 20px;
+          position: relative;
+        }
 
-<table>
-  {% for category, data in inventory_by_category.items %}
-    <tr>
-      <th colspan="4" class="category" style="text-align: center;">{{ category }}</th>
-    </tr>
-    <tr>
-      <th>产品名称</th>
-      <th>数量</th>
-      <th>价格</th>
-      <th>描述</th>
-    </tr>
-    {% for product in data.products %}
-      <tr>
-        <td>{{ product.product.name }}</td>
-        <td>{{ product.quantity }}</td>
-        <td>{{ product.product.price }}</td>
-        <td>{{ product.product.description }}</td>
-      </tr>
-    {% endfor %}
-  {% endfor %}
-</table>
+        /* 中间部分样式 */
+        .content {
+            padding: 20px;
+            text-align: center;
+            min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px);
+            overflow-y: auto;
+        }
 
+        h1 {
+            margin-top: 40px;
+        }
+
+        /* 页面背景样式 */
+        body {
+            background-image: url("{% static 'images/background7.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #003c6a;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #c0e2ed;
+        }
+
+        @media screen and (max-width: 767px) {
+            table {
+                table-layout: fixed;
+            }
+
+            td {
+                display: block;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            th {
+                display: none;
+            }
+        }
+        .button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #ffffff;
+          float: right;
+          border: none;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          border-radius: 4px; /* 添加圆角效果 */
+        }
+
+        .button:hover {
+          background-color: #0056b3;
+        }
+
+        .button:active {
+          background-color: #003e80;
+        }
+
+    </style>
+<div class="content">
+        <!-- 中间部分内容，留给你自己填充 -->
+        {% block content %}
+        <h1>库存查询</h1>
+    <table>
+      {% for category, data in inventory_by_category.items %}
+        <tr>
+          <th colspan="4" class="category" style="text-align: center;">{{ category }}</th>
+        </tr>
+        <tr>
+          <th>产品名称</th>
+          <th>数量</th>
+          <th>价格</th>
+          <th>描述</th>
+        </tr>
+        {% for product in data.products %}
+          <tr>
+            <td>{{ product.product.name }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.product.price }}</td>
+            <td>{{ product.product.description }}</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </table>
+    <br>
+    <button id="returnButton" class="button">返回</button>
+    </div>
+    {% endblock %}
+<div class="footer">
+        <!-- 脚栏内容 -->
+        <p>版权所有 &copy; 2019-2020</p>
+        <p>联系我们：123456789</p>
+        <p>地址：北京市海淀区中关村大街5号</p>
+        <p>违法和不良信息举报电话：123456789</p>
+        <p>本网站所刊载的所有内容，未经许可，不得转载、摘编或利用其它方式使用</p>
+        <!-- 添加你的脚栏信息 -->
+    </div>
+<!-- 引入 jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            var userDepartment = "{{ user.department }}";
+
+            // 返回按钮点击事件处理
+            $("#returnButton").click(function() {
+                if (userDepartment === "aftersales") {
+                    // 角色为customer，返回页面1
+                    window.location.href = "{% url 'aftersales_home' %}";
+                } else if (userDepartment === "customer service") {
+                    // 角色为staff
+                    window.location.href = "{% url 'customerservice_home' %}";
+                } else if (userDepartment === "inventory") {
+                    // 角色为manager
+                    window.location.href = "{% url 'inventory_home' %}";
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,44 +1,39 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>采购</title>
+{% extends 'base_inventory.html' %}
+{% block title %}库存变化记录{% endblock %}
+{% block content %}
+{% load static %}
     <!-- 导入Bootstrap样式文件 -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* 全局样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* 外层容器 */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
 
         /* 表单样式 */
         .form-container {
+            margin: 0 auto; /* 水平居中 */
+            background-image: url("{% static "images/background7.jpg" %}");
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px #bbb;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+        }
+        .form-container-h3{
+            text-align: center;
+            margin-bottom: 20px;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="form-container">
-            <h1>采购</h1>
 
+
+
+        <div class="form-container">
+            <h3 class="form-container-h3">采购</h3>
             <form method="post">
               {% csrf_token %}
               <div class="form-group">
-                <label for="{{ form.product.id_for_label }}">产品</label>
+                <label for="{{ form.product.id_for_label }}">选择产品</label>
                 {{ form.product }}
               </div>
               <div class="form-group">
@@ -48,9 +43,9 @@
               <button type="submit" class="btn btn-primary">购买</button>
             </form>
         </div>
-    </div>
+
 
     <!-- 导入Bootstrap JavaScript文件 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}
+```

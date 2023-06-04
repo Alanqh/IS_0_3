@@ -1,67 +1,106 @@
-<!DOCTYPE html>
-<html lang="zh">
-  <body class="container">
-    <h1>客户信息查询</h1>
- <style>
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+{% extends 'base_customerservice.html' %}
+{% load static %}
+{% block title %}客户信息{% endblock %}
+{% block content %}
+<style>
+        /* 脚栏样式 */
+        .footer {
+          background-image: url("{% static 'images/background3.png' %}");
+          color: white;
+          padding: 20px;
+          position: relative;
+        }
 
-    margin: 0;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-top: 40px;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 30px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: white;
-    color: black;
-    font-weight: bold;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: skyblue;
-  }
-  
-  @media screen and (max-width: 767px) {
-    table {
-      table-layout:  fixed;
-    }
-    
-    td {
-      display: block;
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    th {
-      display: none;
-    }
-  }
-</style>
+        /* 中间部分样式 */
+        .content {
+            padding: 20px;
+            text-align: center;
+            min-height: calc(100vh - 60px - 10px - 60px - 10px - 20px);
+            overflow-y: auto;
+        }
 
+        h1 {
+            margin-top: 40px;
+        }
+
+        /* 页面背景样式 */
+        body {
+            background-image: url("{% static 'images/background7.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #003c6a;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #c0e2ed;
+        }
+
+        @media screen and (max-width: 767px) {
+            table {
+                table-layout: fixed;
+            }
+
+            td {
+                display: block;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            th {
+                display: none;
+            }
+        }
+        .button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #ffffff;
+          float: right;
+          border: none;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          border-radius: 4px; /* 添加圆角效果 */
+        }
+
+        .button:hover {
+          background-color: #0056b3;
+        }
+
+        .button:active {
+          background-color: #003e80;
+        }
+
+    </style>
+    <div class="content">
+        <h1>客户信息</h1>
 <table>
   <tr>
     <th>姓名</th>
@@ -79,5 +118,31 @@
     </tr>
   {% endfor %}
 </table>
-</body>
-</html>
+<!-- 返回按钮 -->
+        <br>
+        <button id="returnButton" class="button">返回首页</button>
+    <!-- 引入 jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            var userDepartment = "{{ user.department }}";
+
+            // 返回按钮点击事件处理
+            $("#returnButton").click(function() {
+                if (userDepartment === "None") {
+                    // 角色为customer，返回页面1
+                    window.location.href = "{% url 'customer_home' %}";
+                } else if (userDepartment === "customer service") {
+                    // 角色为staff
+                    window.location.href = "{% url 'customerservice_home' %}";
+                } else if (userDepartment === "inventory") {
+                    // 角色为manager
+                    window.location.href = "{% url 'inventory_home' %}";
+                }
+            });
+        });
+    </script>
+{% endblock %}
+```

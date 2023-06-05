@@ -7,7 +7,7 @@ def customerservice_home(request):
     return render(request, 'customer-service_home.html')
 
 
-def service_records(request):
+def stu_service_records(request):
     user = request.user  # 获取当前用户
     servicerecords = ServiceRecord.objects.all
     return render(request, 'service_records.html', {'user': user,

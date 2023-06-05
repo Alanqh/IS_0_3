@@ -1,6 +1,23 @@
 {% extends 'base_customer.html' %}
 {% load static %}
 {% block content %}
+    <style>
+        .container {
+            float: right;
+            /* 可选：设置容器的宽度或最大宽度以适应页面布局 */
+            width: 30%;
+            top:100px;
+            right: 200px;
+            font-size: 25px; /* 设置字体大小 */
+            color:black;
+            text-align: center;
+        }
+    </style>
+
+    <div class="container">
+        <h1>公告</h1>
+        <img src="{% static 'images/公告.png' %}" height=200px,width=200px>
+    </div>
     <h1>新能源汽车客服将竭诚为您服务</h1>
     <p>请您选择客服人员</p>
     <ul>

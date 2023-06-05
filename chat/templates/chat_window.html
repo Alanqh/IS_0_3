@@ -4,142 +4,159 @@
 <head>
     <title>Chat Window</title>
     <style>
-        body {
-            background-image: url("{% static 'images/background7.jpg' %}");
-            background-size: cover; /* 可选 */
-            background-position: center center; /* 可选 */
-            background-repeat: no-repeat; /* 可选 */
-        }
-        .container {
-            width: 100%;
-            overflow: hidden;
-        }
-        .card {
-            width: 40%;
-            height: 400px;
-            background-color: #dceff6;
-            background-image: url("{% static 'images/客服.jpg' %}");
-            background-size: contain;
+        /* 整体结构样式 */
+        .chat-container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #f4f4f4;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: auto;
-            float: left;
-            margin-left: 100px;
-            position: relative; /* 将容器设置为相对定位 */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
-        .img {
-            width: 34%;
-            height: 300px;
-            background-color: #dceff6;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: auto;
-            float: right;
-            margin-right: 60px;
-            margin-top:100px;
-        }
-        .send-card {
-            width: 40%;
-            height: 50px;
-            background-color: #dceff6;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: auto;
-            margin-bottom: 20px;
-            margin-left: 100px;
 
+        /* 用户名栏样式 */
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
         }
+
+            .message-form {
+            display: flex;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .chat-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* 消息显示区域样式 */
         .message-container {
-            overflow-y: scroll;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* 将消息靠右对齐 */
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            width: 100%;
         }
 
         .message-left {
-            background-color: #eee;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            width: 50%;
-            float: left;
+            align-items: flex-start; /* 将接收到的消息靠左对齐 */
         }
 
         .message-right {
-            background-color: #0084ff;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            width: 50%;
-            float: right;
+            align-items: flex-end; /* 将发送的消息靠右对齐 */
         }
-        .message {
-            border: 1px solid #ccc; /* 添加一个边框 */
-            padding: 10px; /* 添加一些内边距，使文本与边框之间有一些空间 */
-            font-size: 14px; /* 设置字体大小为14像素*/
-            border-radius: 10px;
-            display: block; /* 将元素设置为块级元素 */
-            clear: both; /* 防止与前面的元素重叠 */
-            text-align: left; /* 将文本右对齐 */
+
+
+        .message-bubble {
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            margin-right: 5px;
         }
 
         .message-time {
-            color: #999; /* 设置时间戳颜色为浅灰色*/
-            font-size: 12px; /* 设置字体大小为12像素*/
+            font-size: 12px;
+            color: #999;
+            margin-left: 10px;
+        }
 
+        .message-right {
+            align-self: flex-end;
         }
-        .message-time-right {
-            float: right;
-            color:white; /* 设置时间戳颜色为浅灰色*/
-            font-size: 12px; /* 设置字体大小为12像素*/
+
+        .message-bubble-left {
+            background-color: #eee;
         }
-        .name {
-            top: 0;
-            height: 50px; /* 设置框的高度 */
-            width: 100%; /* 将框的宽度设置为容器的宽度 */
-            background-color: #f9f9f9; /* 设置框的背景颜色 */
-            border-bottom: 1px solid #ccc; /* 添加底边框 */
-            box-sizing: border-box; /* 设置框的盒模型为border-box */
-            text-align: center; /* 将容器中的文本水平居中 */
-            padding: 10px; /* 添加一些内边距 */
-            font-weight: bold; /* 将字体加粗 */
-            color: #333; /* 设置文本颜色 */
+
+        .message-bubble-right {
+            background-color: #0084ff;
+            color: #fff;
+        }
+
+        .message-break{
+            word-break: break-word;
+            white-space: pre-line;
+        }
+
+        /* 发送消息输入框样式 */
+        .send-message {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .message-input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .send-button {
+            background-color: #0084ff;
+            color: #fff;
+            border: none;
+            outline: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>客服为您服务</h1>
-    <div class = 'container'>
-        <div id="chat-messages" class="card">
-            <div class = "name">
-                <hi>{{ recipient.username }}客服</hi>
-            </div>
-            <div id="message-container" class="message-container">
-                {% for message in messages %}
-                    {% if message.sender == recipient %}
-                        <div class="message-left">
-                            <div class="message">{{ message.content }}</div>
-                            <span class="message-time">{{ message.timestamp }}</span>
-                        </div>
-                    {% else %}
-                        <div class="message-right">
-                            <div class="message">{{ message.content }}</div>
-                            <span class="message-time-right">{{ message.timestamp }}</span>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-    <div class = img>
-        <img src="{% static 'images/公告.png' %}" height="100%" width="100%">
+<div class="chat-container">
+    <div class="chat-header">
+        <h1 class="chat-title">客服{{ recipient.username }}</h1>
+        <img src="{% static 'images/客服1.png' %}" alt="Avatar" class="chat-avatar">
     </div>
-    </div>
-    <div id="chat-form" class="send-card">
-        <form method="POST" id="message-form">
-            {% csrf_token %}
-            {{ form.message }}
 
-            <button type="submit">发送</button>
+    <div class="message-container">
+        {% for message in messages %}
+            <div class="message {% if message.sender == recipient %}message-left{% else %}message-right{% endif %}">
+                <div class="message-bubble {% if message.sender == recipient %}message-bubble-left{% else %}message-bubble-right{% endif %}">
+                    <span class="message-break">{{ message.content }}</span>
+                </div>
+                <span class="message-time" >{{ message.timestamp }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="send-message" style="width:100%;margin-top:100px";>
+        <form method="POST" id="message-form" class="message-form">
+        {% csrf_token %}
+        <input type="text" name="message" class="message-input" placeholder="输入消息...">
+        <button type="submit" class="send-button">发送</button>
         </form>
     </div>
+
+</div>
     <script>
         function sendMessage() {
             const messageInput = document.getElementById('message-input');

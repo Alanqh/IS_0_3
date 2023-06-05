@@ -13,7 +13,7 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-    
+
         /* 用户名栏样式 */
         .chat-header {
             display: flex;
@@ -21,7 +21,7 @@
             justify-content: center;
             margin-bottom: 20px;
         }
-    
+
             .message-form {
             display: flex;
             flex-grow: 1;
@@ -32,67 +32,66 @@
             font-weight: bold;
             margin-right: 10px;
         }
-    
+
         .chat-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
-    
+
         /* 消息显示区域样式 */
         .message-container {
-            background-image: url("{% static 'images/background1.png' %}");
             width: 100%;
             max-height: 400px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             align-items: flex-end; /* 将消息靠右对齐 */
-        }        
-    
+        }
+
         .message {
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
             width: 100%;
         }
-        
+
         .message-left {
             align-items: flex-start; /* 将接收到的消息靠左对齐 */
         }
-        
+
         .message-right {
             align-items: flex-end; /* 将发送的消息靠右对齐 */
         }
-        
-    
+
+
         .message-bubble {
             padding: 10px;
             border-radius: 20px;
             font-size: 14px;
             line-height: 1.4;
         }
-    
+
         .message-sender {
             font-weight: bold;
             margin-right: 5px;
         }
-    
+
         .message-time {
             font-size: 12px;
             color: #999;
             margin-left: 10px;
         }
-    
+
         .message-right {
             align-self: flex-end;
         }
-    
+
         .message-bubble-left {
             background-color: #eee;
         }
-    
+
         .message-bubble-right {
             background-color: #0084ff;
             color: #fff;
@@ -102,14 +101,14 @@
             word-break: break-word;
             white-space: pre-line;
         }
-    
+
         /* 发送消息输入框样式 */
         .send-message {
             display: flex;
             align-items: center;
             margin-top: 20px;
         }
-    
+
         .message-input {
             flex-grow: 1;
             padding: 10px;
@@ -118,7 +117,7 @@
             outline: none;
             font-size: 14px;
         }
-    
+
         .send-button {
             background-color: #0084ff;
             color: #fff;
@@ -137,15 +136,14 @@
         <h1 class="chat-title">{{ recipient.username }}客户</h1>
         <img src="{% static 'images/客服1.png' %}" alt="Avatar" class="chat-avatar">
     </div>
-    
+
     <div class="message-container">
         {% for message in messages %}
             <div class="message {% if message.sender == recipient %}message-left{% else %}message-right{% endif %}">
                 <div class="message-bubble {% if message.sender == recipient %}message-bubble-left{% else %}message-bubble-right{% endif %}">
-                    <span class="message-sender">{{ message.sender.username }}</span>
                     <span class="message-break">{{ message.content }}</span>
                 </div>
-                <span class="message-time" >{{ message.timestamp }}</span>    
+                <span class="message-time" >{{ message.timestamp }}</span>
             </div>
         {% endfor %}
     </div>
@@ -232,3 +230,4 @@
     </script>
 </body>
 </html>
+

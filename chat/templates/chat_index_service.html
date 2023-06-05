@@ -1,0 +1,30 @@
+{% extends 'base_customerservice.html' %}
+{% load static %}
+{% block content %}
+            <h1>请您选择服务的客户</h1>
+            <ul>
+                {% for contact in contacts %}
+                    <a href="{% url 'chat_window' contact.id %}" >
+                    <img src="{% static 'images/交友.png' %}" class="button-image">
+                    {{ contact.username }}</a>
+                {% endfor %}
+            </ul>
+            <p>牢记我们的服务准则：</p>
+            <p></p>1.尽快响应客户，尤其是对于需要紧急帮助或在等待响应的客户。
+            <p>2.了解客户可能遇到的常见问题及其解决方法。确保所提供的建议和答案清晰、准确、有用、易于理解，并符合客户的实际需求。</p>
+            <p>3.耐心倾听客户并尊重客户隐私</p>
+
+            <style> 
+                .button {
+                  position: absolute;
+                  bottom: 0px;
+                  right: 100px;
+                  z-index: 2;
+                }
+              
+                .button-image {
+                  width: 30px;
+                  height: 30px;
+                }
+            </style>
+{% endblock %}

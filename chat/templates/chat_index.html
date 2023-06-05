@@ -1,15 +1,30 @@
-<!-- chat_index.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chat Index</title>
-</head>
-<body>
-    <h1>Chat Index</h1>
+{% extends 'base_customer.html' %}
+{% load static %}
+{% block content %}
+    <h1>新能源汽车客服将竭诚为您服务</h1>
+    <p>请您选择客服人员</p>
     <ul>
         {% for contact in contacts %}
-            <li><a href="{% url 'chat_window' contact.id %}">{{ contact.username }}</a></li>
+            <a href="{% url 'chat_window' contact.id %}" >
+            <img src="{% static 'images/客服1.png' %}" class="button-image">
+            {{ contact.username }}</a>
         {% endfor %}
     </ul>
-</body>
-</html>
+    <p>以下是一些常见问题的解答：</p>
+    <ul>
+        <li>问题：我的新能源汽车出现了一些故障，什么时候能进行修理？</li>
+        <li>回答：您需要和客服预约合适的时间或者直接拨打我们的联系电话，我们会安排时间为您处理。</li>
+        <li>问题：新能源汽车保修期有多长？</li>
+        <li>回答：新能源汽车保修期为两年半，在保修期内，您可以享受免费的维修服务和电池以旧换新服务。</li>
+        <li>问题：新能源汽车如何延长寿命</li>
+        <li>回答：您需要定期保养新能源汽车，保护好汽车的电池，远离明火以及高温高压。</li>
+    </ul>
+
+    <style>
+        .button-image {
+            width: 30px;
+            height: 30px;
+          }
+    </style>
+{% endblock %}
+

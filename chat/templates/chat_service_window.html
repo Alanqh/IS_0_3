@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Window</title>
+    <style>
+        body {
+            background-image: url("{% static 'images/background7.jpg' %}");
+            background-size: cover; /* 可选 */
+            background-position: center center; /* 可选 */
+            background-repeat: no-repeat; /* 可选 */
+        }
+        .card {
+            width: 70%;
+            height: 400px;
+            background-color: #dceff6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            margin: 0 auto;
+        }
+
+        .send-card {
+            width: 70%;
+            height: 50px;
+            background-color: #dceff6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            margin: 0 auto;
+        }
+        .message-container {
+            overflow-y: scroll;
+        }
+
+        .message-left {
+            background-color: #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            width: 50%;
+            float: left;
+        }
+
+        .message-right {
+            background-color: #0084ff;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            width: 50%;
+            float: right;
+        }
+        .message {
+            border: 1px solid #ccc; /* 添加一个边框 */
+            padding: 10px; /* 添加一些内边距，使文本与边框之间有一些空间 */
+            font-size: 14px; /* 设置字体大小为14像素*/
+            border-radius: 10px;
+            display: block; /* 将元素设置为块级元素 */
+            clear: both; /* 防止与前面的元素重叠 */
+            text-align: left; /* 将文本右对齐 */
+        }
+
+        .message-time {
+            color: #999; /* 设置时间戳颜色为浅灰色*/
+            font-size: 12px; /* 设置字体大小为12像素*/
+
+        }
+        .message-time-right {
+            float: right;
+            color: white; /* 设置时间戳颜色为浅灰色*/
+            font-size: 12px; /* 设置字体大小为12像素*/
+        }
+    </style>
+</head>
+<body>
+    <h1>请您及时认真回复{{ recipient.username }}用户</h1>
+    <div id="chat-messages" class="card">
+        <div id="message-container" class="message-container">
+            {% for message in messages %}
+                {% if message.sender == recipient %}
+                    <div class="message-left">
+                        <div class="message">{{ message.content }}</div>
+                        <span class="message-time">{{ message.timestamp }}</span>
+                    </div>
+                {% else %}
+                    <div class="message-right">
+                        <div class="message">{{ message.content }}</div>
+                        <span class="message-time-right">{{ message.timestamp }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div id="chat-form" class="send-card">
+        <form method="POST" id="message-form">
+            {% csrf_token %}
+            {{ form.message }}
+            <button type="submit">发送</button>
+        </form>
+    </div>
+    <script>
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                messageInput.value = '';
+
+                fetch(window.location.href, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        message: message
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Message sent successfully, you can update the UI if needed
+                        refreshChat();
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        }
+
+        function refreshChat() {
+            fetch('/chat/refresh/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({
+                    recipient_id: '{{ recipient.id }}'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.messages) {
+                    // Sort messages by timestamp
+                    data.messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                    const chatContainer = document.getElementById('message-container');
+                    chatContainer.innerHTML = '';  // Clear previous messages
+                    for (let message of data.messages) {
+                        const messageElement = document.createElement('div');
+                        messageElement.textContent = message.content;
+                        if (message.sender === {{ recipient.id }}) {
+                            messageElement.classList.add('message-left');
+                        } else {
+                            messageElement.classList.add('message-right');
+                        }
+                        chatContainer.appendChild(messageElement);
+                    }
+                    // Scroll to the bottom of the message container
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }
+            })
+            .catch(error => console.error(error));
+        }
+
+        // Refresh the chat window every 3 seconds
+        setInterval(refreshChat, 3000);
+        // Set the chat window scroll to the bottom
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatContainer = document.getElementById('message-container');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
+    </script>
+</body>
+</html>

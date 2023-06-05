@@ -1,6 +1,11 @@
 {% extends 'base_customer.html' %}
 {% block title %}车友圈/评论{% endblock %}
 {% block content %}
+<style>
+    .comment-h2 {
+        text-align: center;
+    }
+</style>
 
 <h2>评论</h2>
 
@@ -31,7 +36,7 @@
 </script>
 
 <!-- 显示评论 -->
-<h2>评论</h2>
+<h2 class="comment-h2">具体评论内容</h2>
 {% for comment in page_obj %}
     <p>{{ comment.content }}</p>
     <p>作者：<a href="{% url 'blog:user_profile' user_id=comment.user.id %}">{{ comment.user.username }}</a></p>

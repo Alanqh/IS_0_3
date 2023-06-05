@@ -4,39 +4,130 @@
 
 {% block content %}
 <style>
-    /* Custom styles for search results page */
+    .list-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+        list-style: none;
+        padding: 0;
+    }
+
     .list-group-item {
-      border-top: none;
-      border-bottom: none;
+        background-color: #f8f9fa;
+        border: none;
+        border-radius: 5px;
+        padding: 20px;
+        position: relative;
+        height: 180px;
     }
-    .list-group-item:hover {
-      background-color: #f8f9fa;
+
+    .list-group-item h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #007bff;
     }
-    .badge {
-      font-size: 0.8rem;
-      padding: 0.3rem 0.5rem;
-      margin-right: 0.5rem;
+
+    .list-group-item p {
+        font-size: 16px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+        overflow: hidden;
+        text-overflow: clip;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        width: 6em;
     }
-    small {
-      font-size: 0.8rem;
+
+    .list-group-item a {
+        position: absolute;
+        bottom: 50px;
+        right: 20px;
+        font-weight: bold;
+        color: #007bff;
     }
-    .fas {
-      margin-right: 0.5rem;
-      font-size: 0.8rem;
+
+    .list-group-item small {
+        font-size: 14px;
+        color: #6c757d;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+    }
+
+    .list-group-item .badge {
+        margin-right: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #6cadb5;
+    }
+
+    .mb-5 {
+        text-align: center;
+    }
+
+    .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .search input[type="text"] {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    .search button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .row p {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn-back {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        transform: translateY(-50%);
+    }
+
+    .btn-back:hover {
+        background-color: #006fe6;
     }
   </style>
 
 <!-- blog/search_results.html -->
 <div class="container py-5">
-  <h1 class="text-center mb-5">搜索结果：{{ query }}</h1>
+  <a href="{% url 'blog:post_list' %}" class="btn-back">回到博客列表</a>
+  <h1 class="mb-5">与[{{ query }}]相关的博客：</h1>
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <form method="GET" action="{% url 'blog:search_posts' %}">
-        <div class="input-group mb-3">
+        <div class="search">
           <input type="text" name="q" class="form-control" placeholder="搜索博客文章" value="{{ query }}">
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-primary">搜索</button>
-          </div>
+          <button type="submit" class="btn btn-primary">搜索</button>
         </div>
       </form>
 
@@ -44,15 +135,16 @@
       <ul class="list-group">
         {% for post in posts %}
         <li class="list-group-item">
-          <a href="{% url 'blog:post_detail' post_id=post.id %}"><h4 class="mb-0">{{ post.title }}</h4></a>
+          <h4 style="float: left; margin-right: 10px; clear: both;">{{ post.title }}</h4>
           {% if post.tags.all %}
-          <div class="mb-2">
-            {% for tag in post.tags.all %}
-            <span class="badge badge-secondary">{{ tag }}</span>
-            {% endfor %}
-          </div>
+            <div style="float: right;">
+              {% for tag in post.tags.all %}
+              <span class="badge badge-secondary">{{ tag }}</span>
+              {% endfor %}
+            </div>
           {% endif %}
-          <p class="mb-0">{{ post.content|truncatewords_html:100 }}</p>
+          <p style="clear: both;">{{ post.content|striptags }}</p>
+          <a href="{% url 'blog:post_detail' post_id=post.id %}">查看详细信息</a>
           <small class="text-muted">作者：{{ post.author }}，发布时间：{{ post.created_at|date:"Y-m-d H:i:s" }}</small>
         </li>
         {% endfor %}
@@ -60,11 +152,6 @@
       {% else %}
       <p>没有找到相关的博客文章。</p>
       {% endif %}
-
-      <div class="mt-5">
-        <a href="{% url 'blog:post_list' %}" class="btn btn-secondary"><i class="fas fa-chevron-left"></i> 回到博客列表</a>
-        <a href="{% url 'customer_home' %}" class="btn btn-primary float-right"><i class="fas fa-home"></i> 返回首页</a>
-      </div>
     </div>
   </div>
 </div>

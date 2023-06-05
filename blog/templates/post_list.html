@@ -5,10 +5,18 @@
 <style>
   /* Styles for blog posts */
   .card {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
   .card .tag-badge {
     margin: 0 5px 5px 0;
+  }
+  .card-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
   }
 
   /* Styles for pagination */
@@ -33,66 +41,144 @@
     max-width: 50px;
     max-height: 50px;
   }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    margin-right: 10px;
+  }
 
+  /* Custom styles */
+  .custom-header {
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+  }
+  .custom-header h1 {
+    font-size: 2.5rem;
+  }
+  .custom-header p {
+    font-size: 1.2rem;
+  }
 
+  .btn-back1 {
+      position: absolute;
+      left: 200px;
+  }
+
+  .btn-back2 {
+      position: absolute;
+      right: 200px;
+  }
+
+  .list-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+        list-style: none;
+        padding: 0;
+  }
+
+    .list-group-item {
+        background-color: #f8f9fa;
+        border: none;
+        border-radius: 5px;
+        padding: 20px;
+        position: relative;
+        height: 180px;
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .list-group-item h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    .list-group-item p {
+        font-size: 16px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+        overflow: hidden;
+        text-overflow: clip;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        width: 20em;
+    }
+
+    .list-group-item a {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .list-group-item small {
+        font-size: 14px;
+        color: #6c757d;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+    }
+
+    .list-group-item .badge {
+        margin-right: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #6cadb5;
+    }
 </style>
 
-<!-- 标签筛选和超链接按钮的排版 -->
-<div class="row mb-3 justify-content-between align-items-center">
-  <div class="col-lg-4 col-md-5">
-    <form method="GET" action="{% url 'blog:post_list' %}" class="form-inline">
-      <label for="id_tag" class="mr-2">筛选标签：</label>
-      <select name="tag" id="id_tag" class="form-control">
-        <option value="">全部</option>
-        {% for tag in tags %}
-          <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
-        {% endfor %}
-      </select>
-      <button type="submit" class="btn btn-primary ml-2">筛选</button>
-    </form>
-  </div>
-  <div class="col-lg-8 col-md-7">
-    <div class="d-flex justify-content-end align-items-center">
-      <a href="{% url 'blog:create_post' %}" class="btn btn-success mr-2"><img src="{% static 'images/create.png' %}" class="btn-img"></a>
-      <a href="{% url 'blog:search_posts' %}" class="btn btn-primary mr-2"><img src="{% static 'images/search.png' %}" class="btn-img"></a>
-      <a href="{% url 'customer_home' %}" class="btn btn-secondary"><img src="{% static 'images/home.png' %}" class="btn-img"></a>
-    </div>
-  </div>
+<!-- Custom header -->
+<div class="custom-header">
+  <a href="{% url 'blog:create_post' %}" class="btn-back1"><img src="{% static 'images/create.png' %}" class="btn-img">创作</a>
+  <a href="{% url 'blog:search_posts' %}" class="btn-back2"><img src="{% static 'images/search.png' %}" class="btn-img">搜索</a>
+  <h1>欢迎来到博客列表</h1>
+  <p>在这里你可以查看所有博客文章，也可以根据标签进行筛选。</p>
 </div>
 
-
-
+<!-- 标签筛选和超链接按钮的排版 -->
+<div class="my-4" style="text-align: center;">
+  <form method="GET" action="{% url 'blog:post_list' %}" class="form-inline mb-4">
+    <label for="id_tag" class="mr-2" style="font-size: 1.2em;">筛选标签：</label>
+    <select name="tag" id="id_tag" class="form-control mr-3" style="font-size: 1.2em;">
+      <option value="">全部</option>
+      {% for tag in tags %}
+        <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary mr-3" style="font-size: 1.2em;">筛选</button>
+  </form>
+</div>
 
 <!-- 所有博客文章 -->
-<div class="row">
+<ul class="list-group">
   {% for post in page_obj %}
-  <div class="card mb-3">
-    <div class="card-body">
-      <h5 class="card-title" align="center">文章标题：{{ post.title }}</h5>
-      <h6 class="card-subtitle"  align="right">作者：{{ post.author }}</h6>
-    <p class="card-subtitle"  align="left">标签：
-      {% if post.tags.all %}
-        <div class="card-subtitle mb-2 text-muted">
-          {% for tag in post.tags.all %}
-          <span class="tag-badge badge badge-secondary">{{ tag }}</span>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </p>
-    <div class="card-text">部分文章内容：{{ post.content|safe|truncatewords_html:100 }}</div>
-  </div>
-  <div class="card-footer text-muted text-right">
-    <a href="{% url 'blog:post_detail' post_id=post.pk %}" class="btn btn-sm btn-primary">查看详情</a>
-  </div>
-</div>
+  <li class="list-group-item">
+    <h4 style="float: left; margin-right: 10px; clear: both;">{{ post.title }}</h4>
+    {% if post.tags.all %}
+      <div style="float: right;">
+        {% for tag in post.tags.all %}
+        <span class="badge badge-secondary">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <p style="clear: both;">{{ post.content|striptags }}</p>
+    <a href="{% url 'blog:post_detail' post_id=post.id %}">查看详细信息</a>
+    <small class="text-muted">作者：{{ post.author }}，发布时间：{{ post.created_at|date:"Y-m-d H:i:s" }}</small>
+  </li>
+</ul>
 {% empty %}
-<p>暂无博客文章。</p>
+<div class="col-lg-8 mx-auto">
+  <p>暂无博客文章。</p>
+</div>
 {% endfor %}
 
-</div>
-
 <!-- 分页导航 -->
-<div class="pagination justify-content-center pt-3">
+<div class="pagination pt-3" style="text-align: center;">
   {% if page_obj.has_previous %}
   <a href="?tag={{ request.GET.tag }}&page=1" class="page-link">&laquo; 首页</a>
   <a href="?tag={{ request.GET.tag }}&page={{ page_obj.previous_page_number }}" class="page-link">上一页</a>
@@ -112,4 +198,3 @@
   {% endif %}
 </div>
 {% endblock %}
-

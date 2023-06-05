@@ -4,17 +4,63 @@
 {% block content %}
   <!-- blog/post_detail.html -->
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-  
+  <style>
+    .btn-back1 {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      float: left;
+    }
+
+    .btn-back1:hover {
+      background-color: #006fe6;
+    }
+
+    .btn-back2 {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      float: right;
+    }
+
+    .btn-back2:hover {
+      background-color: #006fe6;
+    }
+  </style>
+
+  <a href="{% url 'blog:post_list' %}" class="btn-back1">回到博客列表</a>
+  <a href="{% url 'blog:search_posts' %}" class="btn-back2">返回继续搜索</a>
+
   <div class="post-container">
-    <h2>{{ post.title }}</h2>
-      <p>标签：
-      {% for tag in post.tags.all %}
-        <span style="color: red; text-shadow: 2px 2px 4px #000000;">{{ tag.name }}</span>
-      {% endfor %}
-    </p>
+    <h2>
+      <span style="font-size: 24px; font-weight: bold;">
+        {{ post.title }}
+      </span>
+      <span style="margin-left: 10px;">
+        {% for tag in post.tags.all %}
+          <span style="color: red; font-size: 18px; font-weight: bold;">
+            ## {{ tag.name }} ##
+          </span>
+        {% endfor %}
+      </span>
+    </h2>
     <div class="post-details">
-      <p class="post-author">{{ post.author.username }}</p>
-      <p class="post-updated-at">{{ post.updated_at }}</p>
+      <p class="post-author" style="text-align: center; font-size: 20px; font-weight: bold;">
+        <a href="{% url 'blog:user_profile' user_id=post.id %}">{{ post.author.username }}</a>
+      </p>
+      <p class="post-updated-at" style="text-align: center; color: #f00; font-size: 16px; font-weight: bold;">
+        {{ post.updated_at }}
+      </p>
     </div>
     <div class="post-content">{{ post.content|safe }}</div>
     {% if post.image %}
@@ -27,20 +73,23 @@
       </video>
     {% endif %}
   </div>
-   
+
   <div class="d-flex flex-column align-items-center">
-    <div class="text-center mb-2">
-      <a href="{% url 'blog:post_likes' post_id=post.id %}" ><img src="{% static 'images/点赞.png' %}"  class="btn-img">{{ likes_count }}</a>
-      <a href="{% url 'blog:comments_list' post_id=post.id %}"><img src="{% static 'images/评论.png' %}"  class="btn-img">{{ comments_count }}</a>
-      <a href="#"><img src="{% static 'images/转发 .png' %}"  class="btn-img">{{ shares }}</a>
+    <div class="text-center mb-2" style="font-size: 20px;">
+      <a href="{% url 'blog:post_likes' post_id=post.id %}" style="font-weight: bold; margin-right: 20px;">
+        <img src="{% static 'images/点赞.png' %}" class="btn-img"> {{ likes_count }}
+      </a>
+      <a href="{% url 'blog:comments_list' post_id=post.id %}" style="font-weight: bold; margin-right: 20px;">
+        <img src="{% static 'images/评论.png' %}" class="btn-img"> {{ comments_count }}
+      </a>
+      <a href="#" style="font-weight: bold; margin-right: 20px;">
+        <img src="{% static 'images/转发.png' %}" class="btn-img"> {{ shares }}
+      </a>
     </div>
   </div>
 
+
   <div class="post-actions">
-    <form class="post-share-form" method="POST" action="{% url 'blog:share_post' post.id %}">
-      {% csrf_token %}
-      <button class="post-like-btn" type="submit">分享</button>
-    </form>
     {% if request.user.is_authenticated %}
       {% if request.user in post.likes.all %}
         <form method="post" action="{% url 'blog:unlike_post' post_id=post.id %}">
@@ -54,13 +103,9 @@
         </form>
       {% endif %}
     {% endif %}
+    <form class="post-share-form" method="POST" action="{% url 'blog:share_post' post.id %}">
+      {% csrf_token %}
+      <button class="post-like-btn" type="submit">分享</button>
+    </form>
   </div>
-
-  <a href="{% url 'blog:post_list' %}">回到博客列表</a><br>
-  <a href="{% url 'blog:search_posts' %}">回到搜索</a>
-
 {% endblock %}
-
-
-
-

@@ -3,31 +3,92 @@
 {% block title %}车友圈/创作博客{% endblock %}
 {% block content %}
 <!-- blog/create_post.html -->
+<style>
+    .create-h1 {
+        text-align:center;
+    }
+
+    .form-group1 {
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .form-group1 label {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .form-group1 input[type="text"],
+    .form-group1 select {
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    .form-group1 button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        float: right;
+    }
+
+    .form-group3 {
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .form-group3 label {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .form-group3 input[type="file"] {
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .btn-back {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+        float: right;
+    }
+
+    .btn-back:hover {
+        background-color: #006fe6;
+    }
+</style>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-<h1>发布新博客文章</h1>
+<h1 class="create-h1">发布新博客文章</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="form-group">
+    <div class="form-group1">
         {{ form.title.label_tag }}
         {{ form.title }}
-    </div>
-    <div class="form-group">
-        {{ form.content.label_tag }}
-        {{ form.content }}
-    </div>
-    <div class="form-group">
-        {{ form.image.label_tag }}
-        {{ form.image }}
-    </div>
-    <div class="form-group">
-        {{ form.video.label_tag }}
-        {{ form.video }}
-    </div>
-    <div class="form-group">
         {{ form.tags.label_tag }}
         {{ form.tags }}
+        <button type="submit">发布</button>
     </div>
-    <button type="submit">发布</button>
+    <div class="form-group2">
+        {{ form.content }}
+    </div>
+    <div class="form-group3">
+        {{ form.image.label_tag }}
+        {{ form.image }}
+        {{ form.video.label_tag }}
+        {{ form.video }}
+        <a href="{% url 'blog:post_list' %}" class="btn-back">回到博客列表</a>
+    </div>
 </form>
 {% endblock %}

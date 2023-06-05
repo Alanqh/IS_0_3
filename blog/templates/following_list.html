@@ -1,16 +1,44 @@
 {% extends 'base_customer.html' %}
-{% block title %}车友圈/粉丝列表{% endblock %}
+{% block title %}车友圈/关注列表{% endblock %}
 {% block content %}
-<h1>{{ user.username }}的粉丝列表</h1>
+<style>
+    .follow-h1 {
+        text-align: center;
+    }
+
+    .follow-p {
+        text-align: center;
+    }
+
+    .btn-back {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+        position: absolute;
+        top: 150px;
+        right: 400px;
+        transform: translateY(-50%);
+    }
+
+    .btn-back:hover {
+        background-color: #006fe6;
+    }
+</style>
+<a href="{% url 'blog:user_profile' user_id=user.id %}" class="btn-back">回到个人主页</a>
+<h1 class="follow-h1">{{ user.username }}的关注列表</h1>
 
 {% if following %}
-    <ul>
+    <ul class="follow-ul">
         {% for followed_user in following %}
             <li><a href="{% url 'blog:user_profile' user_id=followed_user.following_id %}">{{ followed_user.following.username }}</a></li>
         {% endfor %}
     </ul>
 {% else %}
-    <p>暂无粉丝</p>
+    <p class="follow-p">暂无关注</p>
 {% endif %}
 {% endblock %}
-```

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -6,7 +7,7 @@
     <style>
         /* 脚栏样式 */
         .footer {
-          background-color: #003c6a;
+          background-image: url("{% static 'images/background3.png' %}");
           color: white;
           padding: 20px;
           position: relative;
@@ -26,7 +27,7 @@
 
         /* 页面背景样式 */
         body {
-            background-color: #e7f4f8;
+            background-image: url("{% static 'images/background7.jpg' %}");
             background-repeat: no-repeat;
             background-size: cover;
             font-family: Arial, sans-serif;

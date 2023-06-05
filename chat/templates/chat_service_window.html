@@ -71,11 +71,26 @@
             color: white; /* 设置时间戳颜色为浅灰色*/
             font-size: 12px; /* 设置字体大小为12像素*/
         }
+        .name {
+            top: 0;
+            height: 50px; /* 设置框的高度 */
+            width: 100%; /* 将框的宽度设置为容器的宽度 */
+            background-color: #f9f9f9; /* 设置框的背景颜色 */
+            border-bottom: 1px solid #ccc; /* 添加底边框 */
+            box-sizing: border-box; /* 设置框的盒模型为border-box */
+            text-align: center; /* 将容器中的文本水平居中 */
+            padding: 10px; /* 添加一些内边距 */
+            font-weight: bold; /* 将字体加粗 */
+            color: #333; /* 设置文本颜色 */
+        }
     </style>
 </head>
 <body>
     <h1>请您及时认真回复{{ recipient.username }}用户</h1>
     <div id="chat-messages" class="card">
+        <div class = "name">
+                <hi>{{ recipient.username }}客户</hi>
+            </div>
         <div id="message-container" class="message-container">
             {% for message in messages %}
                 {% if message.sender == recipient %}

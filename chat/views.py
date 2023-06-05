@@ -14,13 +14,16 @@ def chat_index(request):
     if user.role == 'customer':
         # 如果当前用户是客户，则只显示部门为customerservice的联系人
         contacts = User.objects.filter(department='customer service')
+        return render(request, 'chat_index.html', {'contacts': contacts})
     elif user.department == 'customer service':
         # 如果当前用户是客服，则只显示角色为customer的联系人
         contacts = User.objects.filter(role='customer')
+        return render(request, 'chat_index_service.html', {'contacts': contacts})
     else:
         # 其他情况不显示联系人
         contacts = User.objects.none()
-    return render(request, 'chat_index.html', {'contacts': contacts})
+        return render(request, 'chat_index.html', {'contacts': contacts})
+
 
 
 @login_required
@@ -40,8 +43,11 @@ def chat_window(request, recipient_id):
     messages = ChatMessage.objects.filter(sender=request.user, recipient=recipient) | ChatMessage.objects.filter(
         sender=recipient, recipient=request.user)
     messages = messages.order_by('timestamp')
-
-    return render(request, 'chat_window.html', {'recipient': recipient, 'messages': messages, 'form': form})
+    user = request.user
+    if user.role == 'customer':
+        return render(request, 'chat_window.html', {'recipient': recipient, 'messages': messages, 'form': form})
+    elif user.department == 'customer service':
+        return render(request, 'chat_service_window.html', {'recipient': recipient, 'messages': messages, 'form': form})
 
 
 def chat_refresh(request):

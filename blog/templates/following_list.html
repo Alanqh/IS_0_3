@@ -9,7 +9,6 @@
     .follow-p {
         text-align: center;
     }
-
     .btn-back {
         background-color: green;
         color: white;
@@ -21,24 +20,27 @@
         cursor: pointer;
         position: absolute;
         top: 150px;
-        right: 400px;
+        right: 0;
         transform: translateY(-50%);
     }
 
     .btn-back:hover {
         background-color: #006fe6;
+
     }
 </style>
-<a href="{% url 'blog:user_profile' user_id=user.id %}" class="btn-back">回到个人主页</a>
-<h1 class="follow-h1">{{ user.username }}的关注列表</h1>
+<div class="container py-5">
+    <button type="button" class="btn btn-back" onclick="window.location.href='{% url 'blog:user_profile' user_id=user.id %}'">回到个人主页</button>
+    <h1 class="follow-h1">{{ user.username }}的关注列表</h1>
 
-{% if following %}
-    <ul class="follow-ul">
-        {% for followed_user in following %}
-            <li><a href="{% url 'blog:user_profile' user_id=followed_user.following_id %}">{{ followed_user.following.username }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p class="follow-p">暂无关注</p>
-{% endif %}
+    {% if following %}
+        <ul class="follow-ul">
+            {% for followed_user in following %}
+                <li><a href="{% url 'blog:user_profile' user_id=followed_user.following_id %}">{{ followed_user.following.username }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="follow-p">暂无关注</p>
+    {% endif %}
+</div>
 {% endblock %}

@@ -120,37 +120,42 @@
 
 <!-- blog/search_results.html -->
 <div class="container py-5">
-  <a href="{% url 'blog:post_list' %}" class="btn-back">回到博客列表</a>
-  <h1 class="mb-5">与[{{ query }}]相关的博客：</h1>
+{# 实现一个返回按钮 #}
+<button type="button" class="btn btn-primary btn-back" onclick="window.location.href='{% url 'blog:post_list' %}'">回到博客列表</button>
+
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <form method="GET" action="{% url 'blog:search_posts' %}">
         <div class="search">
-          <input type="text" name="q" class="form-control" placeholder="搜索博客文章" value="{{ query }}">
-          <button type="submit" class="btn btn-primary">搜索</button>
+            <label>
+                <input type="text" name="q" class="form-control" placeholder="搜索博客文章">
+            </label>
+            <button type="submit" class="btn btn-primary">搜索</button>
         </div>
       </form>
 
-      {% if posts %}
-      <ul class="list-group">
-        {% for post in posts %}
-        <li class="list-group-item">
-          <h4 style="float: left; margin-right: 10px; clear: both;">{{ post.title }}</h4>
-          {% if post.tags.all %}
-            <div style="float: right;">
-              {% for tag in post.tags.all %}
-              <span class="badge badge-secondary">{{ tag }}</span>
-              {% endfor %}
-            </div>
-          {% endif %}
-          <p style="clear: both;">{{ post.content|striptags }}</p>
-          <a href="{% url 'blog:post_detail' post_id=post.id %}">查看详细信息</a>
-          <small class="text-muted">作者：{{ post.author }}，发布时间：{{ post.created_at|date:"Y-m-d H:i:s" }}</small>
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p>没有找到相关的博客文章。</p>
+      {% if query %}
+        {% if posts %}
+        <ul class="list-group">
+          {% for post in posts %}
+          <li class="list-group-item">
+            <h4 style="float: left; margin-right: 10px; clear: both;">{{ post.title }}</h4>
+            {% if post.tags.all %}
+              <div style="float: right;">
+                {% for tag in post.tags.all %}
+                <span class="badge badge-secondary">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <p style="clear: both;">{{ post.content|striptags }}</p>
+            <a href="{% url 'blog:post_detail' post_id=post.id %}">查看详细信息</a>
+            <small class="text-muted">作者：{{ post.author }}，发布时间：{{ post.created_at|date:"Y-m-d H:i:s" }}</small>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>没有找到相关的博客文章。</p>
+        {% endif %}
       {% endif %}
     </div>
   </div>

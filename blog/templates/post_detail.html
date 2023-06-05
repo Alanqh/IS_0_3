@@ -38,8 +38,9 @@
     }
   </style>
 
-  <a href="{% url 'blog:post_list' %}" class="btn-back1">回到博客列表</a>
-  <a href="{% url 'blog:search_posts' %}" class="btn-back2">返回继续搜索</a>
+<button type="button" class="btn btn-primary btn-back1" onclick="window.location.href='{% url 'blog:post_list' %}'">回到博客列表</button>
+<button type="button" class="btn btn-secondary btn-back2" onclick="window.location.href='{% url 'blog:search_posts' %}'">返回继续搜索</button>
+
 
   <div class="post-container">
     <h2>
@@ -90,22 +91,24 @@
 
 
   <div class="post-actions">
-    {% if request.user.is_authenticated %}
-      {% if request.user in post.likes.all %}
-        <form method="post" action="{% url 'blog:unlike_post' post_id=post.id %}">
-          {% csrf_token %}
-          <button class="post-like-btn" type="submit">取消点赞</button>
-        </form>
-      {% else %}
-        <form method="post" action="{% url 'blog:like_post' post_id=post.id %}">
-          {% csrf_token %}
-          <button class="post-like-btn" type="submit">点赞</button>
-        </form>
-      {% endif %}
+  {% if request.user.is_authenticated %}
+    {% if request.user in post.likes.all %}
+      <form method="post" action="{% url 'blog:unlike_post' post_id=post.id %}">
+        {% csrf_token %}
+        <button class="post-like-btn" type="submit">取消点赞</button>
+      </form>
+    {% else %}
+      <form method="post" action="{% url 'blog:like_post' post_id=post.id %}">
+        {% csrf_token %}
+        <button class="post-like-btn" type="submit">点赞</button>
+      </form>
     {% endif %}
-    <form class="post-share-form" method="POST" action="{% url 'blog:share_post' post.id %}">
-      {% csrf_token %}
-      <button class="post-like-btn" type="submit">分享</button>
-    </form>
-  </div>
+  {% endif %}
+  <form class="post-share-form" method="POST" action="{% url 'blog:share_post' post.id %}">
+    {% csrf_token %}
+    <button class="post-like-btn" type="submit">分享</button>
+  </form>
+</div>
+
+
 {% endblock %}

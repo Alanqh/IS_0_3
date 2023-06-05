@@ -150,7 +150,7 @@
         <option value="{{ tag.slug }}" {% if tag.slug == request.GET.tag %}selected{% endif %}>{{ tag.name }}</option>
       {% endfor %}
     </select>
-    <button type="submit" class="btn btn-primary mr-3" style="font-size: 1.2em;">筛选</button>
+    <button type="submit" class="btn btn-primary mr-3" style="font-size: 1.2em;color:#ffffff">筛选</button>
   </form>
 </div>
 
@@ -177,24 +177,24 @@
 </div>
 {% endfor %}
 
-<!-- 分页导航 -->
 <div class="pagination pt-3" style="text-align: center;">
   {% if page_obj.has_previous %}
-  <a href="?tag={{ request.GET.tag }}&page=1" class="page-link">&laquo; 首页</a>
-  <a href="?tag={{ request.GET.tag }}&page={{ page_obj.previous_page_number }}" class="page-link">上一页</a>
+  <button type="button" class="btn btn-link page-link" onclick="window.location.href='?tag={{ request.GET.tag }}&page=1'">&laquo; 首页</button>
+  <button type="button" class="btn btn-link page-link" onclick="window.location.href='?tag={{ request.GET.tag }}&page={{ page_obj.previous_page_number }}'">上一页</button>
   {% endif %}
 
   {% for page in page_obj.paginator.page_range %}
   {% if page_obj.number == page %}
-  <a href="?tag={{ request.GET.tag }}&page={{ page }}" class="page-link current-page">{{ page }}</a>
+  <button type="button" class="btn btn-primary page-link current-page" onclick="window.location.href='?tag={{ request.GET.tag }}&page={{ page }}'">{{ page }}</button>
   {% else %}
-  <a href="?tag={{ request.GET.tag }}&page={{ page }}" class="page-link">{{ page }}</a>
+  <button type="button" class="btn btn-link page-link" onclick="window.location.href='?tag={{ request.GET.tag }}&page={{ page }}'">{{ page }}</button>
   {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-  <a href="?tag={{ request.GET.tag }}&page={{ page_obj.next_page_number }}" class="page-link">下一页</a>
-  <a href="?tag={{ request.GET.tag }}&page={{ page_obj.paginator.num_pages }}" class="page-link">末页 &raquo;</a>
+  <button type="button" class="btn btn-link page-link" onclick="window.location.href='?tag={{ request.GET.tag }}&page={{ page_obj.next_page_number }}'">下一页</button>
+  <button type="button" class="btn btn-link page-link" onclick="window.location.href='?tag={{ request.GET.tag }}&page={{ page_obj.paginator.num_pages }}'">末页 &raquo;</button>
   {% endif %}
 </div>
+
 {% endblock %}

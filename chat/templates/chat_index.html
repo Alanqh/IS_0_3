@@ -12,11 +12,29 @@
             color:black;
             text-align: center;
         }
+
+        .card {
+          background-image: url("{% static 'images/board.png' %} " ) ;
+          border: 1px solid #ccc;
+          padding: 20px;
+          max-width: 220px; /* 设置卡片的最大宽度 */
+          width: 100%; /* 设置卡片宽度为父容器的100% */
+          color: #030303;
+          font-size: 14px;
+        }
+
+
     </style>
 
     <div class="container">
-        <h1>公告</h1>
-        <img src="{% static 'images/公告.png' %}" height=200px,width=200px>
+        <br>
+        <div class="card">
+            <h3>公告</h3>
+        <p> 您好!为不断提升服务能力，以便给广大客户提供更优质的服务，客服人工服务时间将调整;
+            00:30-9:00将无人工客服服务，您可以留言反馈问题。
+            感谢您的理解与支持，祝您生活愉快!
+        </p>
+        </div>
     </div>
     <h1>新能源汽车客服将竭诚为您服务</h1>
     <p>请您选择客服人员</p>
